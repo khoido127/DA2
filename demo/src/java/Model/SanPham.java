@@ -32,6 +32,8 @@ public class SanPham implements Serializable{
     List<CTSP> ctsp;
     @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
     List<Comment> commnent;
+    @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
+    List<HoaDon> hoadon;
     @ManyToOne
     @JoinColumn(name = "IDLoai")
     private Loai loai;
@@ -58,6 +60,20 @@ public class SanPham implements Serializable{
         this.GiaSP = GiaSP;
         this.MoTa = MoTa;
         this.HinhSP = HinhSP;
+        this.loai = loai;
+    }
+
+    public SanPham(String IDSP, String TenSP, Double GiaSPKM, Double GiaSP, String isHot, String MoTa, String HinhSP, List<CTSP> ctsp, List<Comment> commnent, List<HoaDon> hoadon, Loai loai) {
+        this.IDSP = IDSP;
+        this.TenSP = TenSP;
+        this.GiaSPKM = GiaSPKM;
+        this.GiaSP = GiaSP;
+        this.isHot = isHot;
+        this.MoTa = MoTa;
+        this.HinhSP = HinhSP;
+        this.ctsp = ctsp;
+        this.commnent = commnent;
+        this.hoadon = hoadon;
         this.loai = loai;
     }
     
@@ -140,6 +156,14 @@ public class SanPham implements Serializable{
 
     public void setLoai(Loai loai) {
         this.loai = loai;
+    }
+
+    public List<HoaDon> getHoadon() {
+        return hoadon;
+    }
+
+    public void setHoadon(List<HoaDon> hoadon) {
+        this.hoadon = hoadon;
     }
     
 }
