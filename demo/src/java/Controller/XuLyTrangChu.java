@@ -133,7 +133,7 @@ public class XuLyTrangChu {
                     System.out.println("PercentSale: " + percentSale);
                     moneySave = "You Save " + percentSale + "% " + " ($" + moneySale + ")";
                 }
-                SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
+                SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
                 listspbean.add(spbean);
             }
             List<SanPhamBean> listtopsp = showRandomProduct();
@@ -141,7 +141,7 @@ public class XuLyTrangChu {
             System.out.println("Type: " + type);
             System.out.println("ID: " + id);
             System.out.println("ListPage: " + dsPage.size());
-            System.out.println("ListSP: " + list.size());
+            System.out.println("HinhSP: " + listspbean.get(0).getHinhPhu());
             model.addAttribute("listsp", listspbean);
             model.addAttribute("listPage", dsPage);
             model.addAttribute("listLoai", listLoai);
@@ -199,7 +199,7 @@ public class XuLyTrangChu {
                 System.out.println("PercentSale: " + percentSale);
                 moneySave = "You Save " + percentSale + "% " + " ($" + moneySale + ")";
             }
-            SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
+            SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
             listspbean.add(spbean);
             for (int i = 0; i < url.length; i++) {
                 SlideBean slide = new SlideBean(url[i]);
@@ -244,7 +244,7 @@ public class XuLyTrangChu {
             System.out.println("Gia: " + giasp);
             System.out.println("GiaKM: " + giakm);
 
-            SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
+            SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
             listspbean.add(spbean);
             for (int i = 0; i < url.length; i++) {
                 SlideBean slide = new SlideBean(url[i]);
@@ -286,7 +286,7 @@ public class XuLyTrangChu {
                 System.out.println("PercentSale: " + percentSale);
                 moneySave = "You Save " + percentSale + "% " + " ($" + moneySale + ")";
             }
-            SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
+            SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
             listspbean.add(spbean);
 
         }
@@ -368,7 +368,7 @@ public class XuLyTrangChu {
                     moneySave = "You Save " + percentSale + "% " + " ($" + moneySale + ")";
                 }
 
-                SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
+                SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
                 listspbean.add(spbean);
                 System.out.println(list.size());
             }
@@ -478,7 +478,7 @@ public class XuLyTrangChu {
                                 if (list.size() == 1) {
                                     System.out.println("ListSizeLast: " + list.size());
                                     System.out.println("TenSPLast: " + list.get(list.size() - 1).getTenSP());
-                                    int index=list.size()-1;
+                                    int index = list.size() - 1;
                                     SanPham sp = new SanPham(list.get(index).getIDSP(), list.get(index).getTenSP(), list.get(index).getGiaSPKM(), list.get(index).getGiaSP(), list.get(index).getMoTa(), list.get(index).getHinhSP(), list.get(index).getLoai());
                                     dssp.add(sp);
                                 }
@@ -506,7 +506,7 @@ public class XuLyTrangChu {
                                 if (b > a) {
                                     a = b;
                                     t = j;
-                                    
+
                                 }
                                 if (list.size() - j == 1) {
 
@@ -523,7 +523,7 @@ public class XuLyTrangChu {
                                 if (list.size() == 1) {
                                     System.out.println("ListSizeLast: " + list.size());
                                     System.out.println("TenSPLast: " + list.get(list.size() - 1).getTenSP());
-                                    int index=list.size()-1;
+                                    int index = list.size() - 1;
                                     SanPham sp = new SanPham(list.get(index).getIDSP(), list.get(index).getTenSP(), list.get(index).getGiaSPKM(), list.get(index).getGiaSP(), list.get(index).getMoTa(), list.get(index).getHinhSP(), list.get(index).getLoai());
                                     dssp.add(sp);
                                 }

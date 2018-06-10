@@ -399,7 +399,17 @@ span.money {
     opacity: 1;
     visibility: visible;
 }
-
+.men-thumb-item .anhdaidien{
+    width: 100%;
+    height: 280px;
+    border: 1px solid red;
+}
+.box-item:hover img:first-child{
+    visibility: visible;
+    opacity: 1;
+    width: 100%;
+    height: 277px;
+}
 .men-thumb-item:hover .men-cart-pro {
     opacity: 1;
     visibility: visible;
@@ -751,9 +761,20 @@ input.checked {
     text-align: center;
     position: relative;
 }
-.men-thumb-item img{
+.men-thumb-item .anhchinh{
     width: 236px;
     height: 277px;
+}
+.men-thumb-item .anhphu{
+    width: 236px;
+    height: 277px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+}
+.men-thumb-item:hover .anhphu{
+    visibility: visible;
 }
 .item-info-product {
     /*height: 50px;*/
@@ -1199,6 +1220,13 @@ input.button.add {
     background: #189eff;
     color: #fff; 
 }
+.product-men .product-shoe-info shoe .men-pro-item .men-thumb-item:hover{
+    background-color: red;
+}
+.men-thumb-item:hover img:nth-child(2){
+    opacity: 1;
+}
+
 /*End*/
 /*-- /Responsive --*/
 @media(max-width:1280px){

@@ -18,6 +18,7 @@ public class SanPhamBean {
     private String isHot;
     private String moTa;
     private String HinhSP;
+    private String hinhPhu;
     private String IDLoai;
     private String saveMoney;
 
@@ -35,11 +36,12 @@ public class SanPhamBean {
         this.IDLoai = Loai;
     }
 
-    public SanPhamBean(String IDSP, String TenSP, double GiaSP, String HinhSP, String loai, String mota, String saveMoney, String GiaSPKM) {
+    public SanPhamBean(String IDSP, String TenSP, double GiaSP, String HinhSP, String hinhPhu, String loai, String mota, String saveMoney, String GiaSPKM) {
         this.IDSP = IDSP;
         this.TenSP = TenSP;
         this.GiaSP = GiaSP;
         this.HinhSP = HinhSP;
+        this.hinhPhu = hinhPhu;
         this.IDLoai = loai;
         this.moTa = mota;
         this.saveMoney = saveMoney;
@@ -77,7 +79,6 @@ public class SanPhamBean {
     public void setGiaSP(double GiaSP) {
         this.GiaSP = GiaSP;
     }
-    
 
     public String getIsHot() {
         return isHot;
@@ -119,4 +120,12 @@ public class SanPhamBean {
         this.saveMoney = saveMoney;
     }
 
+    public String getHinhPhu() {
+        return hinhPhu;
+    }
+
+    public void setHinhPhu(String hinhPhu) {
+        this.hinhPhu = hinhPhu;
+    }
+    
 }
