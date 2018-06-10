@@ -155,7 +155,8 @@
 
                                         <div class="men-pro-item">
                                             <div class="men-thumb-item">
-                                                <img src="images/product/${sp.IDLoai}/${sp.IDSP}/1.jpg" alt="">
+                                                <img class="anhchinh" src="images/product/${sp.IDLoai}/${sp.IDSP}/${sp.hinhSP}" alt="">
+                                                <img class="anhphu" src="images/product/${sp.IDLoai}/${sp.IDSP}/${sp.hinhPhu}" alt="">
                                                 <div class="men-cart-pro">
                                                     <div class="inner-men-cart-pro">
                                                         <button onclick="viewDetail('${sp.IDSP}')" data-toggle="modal" data-target="#modal-cart" class="link-product-add-cart">Quick View</button>
