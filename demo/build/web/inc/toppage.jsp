@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="Bean.GioHang"%>
 <style>
     /*Them phan thay doi so luong*/
     .product-quantity{
@@ -67,29 +69,51 @@
                 <button id="trigger-overlay" type="button"><i class="fa fa-bars" aria-hidden="true"></i></button>
             </div>
             <!-- cart details -->
+            <%
+                GioHang gh = new GioHang();
+                List<GioHang> dsgh = gh.getGh();
+                double sum = 0;
+                int all = 0;
+                for (GioHang c : dsgh) {
+                    sum = sum + c.getGiaSP();
+                    all = all + c.getSoluong();
+                }
+            %>
             <div class="top_nav_right">
-                <a class="top_shoe_cart" value="">
+                <a style="position: relative;" class="top_shoe_cart" value="">
+                    <span style="position: absolute;width: 24px;height: 24px;border-radius: 100%;top: -12px;right: -10px;background-color: rgba(255,255,255,0.6);text-align: center;color: white;line-height: 24px;"><%=all%></span>
                     <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                     <span class="box-cart">
+
+                        <%      for (GioHang g : dsgh) {
+
+                                String id = g.getIDSP();
+                                String idloai = g.getIdLoai();
+                                String tensp = g.getTenSP();
+                                String hinhsp = g.getHinhSP();
+                                int sl = g.getSoluong();
+                                double giasp = g.getGiaSP();
+                        %>
                         <div style="border-bottom: 1px solid black;" class="fluid-container">
                             <div class="row">
-                                <div class="col-md-3"><img style="width: 100%;" src="images/d1.jpg" /></div>
-                                <div style="text-align: left;" class="col-md-5">BANK SNEAKERS</div>
-                                <div class="col-md-2">x1</div>
-                                <div class="col-md-2">200$</div>
+                                <div class="col-md-3"><img style="width: 100%;" src="images/product/<%=idloai%>/<%=id%>/<%=hinhsp%>" /></div>
+                                <div style="text-align: left;" class="col-md-5"><%=tensp%></div>
+                                <div class="col-md-2">x<%=sl%></div>
+                                <div class="col-md-2"><%= giasp%>$</div>
 
                             </div>
-                            
+
                         </div>
+                        <%}%>
                         <div class="fluid-container">
                             <div class="row">
                                 <div style="font-weight: bold;text-align: left;" class="col-md-6">Subtotal</div>
-                                <div style="font-weight: bold;text-align: right;" class="col-md-6">600$</div>
+                                <div style="font-weight: bold;text-align: right;" class="col-md-6"><%=sum%>$</div>
                             </div>
                         </div>
                         <div class="fluid-container">
                             <div class="row">
-                                
+
                                 <div style="cursor: pointer; font-weight: bold;text-align: center;text-transform: uppercase;font-size: 18px;color: #eb694b;" class="col-md-12">Checkout</div>
                             </div>
                         </div>

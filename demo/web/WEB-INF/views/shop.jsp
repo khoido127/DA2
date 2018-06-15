@@ -180,15 +180,15 @@
 
                                                     </div>
                                                     <div class="shoe single-item hvr-outline-out">
-                                                        <form action="#" method="post">
-                                                            <input type="hidden" name="cmd" value="_cart">
-                                                            <input type="hidden" name="add" value="1">
+                                                        <form action="" method="get">
+                                                            <input type="hidden" name="idsp" value="${sp.IDSP}">
+                                                            <input type="hidden" name="giasp" value="${sp.giaSP}">
                                                             <input type="hidden" name="shoe_item" value="Bank Sneakers">
                                                             <input type="hidden" name="amount" value="635.00">
-                                                            <button  type="submit" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+                                                            
 
                                                         </form>
-
+                                                            <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -277,9 +277,9 @@
                                                                         $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
                                                                     }
                                                                 });
-                                                                
+
                                                                 $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
-                                                                
+
                                                             }); //]]>
         </script>
         <!-- //price range (top products) -->
@@ -375,11 +375,12 @@
             }
         </script>
         <script>
-            $(document).ready(function () {
-                $(".ui-slider-handle").resize(function () {
-                    alert("The text has been changed.");
+            function getGioHang(id) {
+                $.post('Home/getGioHang.htm', {'id': id}, function (data) {
+                    $(".modal-body").html(data);
+                    
                 });
-            });
+            }
         </script>
     </body>
 

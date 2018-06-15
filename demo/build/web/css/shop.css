@@ -762,11 +762,11 @@ input.checked {
     position: relative;
 }
 .men-thumb-item .anhchinh{
-    width: 236px;
+    width: 100%;
     height: 277px;
 }
 .men-thumb-item .anhphu{
-    width: 236px;
+    width: 100%;
     height: 277px;
     position: absolute;
     top: 0;

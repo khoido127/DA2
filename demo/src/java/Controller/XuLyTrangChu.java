@@ -6,6 +6,7 @@
 package Controller;
 
 import Bean.CommentBean;
+import Bean.GioHang;
 import Bean.LoaiSPBean;
 import Bean.PageNumberBean;
 import Bean.SanPhamBean;
@@ -654,4 +655,58 @@ public class XuLyTrangChu {
         return s;
     }
 
+    //Xu ly Gio hang
+    @RequestMapping("getGioHang")
+    public String getGioHang(@RequestParam("id") String id, ModelMap model, HttpServletRequest request) {
+        System.out.println("GioHang: " + id);
+        GioHang gh = new GioHang();
+        List<GioHang> dsgh = gh.getGh();
+        try {
+            Session s = factory.getCurrentSession();
+            String hql = "From SanPham sp where sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            List<SanPham> dssp = query.list();
+            double tongtien = 0;
+            for (SanPham sp : dssp) {
+                int sl=1;
+                int dem=0;
+                double giaspkm = sp.getGiaSPKM();
+                double giasp = sp.getGiaSP();
+                if (giaspkm != 0) {
+                    giasp = giaspkm;
+                }
+                for (int i = 0; i < dsgh.size(); i++) {
+                    sl = dsgh.get(i).getSoluong();
+
+                    if (dsgh.get(i).getIDSP().equals(id)) {
+                        sl++;
+                        giasp = giasp * sl;
+                        dsgh.get(i).setSoluong(sl);
+                        dsgh.get(i).setGiaSP(giasp);
+                        tongtien = tongtien + giasp;
+                        dem=1;
+                    } else {
+                        sl = 1;
+                        tongtien = tongtien + dsgh.get(i).getGiaSP();
+                    }
+                }
+
+                if (dem == 0) {
+                    tongtien = tongtien + giasp;
+                    GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
+                    dsgh.add(ghang);
+                }
+                
+                System.out.println("TongTien: " + tongtien);
+            }
+            request.setAttribute("tongtien", tongtien);
+            model.addAttribute("tongtien", tongtien);
+            model.addAttribute("listcart", dsgh);
+            return "cartDetail";
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return "redirect:pageShop.htm";
+    }
 }
