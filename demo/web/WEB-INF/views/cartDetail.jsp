@@ -12,7 +12,7 @@
     <span class="box-cart">
         <c:forEach var="sp" items="${listcart}">
             <div style="border-bottom: 1px solid black;" class="fluid-container">
-                <div class="row">
+                <div class="row product-cart">
                     <div class="col-md-3"><img style="width: 80px;height: 80px;" src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" /></div>
                     <div style="text-align: left;" class="col-md-5">${sp.tenSP}</div>
                     <div class="col-md-2">x${sp.soluong}</div>
@@ -24,8 +24,8 @@
         </c:forEach>
         <div class="fluid-container">
             <div class="row">
-                <div style="font-weight: bold;text-align: left;" class="col-md-6">Subtotal</div>
-                <div style="font-weight: bold;text-align: right;" class="col-md-6">$${tongtien}</div>
+                <div style="font-weight: bold;text-align: left;" class="col-md-6 f-20">Subtotal</div>
+                <div style="font-weight: bold;text-align: right;" class="col-md-6 f-20">$${tongtien}</div>
             </div>
         </div>
 

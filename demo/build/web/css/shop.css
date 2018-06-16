@@ -1308,3 +1308,9 @@ input.button.add {
     }
 }
 /*-- //Responsive --*/
+.wrapper_top_shop .modal-content .product-cart div:nth-child(2){
+    font-size: 20px;
+}
+.wrapper_top_shop .modal-content .product-cart div:nth-child(4){
+    font-size: 24px;
+}
