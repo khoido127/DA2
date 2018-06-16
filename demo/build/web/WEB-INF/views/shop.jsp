@@ -107,7 +107,6 @@
                             <c:forEach var="p" items="${listPage}">
 
                                 <%  String chuoi = request.getAttribute("idPage").toString();
-
                                     int idPage = Integer.parseInt(chuoi);
                                     request.setAttribute("id", idPage);
                                     int dem = 0;
@@ -161,7 +160,6 @@
                                                     <div class="inner-men-cart-pro">
                                                         <button onclick="viewDetail('${sp.IDSP}')" data-toggle="modal" data-target="#modal-cart" class="link-product-add-cart">Quick View</button>
                                                     </div>
-
                                                 </div>
                                                 <span class="product-new-top">New</span>
                                             </div>
@@ -185,10 +183,8 @@
                                                             <input type="hidden" name="giasp" value="${sp.giaSP}">
                                                             <input type="hidden" name="shoe_item" value="Bank Sneakers">
                                                             <input type="hidden" name="amount" value="635.00">
-                                                            
-
                                                         </form>
-                                                            <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+                                                        <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -235,6 +231,7 @@
 
         <!-- js -->
         <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+        
         <!-- //js -->
 
         <!-- cart-js -->

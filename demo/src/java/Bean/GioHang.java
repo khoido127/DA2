@@ -20,6 +20,7 @@ public class GioHang {
     private int soluong;
     private double tongtien;
     private String idLoai;
+    private double giaGoc;
     public static List<GioHang> gh=new ArrayList<>();
     public GioHang() {
     }
@@ -41,6 +42,17 @@ public class GioHang {
         this.soluong = soluong;
         this.tongtien = tongtien;
         this.idLoai = idLoai;
+    }
+
+    public GioHang(String IDSP, String hinhSP, String tenSP, double giaSP, int soluong, double tongtien, String idLoai, double giaGoc) {
+        this.IDSP = IDSP;
+        this.hinhSP = hinhSP;
+        this.tenSP = tenSP;
+        this.giaSP = giaSP;
+        this.soluong = soluong;
+        this.tongtien = tongtien;
+        this.idLoai = idLoai;
+        this.giaGoc = giaGoc;
     }
     
     public String getIDSP() {
@@ -105,6 +117,14 @@ public class GioHang {
 
     public void setIdLoai(String idLoai) {
         this.idLoai = idLoai;
+    }
+
+    public double getGiaGoc() {
+        return giaGoc;
+    }
+
+    public void setGiaGoc(double giaGoc) {
+        this.giaGoc = giaGoc;
     }
     
 }

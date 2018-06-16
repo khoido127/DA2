@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -657,20 +658,29 @@ public class XuLyTrangChu {
 
     //Xu ly Gio hang
     @RequestMapping("getGioHang")
-    public String getGioHang(@RequestParam("id") String id, ModelMap model, HttpServletRequest request) {
+    public String getGioHang(@RequestParam("id") String id, ModelMap model, HttpServletRequest request, HttpSession session) {
         System.out.println("GioHang: " + id);
         GioHang gh = new GioHang();
         List<GioHang> dsgh = gh.getGh();
         try {
+
             Session s = factory.getCurrentSession();
             String hql = "From SanPham sp where sp.IDSP=:id";
             Query query = s.createQuery(hql);
             query.setParameter("id", id);
             List<SanPham> dssp = query.list();
             double tongtien = 0;
+            int alert = 0;
             for (SanPham sp : dssp) {
-                int sl=1;
-                int dem=0;
+
+                int sl = 1;
+                String ch = request.getParameter("sl");
+                int soluong = 0;
+                if (ch != null) {
+                    soluong = Integer.parseInt(ch);
+                }
+                System.out.println("SoLuong: " + soluong);
+                int dem = 0;
                 double giaspkm = sp.getGiaSPKM();
                 double giasp = sp.getGiaSP();
                 if (giaspkm != 0) {
@@ -680,15 +690,36 @@ public class XuLyTrangChu {
                     sl = dsgh.get(i).getSoluong();
 
                     if (dsgh.get(i).getIDSP().equals(id)) {
-                        sl++;
+                        if (soluong > 0) {
+                            sl = soluong;
+
+                        } else {
+                            if (soluong == -1) {
+                                dsgh.remove(i);
+                            } else {
+                                sl++;
+                            }
+                        }
+                        if (sl > 5) {
+                            model.addAttribute("stock", "<input style='border:0;color: red;font-style: italic;font-size:12px;width:100%;' type='text' value='Bạn không được mua quá 5 sản phẩm!' />");
+                            sl = 5;
+                        }else{
+                            model.addAttribute("stock", "<input style='border:0;color: red;font-style: italic;font-size:12px;width:100%;' type='text' value='' />");
+                        }
+                        request.setAttribute("idsp", dsgh.get(i).getIDSP());
+                        model.addAttribute("IDSP", dsgh.get(i).getIDSP());
+                        
                         giasp = giasp * sl;
                         dsgh.get(i).setSoluong(sl);
                         dsgh.get(i).setGiaSP(giasp);
                         tongtien = tongtien + giasp;
-                        dem=1;
+                        model.addAttribute("tongtien", tongtien);
+                        dem = 1;
+
                     } else {
                         sl = 1;
                         tongtien = tongtien + dsgh.get(i).getGiaSP();
+                        model.addAttribute("tongtien", tongtien);
                     }
                 }
 
@@ -697,10 +728,13 @@ public class XuLyTrangChu {
                     GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
                     dsgh.add(ghang);
                 }
-                
+                System.out.println("DSLIST: " + dsgh.size());
+                System.out.println("SL: " + sl);
                 System.out.println("TongTien: " + tongtien);
+
             }
-            request.setAttribute("tongtien", tongtien);
+            session.setAttribute("tongtien", tongtien);
+
             model.addAttribute("tongtien", tongtien);
             model.addAttribute("listcart", dsgh);
             return "cartDetail";
