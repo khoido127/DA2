@@ -4,246 +4,152 @@
 
     <head>
         <title>Z4 Shop</title>
-        <base href="${pageContext.servletContext.contextPath}/">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script type="application/x-javascript">
-            addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-            }, false);
-
-            function hideURLbar() {
-            window.scrollTo(0, 1);
-            }
-        </script>
-        <!-- //custom-theme -->
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-        <link rel="stylesheet" href="css/about.css" type="text/css" media="screen" property="" />
-        <link rel="stylesheet" href="css/shop.css" type="text/css" media="screen" property="" />
-        <link href="css/style7.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-        <!-- font-awesome-icons -->
-        <link href="css/font-awesome.css" rel="stylesheet">
-        <!-- //font-awesome-icons -->
-        <link href="//fonts.googleapis.com/css?family=Montserrat:100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
-              rel="stylesheet">
-        <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
-    </head>
+        <%@include file="/inc/lib.jsp" %>
+   </head>
 
     <body>
-        <!-- banner -->
-        <%@include file="/inc/toppage.jsp" %>
-        <div class="content-about">
-            <div class="ads-grid_shop">
-                <div class="shop_inner_inf">
-                    <h3 class="head">About Us</h3>
-                    <p class="head_para">Add Some Description</p>
-                    <div class="inner_section_w3ls">
-                        <div class="col-md-6 news-left">
-                            <img src="images/ab.jpg" alt=" " class="img-responsive">
-                        </div>
-                        <div class="col-md-6 news-right">
-                            <h4>Welcome to our Z4 Shoes</h4>
-                            <p class="sub_p">Hello friends!
-                                Currently, the quality of the products is very poor.
-                                So we bring you the best products from famous brands in the world, at reasonable prices.
-                            </p>
-                            <p>Please come with us .
-                                Z4shop will make you satisfied with the service, 
-                                customer care, after sales, 
-                                and the real value of the products we sell is no longer a pair of shoes, but the value of the feet.
-                                Thank you for trusting us.
-                            </p>
-                        </div>
-                        <div class="clearfix"> </div>
+        <div class="content-manage-page" id="home">
+            <nav class="navbar row no-padding">
+                <div class="top-left-part col-md-2">
+                    <!-- Logo -->
+                            <span class="team-name" style="color:#a3a3a3; font-size: 28px"> 
+                                <a href="index.jsp" class="cl-ogrange" style="font-weight: bold; font-size: 38px">Z4</a> 
+                                Team</span> 
+                </div>
+                <!-- /Logo -->
+                <div class="pull-right col-md-4">
+                    <div class="pull-right">
+                        <a class="profile-pic" href="#"> 
+                            <b class="username f-20">Steave</b></a>
+                            <img src="images/t1.jpg" alt="user-img" width="75" class="img-circle mg-l-20 mg-r-20 mg-t-10">
                     </div>
-                </div>   
-            </div>
-            <!-- about us-->
-            <div class="mid_services">
-                <div class="col-md-10 col-md-offset-1 according_inner_grids">
-                    <h3 class="heading two">Who We Are</h3>
-                    <div class="according_info">
-                        <div class="panel-group about_panel" id="accordion" role="tablist" aria-multiselectable="true">
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingOne">
-                                    <h4 class="panel-title asd">
-                                        <a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
-                                           aria-controls="collapseOne">
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span><i class="glyphicon glyphicon-minus" aria-hidden="true"></i>Trow
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                    <div class="panel-body panel_text">
-                                        <div class="row">
-                                            <div class="col-md-6"> Updating</div>
-                                            <div class="col-md-6"> Updating</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingTwo">
-                                    <h4 class="panel-title asd">
-                                        <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
-                                           aria-controls="collapseTwo">
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span><i class="glyphicon glyphicon-minus" aria-hidden="true"></i>Event
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                    <div class="panel-body panel_text">
-                                        Updating
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingThree">
-                                    <h4 class="panel-title asd">
-                                        <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
-                                           aria-controls="collapseThree">
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span><i class="glyphicon glyphicon-minus" aria-hidden="true"></i>Partner
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                    <div class="panel-body panel_text">
-                                        <div class="row">
-                                            <div class="col-md-6">Updating</div>
-                                            <div class="col-md-6">abcde</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingThree">
-                                    <h4 class="panel-title asd">
-                                        <a class="pa_italic collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
-                                           aria-controls="collapseThree">
-                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span><i class="glyphicon glyphicon-minus" aria-hidden="true"></i>Commercial Partner
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                    <div class="panel-body panel_text">
-                                        Updating
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-                <div class="clearfix"> </div>
-            </div>
-            <!--end about us-->
-            <!-- /newsletter-->
-            <div class="newsletter">
-                <div class="col-sm-6 newsleft">
-                    <h3>Sign up for Newsletter !</h3>
+            <!-- /.navbar-header -->
+        </nav>
+        <!-- Left Sidebar -->
+        <div class="content-manage" style="margin: 30px 0">
+        <div class="sidebar pull-left" style="width:20%" >
+            <div class="sidebar-nav">
+                <div class="sidebar-head">
+                    <h3 class="menu-title">Navigation</h3>
                 </div>
-                <div class="col-sm-6 newsright">
-                    <form action="#" method="post">
-                        <input type="email" placeholder="Enter your email..." name="email" required="">
-                        <input type="submit" value="Submit">
-                    </form>
-                </div>
-
-                <div class="clearfix"></div>
+                <ul class="menu-title">
+                    <li>
+                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Product</a>
+                    </li>
+                    <li>
+                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>User</a>
+                    </li>
+                    <li>
+                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Comment</a>
+                    </li>
+                    <li>
+                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Bill</a>
+                    </li>
+                    
+                </ul>
             </div>
-            <!-- //newsletter-->
         </div>
+        <!-- End Left Sidebar -->
+        <!-- Page Content -->
+        <div id="page-wrapper" class="pull-right" style="width: 80%">
+                <!-- table -->
+                <div class="row top-content mg-b-20">
+                    <div class="col-md-6 mg-b-10 mg-t-10">
+                        <label class="edit-label">Product ID:</label>
+                        <input type="text" class="edit-field" value=""/>
+                    </div>
+                     <div class="col-md-6 mg-b-10 mg-t-10">
+                        <label class="edit-label">Product Name:</label>
+                        <input type="text" class="edit-field" value=""/>
+                    </div>
+                     <div class="col-md-6 mg-b-10 mg-t-10">
+                        <label class="edit-label">Price:</label>
+                        <input type="text" class="edit-field" value=""/>
+                    </div>
+                     <div class="col-md-6 mg-b-10 mg-t-10">
+                        <label class="edit-label">Brand:</label>
+                        <input type="text" class="edit-field" value=""/>
+                    </div>
+                    <div class="button-content col-md-12 tx-al-r p-r-20"> 
+                        <input type="button" class="btn" value="Add New" />
+                        <input type="button" class="btn" value="Save" />
+                        <input type="button" class="btn" value="Delete" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Product table</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>NAME</th>
+                                            <th>STATUS</th>
+                                            <th>DATE</th>
+                                            <th>PRICE</th>
+                                            <th><input type="checkbox" class="custom-checkbox"/></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td class="txt-oflo">Elite admin</td>
+                                            <td>SALE</td>
+                                            <td class="txt-oflo">April 18, 2017</td>
+                                            <td><span class="text-success">$24</span></td>
+                                            <td><input type="checkbox" class="custom-checkbox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="txt-oflo">Real Homes WP Theme</td>
+                                            <td>EXTENDED</td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                            <td><input type="checkbox" class="custom-checkbox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="txt-oflo">Ample Admin</td>
+                                            <td>EXTENDED</td>
+                                            <td class="txt-oflo">April 19, 2017</td>
+                                            <td><span class="text-info">$1250</span></td>
+                                            <td><input type="checkbox" class="custom-checkbox"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td class="txt-oflo">Medical Pro WP Theme</td>
+                                            <td>TAX</td>
+                                            <td class="txt-oflo">April 20, 2017</td>
+                                            <td><span class="text-danger">-$24</span></td>
+                                            <td><input type="checkbox" class="custom-checkbox"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class="clearfix"></div>
         <!-- footer -->
         <%@include file="/inc/footerpage.jsp" %>
+                </div>
+
         <!-- //footer -->
-
-        <!-- js -->
-        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-        <!-- //js -->
-        <!-- cart-js -->
-        <script src="js/minicart.js"></script>
-        <script>
-            shoe.render();
-
-            shoe.cart.on('shoe_checkout', function (evt) {
-                var items, len, i;
-
-                if (this.subtotal() > 0) {
-                    items = this.items();
-
-                    for (i = 0, len = items.length; i < len; i++) {
-                    }
-                }
-            });
-        </script>
-        <!-- //cart-js -->
-        <!-- /nav -->
-        <script src="js/modernizr-2.6.2.min.js"></script>
-        <script src="js/classie.js"></script>
-        <script src="js/demo1.js"></script>
-        <!-- //nav -->
-        <!-- cart-js -->
-        <script src="js/minicart.js"></script>
-        <script>
-            shoe.render();
-
-            shoe.cart.on('shoe_checkout', function (evt) {
-                var items, len, i;
-
-                if (this.subtotal() > 0) {
-                    items = this.items();
-
-                    for (i = 0, len = items.length; i < len; i++) {
-                    }
-                }
-            });
-        </script>
-        <!-- //cart-js -->
-        <!-- script for responsive tabs -->
-        <script src="js/easy-responsive-tabs.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#horizontalTab').easyResponsiveTabs({
-                    type: 'default', //Types: default, vertical, accordion           
-                    width: 'auto', //auto or any width like 600px
-                    fit: true, // 100% fit in a container
-                    closed: 'accordion', // Start closed if in accordion view
-                    activate: function (event) { // Callback function if tab is switched
-                        var $tab = $(this);
-                        var $info = $('#tabInfo');
-                        var $name = $('span', $info);
-                        $name.text($tab.text());
-                        $info.show();
-                    }
-                });
-                $('#verticalTab').easyResponsiveTabs({
-                    type: 'vertical',
-                    width: 'auto',
-                    fit: true
-                });
-            });
-        </script>
-        <!--search-bar-->
-        <script src="js/search.js"></script>
-        <!--//search-bar-->
-        <!-- start-smoth-scrolling -->
-        <script type="text/javascript" src="js/move-top.js"></script>
-        <script type="text/javascript" src="js/easing.js"></script>
-        <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                $(".scroll").click(function (event) {
-                    event.preventDefault();
-                    $('html,body').animate({
-                        scrollTop: $(this.hash).offset().top
-                    }, 1000);
-                });
-            });
-        </script>
-        <!-- //end-smoth-scrolling -->
-        <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-
-
+    <!-- All Jquery -->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../manage-lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="../manage-lib/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="../manage-lib/js/waves.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../manage-lib/js/custom.min.js"></script>
+    <script src="../manage-lib/js/dashboard1.js"></script>
     </body>
 
 </html>

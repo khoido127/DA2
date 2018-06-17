@@ -2256,6 +2256,13 @@ p.head_para {
     }
     .btn-plus:hover{background: url(../images/plus_hover.png) no-repeat;}
     .btn-minus:hover{background: url(../images/minus_hover.png) no-repeat;}
+    .btn:hover, .btn:active, .btn:focus{
+        background-color: #FFC226;
+        color: white;
+    }
+    input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
+        outline-color: #FFC226;
+    }
     /*end icon & button*/
     /*border & display*/
     .bd-gray{
@@ -2289,7 +2296,20 @@ p.head_para {
         top: 10px!important;
         right: 90px!important;
     }
-    asdasd{}
+    
+    /*manage page*/
+    .content-manage-page .navbar{
+        background-color: black;
+    }
+    .content-manage-page .top-left-part{
+        margin: 20px 0 20px 50px;
+    }
+    .content-manage-page #page-wrapper{
+        min-height: 500px;
+    }
+    .content-manage-page #page-wrapper .top-content .edit-label{width: 25%; text-align: right; margin-right: 10px}
+    .content-manage-page #page-wrapper .top-content .edit-field{width: 60%}
+
 
 
 
