@@ -687,16 +687,23 @@ public class XuLyTrangChu {
                     giasp = giaspkm;
                 }
                 for (int i = 0; i < dsgh.size(); i++) {
-                    
-                        sl = dsgh.get(i).getSoluong();
-                    
+
+                    sl = dsgh.get(i).getSoluong();
+
                     if (dsgh.get(i).getIDSP().equals(id)) {
                         if (soluong > 0) {
                             sl = soluong;
 //                            alert = 2;
                         } else {
                             if (soluong == -1) {
+                                if(dsgh.size()==1){
+                                    dsgh.remove(i);
+                                    model.addAttribute("tongtien", 0);
+                                    return "cartDetail";
+                                }
                                 dsgh.remove(i);
+                                System.out.println("TongTien: " + tongtien);
+
                             } else {
                                 sl++;
                             }
@@ -715,27 +722,29 @@ public class XuLyTrangChu {
                         dsgh.get(i).setSoluong(sl);
                         dsgh.get(i).setGiaSP(giasp);
                         tongtien = tongtien + giasp;
-                        model.addAttribute("tongtien", tongtien);
+//                        model.addAttribute("tongtien", tongtien);
                         dem = 1;
 
                     } else {
                         sl = 1;
                         tongtien = tongtien + dsgh.get(i).getGiaSP();
-                        model.addAttribute("tongtien", tongtien);
+//                        model.addAttribute("tongtien", tongtien);
                     }
                 }
 
                 if (dem == 0) {
-                    tongtien = tongtien + giasp;
-                    GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
-                    dsgh.add(ghang);
+                    
+                        tongtien = tongtien + giasp;
+                        GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
+                        dsgh.add(ghang);
+                    
                 }
+
                 System.out.println("DSLIST: " + dsgh.size());
                 System.out.println("SL: " + sl);
                 System.out.println("TongTien: " + tongtien);
                 System.out.println("Alert: " + alert);
             }
-            session.setAttribute("tongtien", tongtien);
 
             model.addAttribute("tongtien", tongtien);
             model.addAttribute("listcart", dsgh);

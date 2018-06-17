@@ -98,7 +98,7 @@
 
                 document.getElementById('box-' + id + '').setAttribute("style", "display:none");
                 $.post('Home/getGioHang.htm', {'id': id, 'sl': -1}, function (data) {
-
+                    $(".modal-body").html(data);
                 });
             }
 
