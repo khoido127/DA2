@@ -22,7 +22,7 @@
                 <c:set var="IDSP" value="${sp.IDSP}"></c:set>
                 <c:set var="ID" value="<%=idsp%>"></c:set>
 <!--                <span><c:out value="${IDSP}"></c:out></span> -->
-                    <div class="row dp-flex-al-ct">
+                <div class="row dp-flex-al-ct mg-t-10 mg-b-10">
                         <div class="col-md-2"><img style="width: 80px;height: 80px;" src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" /></div>
                     <div class="col-md-4 wr-brw tx-al-l f-20">${sp.tenSP}</div>
                     <div class="tx-al-c col-md-4" style="position: relative;">
