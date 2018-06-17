@@ -658,12 +658,21 @@ public class XuLyTrangChu {
 
     //Xu ly Gio hang
     @RequestMapping("getGioHang")
-    public String getGioHang(@RequestParam("id") String id, ModelMap model, HttpServletRequest request, HttpSession session) {
+    public String getGioHang(ModelMap model, HttpServletRequest request, HttpSession session) {
+        String id = request.getParameter("id");
+        String sum = request.getParameter("sum");
+        if (id == null) {
+            id = "all";
+        }
         System.out.println("GioHang: " + id);
         GioHang gh = new GioHang();
         List<GioHang> dsgh = gh.getGh();
         try {
-
+            String ck = request.getParameter("ck");
+            if (ck == null) {
+                ck = "false";
+            }
+            System.out.println("CHECK: " + ck);
             Session s = factory.getCurrentSession();
             String hql = "From SanPham sp where sp.IDSP=:id";
             Query query = s.createQuery(hql);
@@ -696,9 +705,12 @@ public class XuLyTrangChu {
 //                            alert = 2;
                         } else {
                             if (soluong == -1) {
-                                if(dsgh.size()==1){
+                                if (dsgh.size() == 1) {
                                     dsgh.remove(i);
                                     model.addAttribute("tongtien", 0);
+                                    if (ck.equals("all")) {
+                                        return "checkout";
+                                    }
                                     return "cartDetail";
                                 }
                                 dsgh.remove(i);
@@ -722,22 +734,25 @@ public class XuLyTrangChu {
                         dsgh.get(i).setSoluong(sl);
                         dsgh.get(i).setGiaSP(giasp);
                         tongtien = tongtien + giasp;
+                        sum=String.valueOf(tongtien);
 //                        model.addAttribute("tongtien", tongtien);
                         dem = 1;
 
                     } else {
                         sl = 1;
                         tongtien = tongtien + dsgh.get(i).getGiaSP();
+                        sum=String.valueOf(tongtien);
 //                        model.addAttribute("tongtien", tongtien);
                     }
                 }
 
                 if (dem == 0) {
                     
-                        tongtien = tongtien + giasp;
-                        GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
-                        dsgh.add(ghang);
-                    
+                    tongtien = tongtien + giasp;
+                    sum=String.valueOf(tongtien);
+                    GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
+                    dsgh.add(ghang);
+
                 }
 
                 System.out.println("DSLIST: " + dsgh.size());
@@ -747,11 +762,19 @@ public class XuLyTrangChu {
             }
 
             model.addAttribute("tongtien", tongtien);
+            model.addAttribute("sumCart", dsgh.size());
             model.addAttribute("listcart", dsgh);
+            if (ck.equals("all")) {
+                model.addAttribute("tongtien", sum);
+                System.out.println("TrueGH: " + dsgh.size());
+
+                return "checkout";
+            }
             return "cartDetail";
         } catch (Exception ex) {
             System.out.println(ex);
         }
         return "redirect:pageShop.htm";
     }
+
 }

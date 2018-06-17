@@ -1,9 +1,6 @@
-<!--
-author: W3layouts
-author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -47,7 +44,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <h3>Chec<span>kout</span></h3>
 
                     <div class="checkout-right">
-                        <h4>Your shopping cart contains: <span>3 Products</span></h4>
+                        <h4>Your shopping cart contains: <span>${sumCart} Products</span></h4>
                         <table class="timetable_sub">
                             <thead>
                                 <tr>
@@ -55,91 +52,52 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <th>Product</th>
                                     <th>Quality</th>
                                     <th>Product Name</th>
-
                                     <th>Price</th>
-                                    <th>Remove</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="rem1">
-                                    <td class="invert">1</td>
-                                    <td class="invert-image"><a href="single.html"><img src="images/s1.jpg" alt=" " class="img-responsive"></a></td>
-                                    <td class="invert">
-                                        <div class="quantity">
-                                            <div class="quantity-select">
-                                                <div class="entry value-minus">&nbsp;</div>
-                                                <div class="entry value"><span>1</span></div>
-                                                <div class="entry value-plus active">&nbsp;</div>
+                                <%
+                                    String idsp = String.valueOf(request.getAttribute("idsp"));
+                                %>
+                                <c:forEach var="sp" items="${listcart}">
+                                    <c:set var="IDSP" value="${sp.IDSP}"></c:set>
+                                    <c:set var="ID" value="<%=idsp%>"></c:set>
+                                    <tr id="check-${sp.IDSP}" class="rem1">
+                                        <td class="invert">1</td>
+                                        <td style="width: 160px;height: 80px;" class=""><a href="single.html"><img src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" alt=" " class="img-responsive"></a></td>
+                                        <td class="invert">
+                                            <div class="quantity">
+                                                <div class="quantity-select">
+
+                                                    <div onclick="downFunction('${sp.IDSP}');" class="entry value-minus">&nbsp;</div>
+                                                    <input id="${sp.IDSP}" style="width: 40px;height: 40px;text-align: center;" type="text" value="${sp.soluong}" />
+                                                    <div onclick="upFunction('${sp.IDSP}');" class="entry value-plus active">&nbsp;</div>
+                                                    <c:if test="${IDSP==idsp}">
+                                                        <br />
+                                                        ${stock}
+                                                    </c:if>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="invert">Bella Toes</td>
+                                        </td>
+                                        <td class="invert">${sp.tenSP}</td>
 
-                                    <td class="invert">$675.00</td>
-                                    <td class="invert">
-                                        <div class="rem">
-                                            <div class="close1"> </div>
-                                        </div>
+                                        <td class="invert">$${sp.giaSP}</td>
 
-                                    </td>
-                                </tr>
-                                <tr class="rem2">
-                                    <td class="invert">2</td>
-                                    <td class="invert-image"><a href="single.html"><img src="images/s5.jpg" alt=" " class="img-responsive"></a></td>
-                                    <td class="invert">
-                                        <div class="quantity">
-                                            <div class="quantity-select">
-                                                <div class="entry value-minus">&nbsp;</div>
-                                                <div class="entry value"><span>1</span></div>
-                                                <div class="entry value-plus active">&nbsp;</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="invert">Red Bellies</td>
-
-                                    <td class="invert">$325.00</td>
-                                    <td class="invert">
-                                        <div class="rem">
-                                            <div class="close2"> </div>
-                                        </div>
-
-                                    </td>
-                                </tr>
-                                <tr class="rem3">
-                                    <td class="invert">3</td>
-                                    <td class="invert-image"><a href="single.html"><img src="images/s2.jpg" alt=" " class="img-responsive"></a></td>
-                                    <td class="invert">
-                                        <div class="quantity">
-                                            <div class="quantity-select">
-                                                <div class="entry value-minus">&nbsp;</div>
-                                                <div class="entry value"><span>1</span></div>
-                                                <div class="entry value-plus active">&nbsp;</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="invert">Chikku Loafers</td>
-
-                                    <td class="invert">$405.00</td>
-                                    <td class="invert">
-                                        <div class="rem">
-                                            <div class="close3"> </div>
-                                        </div>
-
-                                    </td>
-                                </tr>
+                                    </tr>
+                                </c:forEach>
 
                             </tbody>
                         </table>
                     </div>
                     <div class="checkout-left">
                         <div class="col-md-4 checkout-left-basket">
-                            <h4><a href="Home/shop.htm">Continue to basket</a></h4>
+                            <h4><a href="Home/pageShop.htm?code=1@all">Continue to basket</a></h4>
                             <ul>
-                                <li>Product1 <i>-</i> <span>$675.00 </span></li>
-                                <li>Product2 <i>-</i> <span>$325.00 </span></li>
-                                <li>Product3 <i>-</i> <span>$405.00 </span></li>
+                                <c:forEach var="sp" items="${listcart}" varStatus="s">
+                                    <li>Product ${s.index} <i>-</i> <span>$${sp.giaSP} </span></li>
+                                </c:forEach>
                                 <li>Total Service Charges <i>-</i> <span>$55.00</span></li>
-                                <li>Total <i>-</i> <span>$1405.00</span></li>
+                                <li>Total <i>-</i> <span>${tongtien}</span></li>
                             </ul>
                         </div>
                         <div class="col-md-8 address_form">
@@ -207,18 +165,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- cart-js -->
         <script src="js/minicart.js"></script>
         <script>
-shoe.render();
+                                                        shoe.render();
 
-shoe.cart.on('shoe_checkout', function (evt) {
-    var items, len, i;
+                                                        shoe.cart.on('shoe_checkout', function (evt) {
+                                                            var items, len, i;
 
-    if (this.subtotal() > 0) {
-        items = this.items();
+                                                            if (this.subtotal() > 0) {
+                                                                items = this.items();
 
-        for (i = 0, len = items.length; i < len; i++) {
-        }
-    }
-});
+                                                                for (i = 0, len = items.length; i < len; i++) {
+                                                                }
+                                                            }
+                                                        });
         </script>
         <!-- //cart-js -->
         <!-- /nav -->
@@ -231,18 +189,18 @@ shoe.cart.on('shoe_checkout', function (evt) {
         <!--//search-bar-->
         <!--quantity-->
         <script>
-$('.value-plus').on('click', function () {
-    var divUpd = $(this).parent().find('.value'),
-            newVal = parseInt(divUpd.text(), 10) + 1;
-    divUpd.text(newVal);
-});
+                                                        $('.value-plus').on('click', function () {
+                                                            var divUpd = $(this).parent().find('.value'),
+                                                                    newVal = parseInt(divUpd.text(), 10) + 1;
+                                                            divUpd.text(newVal);
+                                                        });
 
-$('.value-minus').on('click', function () {
-    var divUpd = $(this).parent().find('.value'),
-            newVal = parseInt(divUpd.text(), 10) - 1;
-    if (newVal >= 1)
-        divUpd.text(newVal);
-});
+                                                        $('.value-minus').on('click', function () {
+                                                            var divUpd = $(this).parent().find('.value'),
+                                                                    newVal = parseInt(divUpd.text(), 10) - 1;
+                                                            if (newVal >= 1)
+                                                                divUpd.text(newVal);
+                                                        });
         </script>
         <!--quantity-->
         <script>
@@ -289,7 +247,46 @@ $('.value-minus').on('click', function () {
         <!-- //end-smoth-scrolling -->
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
 
+        <!--Xu ly so luong-->
+        <script>
 
+            function downFunction(id) {
+
+                var quantity = document.getElementById('' + id + '').value;
+                if (quantity > 1) {
+                    quantity--;
+                    document.getElementById('' + id + '').value = quantity;
+                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "all"}, function (data) {
+                        console.log(id);
+                        $('body').html(data);
+                    });
+
+                } else {
+
+                    document.getElementById('check-' + id + '').setAttribute("style", "display:none");
+                    $.post('Home/getGioHang.htm', {'id': id, 'sl': -1, 'ck': "all"}, function (data) {
+                        $('body').html(data);
+                    });
+                }
+
+            }
+            function upFunction(id) {
+                var quantity = document.getElementById('' + id + '').value;
+
+                quantity++;
+                console.log(quantity);
+                document.getElementById('' + id + '').value = quantity;
+                $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "all"}, function (data) {
+                    console.log(id);
+                    $('body').html(data);
+
+                });
+
+
+            }
+
+
+        </script>
     </body>
 
 </html>
