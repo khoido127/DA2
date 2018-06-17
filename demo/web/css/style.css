@@ -2269,13 +2269,25 @@ p.head_para {
 /*cart box*/
     .big-cart .btn-plus{
         position: absolute;
-        top: 10px;
-        right:90px;
+        top: 12px;
+        right:92px;
+        background-size: 20px;
     }
     .big-cart .btn-minus{
         position: absolute;
-        top: 10px;
-        left:90px;
+        top: 12px;
+        left: 95px;
+        background-size: 20px;
+    }
+    .big-cart .btn-minus:hover{
+        background-size: 25px!important;
+        top: 10px!important;
+        left: 90px!important;
+    }
+    .big-cart .btn-plus:hover{
+        background-size: 25px!important;
+        top: 10px!important;
+        right: 90px!important;
     }
 
 
