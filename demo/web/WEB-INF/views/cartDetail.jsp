@@ -27,6 +27,9 @@
                     <div class="col-md-4 wr-brw tx-al-l f-20">${sp.tenSP}</div>
                     <div class="tx-al-c col-md-4" style="position: relative;">
                         <input name="ID" type="hidden" value="${sp.IDSP}" />
+                        <a id="down" class="btn-minus" onclick="downFunction('${sp.IDSP}');" ></a>
+                        <input id="${sp.IDSP}" class="ip-text tx-al-c" style="width: 40px;height: 40px;" type="text" value="${sp.soluong}" />
+                        <a id="up" class="btn-plus" onclick="upFunction('${sp.IDSP}',${sp.giaSP},${sp.giaGoc});" ></a>
                         <c:if test="${IDSP==idsp}">
                             <br />
                             ${stock}
