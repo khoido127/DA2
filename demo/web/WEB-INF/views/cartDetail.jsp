@@ -126,4 +126,5 @@
             window.location = ("Home/getGioHang.htm?ck=all&sum="+sum);
         }
     </script>
+    
 </div>
