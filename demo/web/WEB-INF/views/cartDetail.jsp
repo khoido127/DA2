@@ -8,25 +8,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<style>
-    #up{
-        position: absolute;
-        top: 10px;
-        background: url(images/up.png) no-repeat -8px -10px;
-        width: 15px;
-        height: 12px;
-        display: inline-block;
-    }
-    #down{
-        position: absolute;
-        top: 20px;
-        background: url(images/down.png) no-repeat -8px -10px;
-        width: 15px;
-        height: 12px;
-        display: inline-block;
-    }
-</style>
-<div class="container-fluid">
+<div class="container-fluid big-cart">
     <%
 
         String idsp = String.valueOf(request.getAttribute("idsp"));
@@ -40,14 +22,14 @@
                 <c:set var="IDSP" value="${sp.IDSP}"></c:set>
                 <c:set var="ID" value="<%=idsp%>"></c:set>
 <!--                <span><c:out value="${IDSP}"></c:out></span> -->
-                    <div class="row">
+                    <div class="row dp-flex-al-ct mg-b-10 mg-t-10">
                         <div class="col-md-2"><img style="width: 80px;height: 80px;" src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" /></div>
-                    <div style="text-align: left;" class="col-md-4">${sp.tenSP}</div>
-                    <div style="position: relative;" class="col-md-4">
+                    <div class="col-md-4 wr-brw tx-al-l f-20">${sp.tenSP}</div>
+                    <div class="tx-al-c col-md-4" style="position: relative;">
                         <input name="ID" type="hidden" value="${sp.IDSP}" />
-                        <input id="${sp.IDSP}" style="width: 40px;height: 40px;text-align: center;" type="text" value="${sp.soluong}" />
-                        <a id="up" onclick="upFunction('${sp.IDSP}',${sp.giaSP},${sp.giaGoc});" ></a>
-                        <a id="down" onclick="downFunction('${sp.IDSP}');" ></a>
+                        <a id="down" class="btn-minus" onclick="downFunction('${sp.IDSP}');" ></a>
+                        <input id="${sp.IDSP}" class="ip-text tx-al-c" style="width: 40px;height: 40px;" type="text" value="${sp.soluong}" />
+                        <a id="up" class="btn-plus" onclick="upFunction('${sp.IDSP}',${sp.giaSP},${sp.giaGoc});" ></a>
                         <c:if test="${IDSP==idsp}">
                             <br />
                             ${stock}
@@ -57,14 +39,14 @@
 
                     </div>
 
-                    <div class="col-md-2">$${sp.giaSP}</div>
+                    <div class="col-md-2 tx-al-r f-18">$${sp.giaSP}</div>
 
                 </div>
 
             </div>
         </c:forEach>
         <div class="fluid-container">
-            <div class="row">
+            <div class="row mg-t-10">
 
                 <div style="font-weight: bold;text-align: left;" class="col-md-6 f-20">Subtotal</div>
                 <div style="font-weight: bold;text-align: right;" class="col-md-6 f-20">$${tongtien}</div>

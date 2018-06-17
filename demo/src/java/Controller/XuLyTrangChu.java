@@ -710,10 +710,10 @@ public class XuLyTrangChu {
                         }
                         if (sl > 5) {
                             alert = 1;
-                            model.addAttribute("stock", "<input style='border:0;color: red;font-style: italic;font-size:12px;width:100%;' type='text' value='Bạn không được mua quá 5 sản phẩm!' />");
+                            model.addAttribute("stock", "<span style='border:0;color: red;font-style: italic;font-size:12px;width:100%; display:block'>You can't buy more than 5 products! Please, contact us for more information.</span>");
                             sl = 5;
                         } else {
-                            model.addAttribute("stock", "<input style='border:0;color: red;font-style: italic;font-size:12px;width:100%;' type='text' value='' />");
+                            model.addAttribute("stock", "<span style='border:0;color: red;font-style: italic;font-size:12px;width:100%;'></span>");
                         }
                         request.setAttribute("idsp", dsgh.get(i).getIDSP());
                         model.addAttribute("IDSP", dsgh.get(i).getIDSP());
