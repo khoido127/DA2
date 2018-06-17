@@ -91,34 +91,30 @@
                 document.getElementById('' + id + '').value = quantity;
                 $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity}, function (data) {
                     console.log(id);
-                    $("#box" + id + "").html(data);
+                    $(".modal-body").html(data);
                 });
-//                outofqty.innerHTML = "";
+
             } else {
 
                 document.getElementById('box-' + id + '').setAttribute("style", "display:none");
                 $.post('Home/getGioHang.htm', {'id': id, 'sl': -1}, function (data) {
-                    $("#box" + id + "").html(data);
+
                 });
             }
 
         }
         function upFunction(id, giagoc) {
             var quantity = document.getElementById('' + id + '').value;
-            if (quantity < 5) {
-                quantity++;
-                document.getElementById('' + id + '').value = quantity;
-                $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity}, function (data) {
-                    console.log(id);
-                    $("#box" + id + "").html(data);
-//                var sum = parseInt(giagoc) + parseInt(document.getElementById('sum').value);
-//                document.getElementById('subtotal').innerHTML = sum;
-                });
-            }
-//            else {
-//                quantity = 5;
-//                outofqty.innerHTML = "Bạn chỉ được mua tối đa 5 sản phẩm!";
-//            }
+
+            quantity++;
+            console.log(quantity);
+            document.getElementById('' + id + '').value = quantity;
+            $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity}, function (data) {
+                console.log(id);
+                $(".modal-body").html(data);
+
+            });
+
 
         }
 

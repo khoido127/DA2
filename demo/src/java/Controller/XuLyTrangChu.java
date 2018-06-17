@@ -687,12 +687,13 @@ public class XuLyTrangChu {
                     giasp = giaspkm;
                 }
                 for (int i = 0; i < dsgh.size(); i++) {
-                    sl = dsgh.get(i).getSoluong();
-
+                    
+                        sl = dsgh.get(i).getSoluong();
+                    
                     if (dsgh.get(i).getIDSP().equals(id)) {
                         if (soluong > 0) {
                             sl = soluong;
-
+//                            alert = 2;
                         } else {
                             if (soluong == -1) {
                                 dsgh.remove(i);
@@ -701,14 +702,15 @@ public class XuLyTrangChu {
                             }
                         }
                         if (sl > 5) {
+                            alert = 1;
                             model.addAttribute("stock", "<input style='border:0;color: red;font-style: italic;font-size:12px;width:100%;' type='text' value='Bạn không được mua quá 5 sản phẩm!' />");
                             sl = 5;
-                        }else{
+                        } else {
                             model.addAttribute("stock", "<input style='border:0;color: red;font-style: italic;font-size:12px;width:100%;' type='text' value='' />");
                         }
                         request.setAttribute("idsp", dsgh.get(i).getIDSP());
                         model.addAttribute("IDSP", dsgh.get(i).getIDSP());
-                        
+
                         giasp = giasp * sl;
                         dsgh.get(i).setSoluong(sl);
                         dsgh.get(i).setGiaSP(giasp);
@@ -731,7 +733,7 @@ public class XuLyTrangChu {
                 System.out.println("DSLIST: " + dsgh.size());
                 System.out.println("SL: " + sl);
                 System.out.println("TongTien: " + tongtien);
-
+                System.out.println("Alert: " + alert);
             }
             session.setAttribute("tongtien", tongtien);
 
