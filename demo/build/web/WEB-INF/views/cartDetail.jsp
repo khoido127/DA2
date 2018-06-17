@@ -22,7 +22,7 @@
                 <c:set var="IDSP" value="${sp.IDSP}"></c:set>
                 <c:set var="ID" value="<%=idsp%>"></c:set>
 <!--                <span><c:out value="${IDSP}"></c:out></span> -->
-                    <div class="row dp-flex-al-ct mg-b-10 mg-t-10">
+                    <div class="row dp-flex-al-ct">
                         <div class="col-md-2"><img style="width: 80px;height: 80px;" src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" /></div>
                     <div class="col-md-4 wr-brw tx-al-l f-20">${sp.tenSP}</div>
                     <div class="tx-al-c col-md-4" style="position: relative;">
@@ -49,22 +49,21 @@
             <div class="row mg-t-10">
 
                 <div style="font-weight: bold;text-align: left;" class="col-md-6 f-20">Subtotal</div>
-                <div style="font-weight: bold;text-align: right;" class="col-md-6 f-20">$${tongtien}</div>
+                <div id="tongtien" style="font-weight: bold;text-align: right;" class="col-md-6 f-20">$${tongtien}</div>
 
             </div>
         </div>
 
         <div class="fluid-container">
             <div class="row">
-
-                <div style="cursor: pointer; font-weight: bold;text-align: center;text-transform: uppercase;font-size: 18px;color: #eb694b;" class="col-md-12">Checkout</div>
+                <div onclick="checkout();" style="cursor: pointer; font-weight: bold;text-align: center;text-transform: uppercase;font-size: 18px;color: #eb694b;" class="col-md-12">Checkout</div>
             </div>
         </div>
     </span>
     <!--Xu ly so luong-->
     <script>
 
-        var outofqty = document.getElementById('outofquantity');
+
         function downFunction(id) {
 
             var quantity = document.getElementById('' + id + '').value;
@@ -87,7 +86,7 @@
         }
         function upFunction(id, giagoc) {
             var quantity = document.getElementById('' + id + '').value;
-
+            var ck = false;
             quantity++;
             console.log(quantity);
             document.getElementById('' + id + '').value = quantity;
@@ -101,6 +100,13 @@
         }
 
 
+    </script>
+    <!--Checkout-->
+    <script>
+        function checkout() {
+            var sum = document.getElementById('tongtien').innerHTML;
+            window.location = ("Home/getGioHang.htm?ck=all&sum=" + sum);
+        }
     </script>
 
 </div>

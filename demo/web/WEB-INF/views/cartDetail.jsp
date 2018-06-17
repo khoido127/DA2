@@ -70,7 +70,7 @@
             if (quantity > 1) {
                 quantity--;
                 document.getElementById('' + id + '').value = quantity;
-                $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': ck}, function (data) {
+                $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity}, function (data) {
                     console.log(id);
                     $(".modal-body").html(data);
                 });
@@ -78,7 +78,7 @@
             } else {
 
                 document.getElementById('box-' + id + '').setAttribute("style", "display:none");
-                $.post('Home/getGioHang.htm', {'id': id, 'sl': -1, 'ck': ck}, function (data) {
+                $.post('Home/getGioHang.htm', {'id': id, 'sl': -1}, function (data) {
                     $(".modal-body").html(data);
                 });
             }
@@ -86,11 +86,11 @@
         }
         function upFunction(id, giagoc) {
             var quantity = document.getElementById('' + id + '').value;
-            var ck=false;
+            var ck = false;
             quantity++;
             console.log(quantity);
             document.getElementById('' + id + '').value = quantity;
-            $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': ck}, function (data) {
+            $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity}, function (data) {
                 console.log(id);
                 $(".modal-body").html(data);
 
@@ -104,9 +104,9 @@
     <!--Checkout-->
     <script>
         function checkout() {
-            var sum=document.getElementById('tongtien').innerHTML;
-            window.location = ("Home/getGioHang.htm?ck=all&sum="+sum);
+            var sum = document.getElementById('tongtien').innerHTML;
+            window.location = ("Home/getGioHang.htm?ck=all&sum=" + sum);
         }
     </script>
-    
+
 </div>

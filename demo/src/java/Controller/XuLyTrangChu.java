@@ -774,8 +774,9 @@ public class XuLyTrangChu {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        
         return "redirect:pageShop.htm";
     }
+
+
 
 }
