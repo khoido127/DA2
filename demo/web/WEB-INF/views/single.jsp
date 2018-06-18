@@ -47,11 +47,17 @@
                         <div style="clear: both;"></div>
                         <div class="color-quality">
                             <div class="color-quality-right">
-                                <h5>Size:</h5>
-                                <select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
-                                    <option value="null">36</option>
-                                    <option value="null">37</option> 						
-                                </select>
+                                <h5 style="float: left;">Size:<span id="choose-size"></span><span id="status" style="color: red; font-size: 16px;"></span></h5> 
+                                <div style="clear: both;"></div>
+                                <div id="size" class="row">
+                                    <div style="display: flex;" class="col-md-6">
+                                        <c:forEach var="kho" items="${listkho}" varStatus="st">
+                                            
+                                            <input id="index" type="hidden" value="${sumIndex}" />
+                                            <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}')" style="cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block">${kho.size}</span>
+                                        </c:forEach>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -91,16 +97,33 @@
                                 <!--/tab_one-->
                                 <div class="tab1">
 
-                                    <div class="single_page">
-                                        <h6>Lorem ipsum dolor sit amet</h6>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie
-                                            blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                            ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. labore et dolore
-                                            magna aliqua.</p>
-                                        <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie
-                                            blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                            ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. labore et dolore
-                                            magna aliqua.</p>
+                                    <div style="width: 100%" class="single_page">
+                                        <c:forEach var="ctsp" items="${listctsp}" varStatus="st">
+                                            <c:set var="p" value="${st.index}"></c:set>
+                                            <c:choose>
+                                                <c:when test="${p%2==0}">
+                                                    <div class="row">
+
+                                                        <div class="col-md-6"><img style="width: 100%" src="images/product/${sp.IDLoai}/${sp.IDSP}/${ctsp.hinhCTSP}" /></div>
+                                                        <div class="col-md-6">
+                                                            <h3>${ctsp.tieudeCTSP}</h3>
+                                                            <p>${ctsp.motaCT}</p>
+                                                        </div>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="row">
+
+                                                        <div class="col-md-6">
+                                                            <h3>${ctsp.tieudeCTSP}</h3>
+                                                            <p>${ctsp.motaCT}</p>
+                                                        </div>
+                                                        <div class="col-md-6"><img style="width: 100%" src="images/product/${sp.IDLoai}/${sp.IDSP}/${ctsp.hinhCTSP}" /></div>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <!--//tab_one-->
@@ -431,6 +454,29 @@
             function checkout() {
 //                var sum = document.getElementById('tongtien').innerHTML;
                 window.location = ("Home/getGioHang.htm?ck=all");
+            }
+        </script>
+        <!--Get Size-->
+        <script>
+
+
+            function getSize(size, index, trangthai) {
+                var sumIndex = document.getElementById('index').value;
+                console.log(sumIndex);
+                console.log(index);
+                for (var i = 0; i < sumIndex; i++) {
+                    console.log(i);
+                    if (i === index) {
+                        console.log(trangthai);
+                        document.getElementById('size-detail-' + i + '').setAttribute("style", "background-color:yellow;cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block");
+                        document.getElementById('status').innerHTML = trangthai;
+                    } else {
+                        console.log("null");
+                        document.getElementById('size-detail-' + i + '').setAttribute("style", "cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block");
+                    }
+                }
+
+                document.getElementById('choose-size').innerHTML = size;
             }
         </script>
     </body>

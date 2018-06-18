@@ -20,8 +20,9 @@ public class CTSP {
     @Id
     @GeneratedValue
     private Integer STT;
-    private String MoTaCT;
+    private String motaCT;
     private String HinhCTSP;
+    private String tieudeCTSP;
     @ManyToOne
     @JoinColumn(name = "IDSP")
     private SanPham sp;
@@ -29,9 +30,22 @@ public class CTSP {
     public CTSP() {
     }
 
-    public CTSP(Integer STT, String MoTaCT, String HinhCTSP, SanPham sp) {
+    public CTSP(Integer STT, String motaCT, String HinhCTSP, SanPham sp) {
         this.STT = STT;
-        this.MoTaCT = MoTaCT;
+        this.motaCT = motaCT;
+        this.HinhCTSP = HinhCTSP;
+        this.sp = sp;
+    }
+
+    public CTSP(String motaCT, String HinhCTSP, String tieudeCTSP, SanPham sp) {
+        this.motaCT = motaCT;
+        this.HinhCTSP = HinhCTSP;
+        this.tieudeCTSP = tieudeCTSP;
+        this.sp = sp;
+    }
+    
+    public CTSP(String motaCT, String HinhCTSP, SanPham sp) {
+        this.motaCT = motaCT;
         this.HinhCTSP = HinhCTSP;
         this.sp = sp;
     }
@@ -44,12 +58,12 @@ public class CTSP {
         this.STT = STT;
     }
 
-    public String getMoTaCT() {
-        return MoTaCT;
+    public String getMotaCT() {
+        return motaCT;
     }
 
-    public void setMoTaCT(String MoTaCT) {
-        this.MoTaCT = MoTaCT;
+    public void setMotaCT(String motaCT) {
+        this.motaCT = motaCT;
     }
 
     public String getHinhCTSP() {
@@ -66,6 +80,14 @@ public class CTSP {
 
     public void setSp(SanPham sp) {
         this.sp = sp;
+    }
+
+    public String getTieudeCTSP() {
+        return tieudeCTSP;
+    }
+
+    public void setTieudeCTSP(String tieudeCTSP) {
+        this.tieudeCTSP = tieudeCTSP;
     }
     
 }

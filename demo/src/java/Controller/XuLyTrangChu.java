@@ -5,13 +5,16 @@
  */
 package Controller;
 
+import Bean.CTSPBean;
 import Bean.CommentBean;
 import Bean.GioHang;
+import Bean.KhoBean;
 import Bean.LoaiSPBean;
 import Bean.PageNumberBean;
 import Bean.SanPhamBean;
 import Bean.SearchBean;
 import Bean.SlideBean;
+import Model.CTSP;
 import Model.Comment;
 import Model.Loai;
 import Model.SanPham;
@@ -183,6 +186,65 @@ public class XuLyTrangChu {
         Query query = s.createQuery(hql);
         query.setParameter("id", idsp);
         List<SanPham> list = query.list();
+        List<CTSPBean> ctspbean = new ArrayList<>();
+
+        //Xu ly noi dung CTSP
+        for (int i = 0; i < list.size(); i++) {
+            int st = 0;
+            String[] hinhsp = list.get(0).getCtsp().get(0).getHinhCTSP().split(";");
+            String[] motact = new String[10];
+            String[] tieudeCTSP = new String[10];
+            String mota = list.get(0).getCtsp().get(0).getMotaCT();
+            int length = 0;
+            if (mota == null || tieudeCTSP == null) {
+                st = 1;
+            } else {
+                motact = list.get(0).getCtsp().get(0).getMotaCT().split(";");
+                tieudeCTSP = list.get(0).getCtsp().get(0).getTieudeCTSP().split(";");
+                int result = motact.length - hinhsp.length;
+                if (tieudeCTSP.length > hinhsp.length) {
+                    length = hinhsp.length;
+                    if (length > motact.length) {
+                        length = motact.length;
+                    }
+                } else {
+                    length = tieudeCTSP.length;
+                }
+
+                System.out.println("MOTACT: " + motact[0]);
+            }
+            System.out.println("HinhSP: " + hinhsp[0]);
+
+            CTSPBean sp = null;
+
+            for (int j = 0; j < length; j++) {
+                System.out.println("HINHSP: " + hinhsp[j]);
+                if (st == 1) {
+                    sp = new CTSPBean("", hinhsp[j], "");
+                } else {
+                    sp = new CTSPBean(motact[j], hinhsp[j], tieudeCTSP[j]);
+                }
+
+                ctspbean.add(sp);
+
+            }
+        }
+        System.out.println("DSCTSP: " + ctspbean.size());
+        //End
+
+        //Xu ly Size
+        List<KhoBean> listkho = new ArrayList<>();
+        String[] size = list.get(0).getKho().get(0).getSize().split(";");
+        String[] soluong = list.get(0).getKho().get(0).getSL().split(";");
+        int sumIndex = size.length;
+        for (int i = 0; i < size.length; i++) {
+            String trangthai = "Size này còn " + soluong[i] + " sản phẩm";
+            KhoBean kho = new KhoBean(size[i], soluong[i], trangthai);
+            listkho.add(kho);
+        }
+        model.addAttribute("sumIndex", sumIndex);
+        //End
+
         List<SlideBean> listurl = new ArrayList<>();
         List<SanPhamBean> listspbean = new ArrayList<>();
         List<CommentBean> listcm = showComment(idsp);
@@ -225,6 +287,8 @@ public class XuLyTrangChu {
         model.addAttribute("listsp", listspbean);
         model.addAttribute("listurl", listurl);
         model.addAttribute("listtopsp", listtopsp);
+        model.addAttribute("listctsp", ctspbean);
+        model.addAttribute("listkho", listkho);
         System.out.println("URL: " + listurl.size());
         return "single";
     }
@@ -867,4 +931,5 @@ public class XuLyTrangChu {
 
         return "checkout";
     }
+
 }

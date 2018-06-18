@@ -34,6 +34,8 @@ public class SanPham implements Serializable{
     List<Comment> commnent;
     @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
     List<HoaDon> hoadon;
+    @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
+    List<Kho> kho;
     @ManyToOne
     @JoinColumn(name = "IDLoai")
     private Loai loai;
@@ -164,6 +166,14 @@ public class SanPham implements Serializable{
 
     public void setHoadon(List<HoaDon> hoadon) {
         this.hoadon = hoadon;
+    }
+
+    public List<Kho> getKho() {
+        return kho;
+    }
+
+    public void setKho(List<Kho> kho) {
+        this.kho = kho;
     }
     
 }

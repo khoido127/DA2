@@ -20,7 +20,7 @@ public class Kho {
     @Id
     @GeneratedValue
     private Integer STT;
-    private Integer SL;
+    private String SL;
     private String Size;
     @ManyToOne
     @JoinColumn(name = "IDSP")
@@ -29,13 +29,19 @@ public class Kho {
     public Kho() {
     }
 
-    public Kho(Integer STT, Integer SL, String Size, SanPham sp) {
+    public Kho(Integer STT, String SL, String Size, SanPham sp) {
         this.STT = STT;
         this.SL = SL;
         this.Size = Size;
         this.sp = sp;
     }
 
+    public Kho(String SL, String Size) {
+        this.SL = SL;
+        this.Size = Size;
+    }
+    
+    
     public Integer getSTT() {
         return STT;
     }
@@ -44,14 +50,14 @@ public class Kho {
         this.STT = STT;
     }
 
-    public Integer getSL() {
+    public String getSL() {
         return SL;
     }
 
-    public void setSL(Integer SL) {
+    public void setSL(String SL) {
         this.SL = SL;
     }
-
+    
     public String getSize() {
         return Size;
     }
