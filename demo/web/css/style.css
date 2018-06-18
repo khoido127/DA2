@@ -2306,9 +2306,24 @@ p.head_para {
     }
     .content-manage-page #page-wrapper{
         min-height: 500px;
+        border-left: solid 2px #dddddd;
+        padding-left: 10px;
+        margin-bottom: 20px;
     }
     .content-manage-page #page-wrapper .top-content .edit-label{width: 25%; text-align: right; margin-right: 10px}
     .content-manage-page #page-wrapper .top-content .edit-field{width: 60%}
+.content-manage-page .sidebar-nav .menu-title li {padding: 20px 10px; position: relative}
+.content-manage-page .sidebar-nav .menu-title li a{font-size: 16px}
+.content-manage-page .sidebar-nav .menu-title li:hover {background-color: #FFC226;}
+.content-manage-page .sidebar-nav .menu-title li:hover a {color: white;}
+.content-manage-page .sidebar-nav .menu-title li .sub-menu{display: none}
+.content-manage-page .sidebar-nav .menu-title li:hover .sub-menu {display: block; margin-top: 10px}
+.content-manage-page .sidebar-nav .menu-title li:hover .sub-menu li:hover {background-color: white;}
+.content-manage-page .sidebar-nav .menu-title li:hover .sub-menu li:hover a{color: #a3a3a3;}
+.content-manage-page .sidebar-nav .menu-title li .sub-menu a{font-size: 14px;}
+
+
+
 
 
 

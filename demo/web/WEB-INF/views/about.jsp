@@ -27,15 +27,19 @@
             <!-- /.navbar-header -->
         </nav>
         <!-- Left Sidebar -->
-        <div class="content-manage" style="margin: 30px 0">
+        <div class="content-manage">
         <div class="sidebar pull-left" style="width:20%" >
             <div class="sidebar-nav">
-                <div class="sidebar-head">
-                    <h3 class="menu-title">Navigation</h3>
+                <div class="sidebar-head" style="margin: 0 10px; border-bottom: solid 2px #dddddd;">
+                    <h3 class="menu-title tx-al-c mg-b-10">Navigation</h3>
                 </div>
                 <ul class="menu-title">
                     <li>
                         <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Product</a>
+                        <ul class="sub-menu">
+                            <li><a href="#" class="p-l-20">Product Detail</a></li>
+                            <li><a href="#" class="p-l-20">Product Describe</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>User</a>
