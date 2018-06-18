@@ -43,7 +43,7 @@
                         <p style="float: left;"><span class="item_price">$${sp.giaSP}</span>
                             <del>${sp.giaSPKM}</del>
                         </p>
-                        
+
                         <div style="clear: both;"></div>
                         <div class="color-quality">
                             <div class="color-quality-right">
@@ -58,23 +58,15 @@
                         <h5 style="margin-top: 20px;">QTY</h5>
                         <div style="margin-top: 14px;margin-left: 0;" class="row">
                             <div class="product-quantity col-md-4">
-                                <span onclick="minusFunction();" id="minus" class="product-minus"><i class="fa fa-minus"></i></span>
-                                <input type="number" min="1" size="2" class="quantity" name="quantity" id="quantity" value="1" max="30">
-                                <span onclick="plusFunction()" id="plus" class="product-plus"><i class="fa fa-plus"></i></span>
+                                <span onclick="downFunction('${sp.IDSP}');" id="minus" class="product-minus"><i class="fa fa-minus"></i></span>
+                                <input type="number" min="1" size="2" class="quantity" name="quantity" id="${sp.IDSP}" value="${soluong}" max="30">
+                                <span onclick="upFunction('${sp.IDSP}')" id="plus" class="product-plus"><i class="fa fa-plus"></i></span>
+                                <span style="border:0;color: red;font-style: italic;font-size:12px;width:100%; display:block" id="outofstock"></span>
                             </div>
 
                             <div class="occasion-cart col-md-8">
                                 <div class="shoe single-item single_page_b">
-                                    <form action="#" method="post">
-                                        <input type="hidden" name="cmd" value="_cart">
-                                        <input type="hidden" name="add" value="1">
-                                        <input type="hidden" name="shoe_item" value="Chikku Loafers">
-                                        <input type="hidden" name="amount" value="405.00">
-                                        <input type="submit" name="submit" value="Add to cart" class="button add">
-
-                                        <a href="#" data-toggle="modal" data-target="#myModal1"></a>
-                                    </form>
-
+                                    <input onclick="checkout();" id="add-to-cart" type="button"  value="Add to cart" class="button add">
                                 </div>
 
                             </div>
@@ -267,13 +259,10 @@
         <script src="js/minicart.js"></script>
         <script>
                                                     shoe.render();
-
                                                     shoe.cart.on('shoe_checkout', function (evt) {
                                                         var items, len, i;
-
                                                         if (this.subtotal() > 0) {
                                                             items = this.items();
-
                                                             for (i = 0, len = items.length; i < len; i++) {
                                                             }
                                                         }
@@ -338,7 +327,6 @@
                 animation: "slide",
                 controlNav: "thumbnails"
             });
-
         </script>
         <!-- //FlexSlider-->
 
@@ -362,35 +350,87 @@
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
 
         <!--Xu ly so luong-->
+        <!--        <script>
+        
+                    var quantity = document.getElementById('quantity').value;
+                    var outofqty = document.getElementById('outofquantity');
+                    function minusFunction() {
+                        if (quantity > 1) {
+                            quantity--;
+                            outofqty.innerHTML = "";
+                        } else {
+                            quantity = 1;
+                            outofqty.innerHTML = "";
+                        }
+        
+                        console.log(quantity);
+                        document.getElementById('quantity').value = quantity;
+        
+                    }
+                    function plusFunction() {
+                        if (quantity < 5) {
+                            quantity++;
+                            outofqty.innerHTML = "";
+                        } else {
+                            quantity = 5;
+                            outofqty.innerHTML = "Bạn chỉ được mua tối đa 5 sản phẩm!";
+                        }
+        
+                        console.log(quantity);
+                        document.getElementById('quantity').value = quantity;
+        
+                    }
+                </script>-->
+
+        <!--Xu ly so luong-->
         <script>
 
-            var quantity = document.getElementById('quantity').value;
-            var outofqty = document.getElementById('outofquantity');
-            function minusFunction() {
+            function downFunction(id) {
+
+                var quantity = document.getElementById('' + id + '').value;
                 if (quantity > 1) {
+                    document.getElementById('add-to-cart').removeAttribute("disabled");
+                    document.getElementById('outofstock').innerHTML = "";
                     quantity--;
-                    outofqty.innerHTML = "";
+                    document.getElementById('' + id + '').value = quantity;
+                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single"}, function (data) {
+                        console.log(id);
+//                        $("body").html(data);
+                    });
                 } else {
                     quantity = 1;
-                    outofqty.innerHTML = "";
+                    document.getElementById('box-' + id + '').setAttribute("style", "display:none");
+                    document.getElementById('' + id + '').value = quantity;
                 }
-
-                console.log(quantity);
-                document.getElementById('quantity').value = quantity;
 
             }
-            function plusFunction() {
-                if (quantity < 5) {
-                    quantity++;
-                    outofqty.innerHTML = "";
-                } else {
+            function upFunction(id, giagoc) {
+                var quantity = document.getElementById('' + id + '').value;
+                quantity++;
+                if (quantity > 5) {
                     quantity = 5;
-                    outofqty.innerHTML = "Bạn chỉ được mua tối đa 5 sản phẩm!";
+                    document.getElementById('outofstock').innerHTML = "You can't buy more than 5 products! Please, contact us for more information.";
+                    document.getElementById('add-to-cart').setAttribute("disabled", "");
+                    document.getElementById('' + id + '').value = quantity;
+                } else {
+
+                    document.getElementById('' + id + '').value = quantity;
+                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single"}, function (data) {
+                        console.log(id);
+//                    $('body').html(data);
+
+                    });
                 }
 
-                console.log(quantity);
-                document.getElementById('quantity').value = quantity;
+            }
 
+
+        </script>
+        <!--Checkout-->
+        <script>
+            function checkout() {
+//                var sum = document.getElementById('tongtien').innerHTML;
+                window.location = ("Home/getGioHang.htm?ck=all");
             }
         </script>
     </body>

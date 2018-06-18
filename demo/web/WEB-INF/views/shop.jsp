@@ -231,7 +231,7 @@
 
         <!-- js -->
         <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-        
+
         <!-- //js -->
 
         <!-- cart-js -->
@@ -372,10 +372,17 @@
             }
         </script>
         <script>
+
             function getGioHang(id) {
+             
                 $.post('Home/getGioHang.htm', {'id': id}, function (data) {
+//                    location.reload(true);
+                    $('#modal-cart').on('hidden.bs.modal', function () {
+                        location.reload();
+                        
+                    });
                     $(".modal-body").html(data);
-                    
+
                 });
             }
         </script>

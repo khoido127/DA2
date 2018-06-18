@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="Bean.GioHang"%>
 <style>
@@ -85,26 +86,19 @@
                     <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                     <span class="box-cart">
 
-                        <%      for (GioHang g : dsgh) {
-
-                                String id = g.getIDSP();
-                                String idloai = g.getIdLoai();
-                                String tensp = g.getTenSP();
-                                String hinhsp = g.getHinhSP();
-                                int sl = g.getSoluong();
-                                double giasp = g.getGiaSP();
-                        %>
+                        
+                        <c:forEach var="sp" items="${list}">
                         <div style="border-bottom: 1px solid black;" class="fluid-container">
                             <div class="row">
-                                <div class="col-md-3"><img style="width: 100%;" src="images/product/<%=idloai%>/<%=id%>/<%=hinhsp%>" /></div>
-                                <div style="text-align: left;" class="col-md-5"><%=tensp%></div>
-                                <div class="col-md-2">x<%=sl%></div>
-                                <div class="col-md-2"><%= giasp%>$</div>
-
+                                <div class="col-md-3"><img style="width: 100%;" src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" /></div>
+                                <div style="text-align: left;" class="col-md-5">${sp.tenSP}</div>
+                                <div class="col-md-2">x${sp.soluong}</div>
+                                <div class="col-md-2">${sp.giaSP}$</div>
                             </div>
 
                         </div>
-                        <%}%>
+                        </c:forEach>
+                        
                         <div class="fluid-container">
                             <div class="row">
                                 <div style="font-weight: bold;text-align: left;" class="col-md-6">Subtotal</div>

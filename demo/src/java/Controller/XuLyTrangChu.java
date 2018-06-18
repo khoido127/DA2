@@ -186,6 +186,17 @@ public class XuLyTrangChu {
         List<SlideBean> listurl = new ArrayList<>();
         List<SanPhamBean> listspbean = new ArrayList<>();
         List<CommentBean> listcm = showComment(idsp);
+        GioHang gh = new GioHang();
+        List<GioHang> dsgh = gh.getGh();
+        if (dsgh.isEmpty()) {
+            model.addAttribute("soluong", 0);
+        } else {
+            for (int i = 0; i < dsgh.size(); i++) {
+                if (dsgh.get(i).getIDSP().equals(idsp)) {
+                    model.addAttribute("soluong", dsgh.get(i).getSoluong());
+                }
+            }
+        }
         for (SanPham sp : list) {
             String[] url = sp.getHinhSP().split(";");
             String giakm = "";
@@ -661,122 +672,199 @@ public class XuLyTrangChu {
     public String getGioHang(ModelMap model, HttpServletRequest request, HttpSession session) {
         String id = request.getParameter("id");
         String sum = request.getParameter("sum");
-        if (id == null) {
-            id = "all";
-        }
-        System.out.println("GioHang: " + id);
+        String ck = request.getParameter("ck");
+        List<SanPham> dssp = new ArrayList<>();
+
         GioHang gh = new GioHang();
         List<GioHang> dsgh = gh.getGh();
         try {
-            String ck = request.getParameter("ck");
+
             if (ck == null) {
                 ck = "false";
             }
+            if (id == null) {
+                id = "all";
+            }
+            System.out.println("GioHang: " + id);
             System.out.println("CHECK: " + ck);
+
             Session s = factory.getCurrentSession();
             String hql = "From SanPham sp where sp.IDSP=:id";
             Query query = s.createQuery(hql);
             query.setParameter("id", id);
-            List<SanPham> dssp = query.list();
-            double tongtien = 0;
-            int alert = 0;
-            for (SanPham sp : dssp) {
-
-                int sl = 1;
-                String ch = request.getParameter("sl");
+            dssp = query.list();
+            if (!dssp.isEmpty()) {
+                double tongtien = 0;
+                int alert = 0;
                 int soluong = 0;
-                if (ch != null) {
-                    soluong = Integer.parseInt(ch);
-                }
-                System.out.println("SoLuong: " + soluong);
-                int dem = 0;
-                double giaspkm = sp.getGiaSPKM();
-                double giasp = sp.getGiaSP();
-                if (giaspkm != 0) {
-                    giasp = giaspkm;
-                }
-                for (int i = 0; i < dsgh.size(); i++) {
+                List<SlideBean> listurl = new ArrayList<>();
+                String[] url = dssp.get(0).getHinhSP().split(";");
+                for (SanPham sp : dssp) {
 
-                    sl = dsgh.get(i).getSoluong();
+                    int sl = 1;
+                    String ch = request.getParameter("sl");
 
-                    if (dsgh.get(i).getIDSP().equals(id)) {
-                        if (soluong > 0) {
-                            sl = soluong;
-//                            alert = 2;
-                        } else {
-                            if (soluong == -1) {
-                                if (dsgh.size() == 1) {
-                                    dsgh.remove(i);
-                                    model.addAttribute("tongtien", 0);
-                                    if (ck.equals("all")) {
-                                        return "checkout";
-                                    }
-                                    return "cartDetail";
-                                }
-                                dsgh.remove(i);
-                                System.out.println("TongTien: " + tongtien);
+                    if (ch != null) {
+                        soluong = Integer.parseInt(ch);
+                    } else {
+                        soluong = 0;
+                    }
+                    System.out.println("SoLuong: " + soluong);
+                    int dem = 0;
+                    double giaspkm = sp.getGiaSPKM();
+                    double giasp = sp.getGiaSP();
+                    if (giaspkm != 0) {
+                        giasp = giaspkm;
+                    }
+                    int size = dsgh.size();
+                    for (int i = 0; i < dsgh.size(); i++) {
+
+                        sl = dsgh.get(i).getSoluong();
+
+                        if (dsgh.get(i).getIDSP().equals(id)) {
+                            if (soluong > 0) {
+                                System.out.println("ID: " + i);
+                                sl = soluong;
 
                             } else {
-                                sl++;
+                                if (soluong == -1) {
+                                    System.out.println("DSGH: " + dsgh.size());
+                                    if (dsgh.size() > 1) {
+                                        System.out.println("Size > 1");
+
+                                        dsgh.remove(i);
+                                        System.out.println("I: " + i);
+
+                                        System.out.println("SL sau: " + sl);
+                                        if (i == dsgh.size()) {
+                                            i--;
+                                        }
+                                        System.out.println("LISTGH: " + dsgh.size());
+
+                                    } else {
+
+                                        dsgh.remove(i);
+                                        model.addAttribute("tongtien", 0);
+                                        if (ck.equals("all")) {
+                                            return "checkout";
+                                        }
+                                        return "cartDetail";
+                                    }
+                                }
+                                if (soluong == 0) {
+                                    sl++;
+                                }
+
+//                                    dsgh.remove(i);
+//                                    System.out.println("TongTien: " + tongtien);
                             }
-                        }
-                        if (sl > 5) {
-                            alert = 1;
-                            model.addAttribute("stock", "<span style='border:0;color: red;font-style: italic;font-size:12px;width:100%; display:block'>You can't buy more than 5 products! Please, contact us for more information.</span>");
-                            sl = 5;
+                            if (sl > 5) {
+//                            alert = 1;
+                                model.addAttribute("stock", "<span style='border:0;color: red;font-style: italic;font-size:12px;width:100%; display:block'>You can't buy more than 5 products! Please, contact us for more information.</span>");
+                                sl = 5;
+                            } else {
+                                model.addAttribute("stock", "<span style='border:0;color: red;font-style: italic;font-size:12px;width:100%;'></span>");
+                            }
+                            request.setAttribute("idsp", dsgh.get(i).getIDSP());
+                            model.addAttribute("IDSP", dsgh.get(i).getIDSP());
+                            if (soluong != -1) {
+                                giasp = giasp * sl;
+                                dsgh.get(i).setSoluong(sl);
+                                dsgh.get(i).setGiaSP(giasp);
+                                tongtien = tongtien + giasp;
+                            }
+                            sum = String.valueOf(tongtien);
+//                        model.addAttribute("tongtien", tongtien);
+                            dem = 1;
+
                         } else {
-                            model.addAttribute("stock", "<span style='border:0;color: red;font-style: italic;font-size:12px;width:100%;'></span>");
+                            System.out.println("Continue 3");
+                            sl = 1;
+                            tongtien = tongtien + dsgh.get(i).getGiaSP();
+                            sum = String.valueOf(tongtien);
+//                        model.addAttribute("tongtien", tongtien);
                         }
-                        request.setAttribute("idsp", dsgh.get(i).getIDSP());
-                        model.addAttribute("IDSP", dsgh.get(i).getIDSP());
-
-                        giasp = giasp * sl;
-                        dsgh.get(i).setSoluong(sl);
-                        dsgh.get(i).setGiaSP(giasp);
-                        tongtien = tongtien + giasp;
-                        sum=String.valueOf(tongtien);
-//                        model.addAttribute("tongtien", tongtien);
-                        dem = 1;
-
-                    } else {
-                        sl = 1;
-                        tongtien = tongtien + dsgh.get(i).getGiaSP();
-                        sum=String.valueOf(tongtien);
-//                        model.addAttribute("tongtien", tongtien);
                     }
+
+                    if (dem == 0) {
+
+                        tongtien = tongtien + giasp;
+                        sum = String.valueOf(tongtien);
+                        GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
+                        dsgh.add(ghang);
+
+                    }
+
+                    System.out.println("DSLIST: " + dsgh.size());
+                    System.out.println("SL: " + sl);
+                    System.out.println("TongTien: " + tongtien);
+                    System.out.println("Alert: " + alert);
                 }
 
-                if (dem == 0) {
-                    
-                    tongtien = tongtien + giasp;
-                    sum=String.valueOf(tongtien);
-                    GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
-                    dsgh.add(ghang);
+                model.addAttribute("listsp", dssp);
+                model.addAttribute("soluong", soluong);
+                model.addAttribute("tongtien", tongtien);
+                model.addAttribute("sumCart", dsgh.size());
+                session.setAttribute("list", dsgh);
+                model.addAttribute("listcart", dsgh);
 
+                if (ck.equals("single")) {
+                    for (int i = 0; i < url.length; i++) {
+                        SlideBean slide = new SlideBean(url[i]);
+                        listurl.add(slide);
+                    }
+                    model.addAttribute("listurl", listurl);
+                    model.addAttribute("listcart", dsgh);
+                    return "single";
+                }
+                System.out.println("Continue 2");
+
+                if (ck.equals("all")) {
+                    double sumMoney = 0;
+                    for (int i = 0; i < dsgh.size(); i++) {
+                        sumMoney = sumMoney + dsgh.get(i).getGiaSP();
+                        System.out.println("ABCDEF");
+
+                    }
+                    model.addAttribute("tongtien", sum);
+                    model.addAttribute("listcart", dsgh);
+                    System.out.println("TrueGH: " + dsgh.size());
+                    return "checkout";
                 }
 
-                System.out.println("DSLIST: " + dsgh.size());
-                System.out.println("SL: " + sl);
-                System.out.println("TongTien: " + tongtien);
-                System.out.println("Alert: " + alert);
-            }
+            } else {
+                if (ck.equals("all")) {
+                    double sumMoney = 0;
+                    for (int i = 0; i < dsgh.size(); i++) {
+                        sumMoney = sumMoney + dsgh.get(i).getGiaSP();
+                        System.out.println("ABCDEF");
 
-            model.addAttribute("tongtien", tongtien);
-            model.addAttribute("sumCart", dsgh.size());
-            model.addAttribute("listcart", dsgh);
-            if (ck.equals("all")) {
-                model.addAttribute("tongtien", sum);
-                System.out.println("TrueGH: " + dsgh.size());
-
-                return "checkout";
+                    }
+                    model.addAttribute("tongtien", sum);
+                    model.addAttribute("listcart", dsgh);
+                    System.out.println("TrueGH: " + dsgh.size());
+                    return "checkout";
+                }
             }
             return "cartDetail";
+//            else {
+//                if (ck.equals("all")) {
+//                    double sumMoney = 0;
+//                    for (int i = 0; i < dsgh.size(); i++) {
+//                        sumMoney = sumMoney + dsgh.get(i).getGiaSP();
+//                        System.out.println("ABCDEF");
+//
+//                    }
+//                    model.addAttribute("listcart", dsgh);
+//                    model.addAttribute("tongtien", sum);
+//                    System.out.println("TrueGH: " + dsgh.size());
+//                    return "checkout";
+//                }
+//            }
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        return "redirect:pageShop.htm";
+
+        return "checkout";
     }
-
-
-
 }
