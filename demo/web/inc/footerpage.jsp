@@ -5,12 +5,12 @@
             <h2><a href="index.jsp"><span>Z4</span>SNEAKERS</a></h2>
             <p>A history in running. A future in style.</p>
             <ul class="social-nav model-3d-0 footer-social social two">
-                
+
                 <li>
                     <a href="#" class="facebook">
                         <div class="front"><i class="fa fa-facebook" aria-hidden="true"></i></div>
                         <div class="back"><i class="fa fa-facebook" aria-hidden="true"></i></div>
-                        
+
                     </a>
                 </li>
                 <li>
@@ -41,7 +41,12 @@
 </div>
 
 <!-- //footer -->
-<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<div onclick="bottomTotop();" href="#" id="bottomTotop" class="scroll" style="display: block;"> <span style="opacity: 1;"> </span></div>
+<script>
+    function bottomTotop() {
+        document.documentElement.scrollTop = 0;
+    }
+</script>
 <!--<div id="staplesbmincart">
     <form method="post" class="sbmincart-empty" action="Home/checkout.htm" target="">    
         <span>ABC</span>
