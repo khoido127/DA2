@@ -30,20 +30,18 @@ public class HoaDon {
     private String HinhThucTT;
     @OneToMany(mappedBy = "hd", fetch = FetchType.EAGER)
     List<CTHD> cthd;
-    @ManyToOne
-    @JoinColumn(name = "IDSP")
-    private SanPham sp;
+    
     
     public HoaDon() {
     }
 
-    public HoaDon(String IDHD, String LoaiHD, Date Ngay, String HinhThucTT, List<CTHD> cthd, SanPham sp) {
+    public HoaDon(String IDHD, String LoaiHD, Date Ngay, String HinhThucTT, List<CTHD> cthd) {
         this.IDHD = IDHD;
         this.LoaiHD = LoaiHD;
         this.Ngay = Ngay;
         this.HinhThucTT = HinhThucTT;
         this.cthd = cthd;
-        this.sp = sp;
+        
     }
 
     public String getIDHD() {
@@ -76,14 +74,6 @@ public class HoaDon {
 
     public void setHinhThucTT(String HinhThucTT) {
         this.HinhThucTT = HinhThucTT;
-    }
-
-    public SanPham getSp() {
-        return sp;
-    }
-
-    public void setSp(SanPham sp) {
-        this.sp = sp;
     }
 
     public List<CTHD> getCthd() {

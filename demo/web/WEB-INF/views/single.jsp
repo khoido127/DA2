@@ -47,14 +47,13 @@
                         <div style="clear: both;"></div>
                         <div class="color-quality">
                             <div class="color-quality-right">
-                                <h5 style="float: left;">Size:<span id="choose-size"></span><span id="status" style="color: red; font-size: 16px;"></span></h5> 
+                                <h5 style="float: left;">Size:<span style="display: inline-block;margin: 0 12px;" id="choose-size"></span><span id="status" style="color: red; font-size: 14px;display: inline-block;margin-left: 108px;font-style: italic;"></span></h5> 
                                 <div style="clear: both;"></div>
                                 <div id="size" class="row">
                                     <div style="display: flex;" class="col-md-6">
                                         <c:forEach var="kho" items="${listkho}" varStatus="st">
-                                            
                                             <input id="index" type="hidden" value="${sumIndex}" />
-                                            <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}')" style="cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block">${kho.size}</span>
+                                            <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}')" style="cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block;margin-right: 10px;">${kho.size}</span>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -104,7 +103,7 @@
                                                 <c:when test="${p%2==0}">
                                                     <div class="row">
 
-                                                        <div class="col-md-6"><img style="width: 100%" src="images/product/${sp.IDLoai}/${sp.IDSP}/${ctsp.hinhCTSP}" /></div>
+                                                        <div class="col-md-6"><img style="width: 600px;height: 540px;" src="images/product/${sp.IDLoai}/${sp.IDSP}/${ctsp.hinhCTSP}" /></div>
                                                         <div class="col-md-6">
                                                             <h3>${ctsp.tieudeCTSP}</h3>
                                                             <p>${ctsp.motaCT}</p>
@@ -113,7 +112,6 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="row">
-
                                                         <div class="col-md-6">
                                                             <h3>${ctsp.tieudeCTSP}</h3>
                                                             <p>${ctsp.motaCT}</p>
@@ -122,13 +120,11 @@
                                                     </div>
                                                 </c:otherwise>
                                             </c:choose>
-
                                         </c:forEach>
                                     </div>
                                 </div>
                                 <!--//tab_one-->
                                 <div class="tab2">
-
                                     <div class="single_page">
                                         <div class="bootstrap-tab-text-grids">
                                             <div class="bootstrap-tab-text-grid">
@@ -138,7 +134,6 @@
                                                 <div class="bootstrap-tab-text-grid-right">
                                                     <ul>
                                                         <li><a href="#">Admin</a></li>
-
                                                     </ul>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget.Ut enim ad minima veniam,
                                                         quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis
@@ -149,7 +144,6 @@
                                             <div class="add-review">
                                                 <h4>add a review</h4>
                                                 <form action="Home/insertComment.htm" method="get">
-
                                                     <input value="${sp.IDSP}" type="hidden" name="IDSP" />
                                                     <input type="text" name="Name" placeholder="Name" required="Name">
                                                     <input type="email" name="Email" placeholder="Email" required="Email">
@@ -168,12 +162,10 @@
                                                 </c:forEach>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </c:forEach>
                             <div class="tab3">
-
                                 <div class="single_page">
                                     <h6>Shoe Rock Vision(SRV) Sneakers (Blue)</h6>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie
@@ -189,7 +181,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!--//tabs-->
                 <!-- /new_arrivals -->
                 <div class="new_arrivals">
@@ -468,15 +459,22 @@
                     console.log(i);
                     if (i === index) {
                         console.log(trangthai);
-                        document.getElementById('size-detail-' + i + '').setAttribute("style", "background-color:yellow;cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block");
+                        document.getElementById('size-detail-' + i + '').setAttribute("style", "margin-right:10px;background-color:yellow;cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block");
                         document.getElementById('status').innerHTML = trangthai;
                     } else {
                         console.log("null");
-                        document.getElementById('size-detail-' + i + '').setAttribute("style", "cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block");
+                        document.getElementById('size-detail-' + i + '').setAttribute("style", "margin-right:10px;cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block");
                     }
                 }
 
                 document.getElementById('choose-size').innerHTML = size;
+            }
+        </script>
+        <!--Checkout-->
+        <script>
+            function checkout() {
+//                var sum = document.getElementById('tongtien').innerHTML;
+                window.location = ("Home/getGioHang.htm?ck=all");
             }
         </script>
     </body>

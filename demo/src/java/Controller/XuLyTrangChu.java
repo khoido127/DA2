@@ -63,7 +63,8 @@ public class XuLyTrangChu {
                 return "contact";
             case "checkout":
                 return "checkout";
-
+            case "payment":
+                return "payment";
         }
         return "index";
     }
@@ -195,38 +196,33 @@ public class XuLyTrangChu {
             String[] motact = new String[10];
             String[] tieudeCTSP = new String[10];
             String mota = list.get(0).getCtsp().get(0).getMotaCT();
+            String tieude = list.get(0).getCtsp().get(0).getTieudeCTSP();
             int length = 0;
-            if (mota == null || tieudeCTSP == null) {
-                st = 1;
+            if (tieude == null) {
+                tieudeCTSP[0] = "";
             } else {
-                motact = list.get(0).getCtsp().get(0).getMotaCT().split(";");
                 tieudeCTSP = list.get(0).getCtsp().get(0).getTieudeCTSP().split(";");
-                int result = motact.length - hinhsp.length;
-                if (tieudeCTSP.length > hinhsp.length) {
-                    length = hinhsp.length;
-                    if (length > motact.length) {
-                        length = motact.length;
-                    }
-                } else {
-                    length = tieudeCTSP.length;
-                }
-
-                System.out.println("MOTACT: " + motact[0]);
             }
+            motact = list.get(0).getCtsp().get(0).getMotaCT().split("\\^");
+            int result = motact.length - hinhsp.length;
+            if (tieudeCTSP.length > hinhsp.length) {
+                length = hinhsp.length;
+            } else {
+                length = tieudeCTSP.length;
+            }
+            if (length > motact.length) {
+                length = motact.length;
+            }
+            System.out.println("MOTACT: " + motact[0]);
+            System.out.println("Length: " + length);
             System.out.println("HinhSP: " + hinhsp[0]);
-
             CTSPBean sp = null;
-
             for (int j = 0; j < length; j++) {
                 System.out.println("HINHSP: " + hinhsp[j]);
-                if (st == 1) {
-                    sp = new CTSPBean("", hinhsp[j], "");
-                } else {
-                    sp = new CTSPBean(motact[j], hinhsp[j], tieudeCTSP[j]);
-                }
+
+                sp = new CTSPBean(motact[j], hinhsp[j], "");
 
                 ctspbean.add(sp);
-
             }
         }
         System.out.println("DSCTSP: " + ctspbean.size());
@@ -738,7 +734,6 @@ public class XuLyTrangChu {
         String sum = request.getParameter("sum");
         String ck = request.getParameter("ck");
         List<SanPham> dssp = new ArrayList<>();
-
         GioHang gh = new GioHang();
         List<GioHang> dsgh = gh.getGh();
         try {
@@ -767,7 +762,6 @@ public class XuLyTrangChu {
 
                     int sl = 1;
                     String ch = request.getParameter("sl");
-
                     if (ch != null) {
                         soluong = Integer.parseInt(ch);
                     } else {
@@ -782,31 +776,24 @@ public class XuLyTrangChu {
                     }
                     int size = dsgh.size();
                     for (int i = 0; i < dsgh.size(); i++) {
-
                         sl = dsgh.get(i).getSoluong();
-
                         if (dsgh.get(i).getIDSP().equals(id)) {
                             if (soluong > 0) {
                                 System.out.println("ID: " + i);
                                 sl = soluong;
-
                             } else {
                                 if (soluong == -1) {
                                     System.out.println("DSGH: " + dsgh.size());
                                     if (dsgh.size() > 1) {
-                                        System.out.println("Size > 1");
-
+//                                        System.out.println("Size > 1");
                                         dsgh.remove(i);
-                                        System.out.println("I: " + i);
-
+//                                        System.out.println("I: " + i);
                                         System.out.println("SL sau: " + sl);
                                         if (i == dsgh.size()) {
                                             i--;
                                         }
                                         System.out.println("LISTGH: " + dsgh.size());
-
                                     } else {
-
                                         dsgh.remove(i);
                                         model.addAttribute("tongtien", 0);
                                         if (ck.equals("all")) {
@@ -818,7 +805,6 @@ public class XuLyTrangChu {
                                 if (soluong == 0) {
                                     sl++;
                                 }
-
 //                                    dsgh.remove(i);
 //                                    System.out.println("TongTien: " + tongtien);
                             }
@@ -849,29 +835,24 @@ public class XuLyTrangChu {
 //                        model.addAttribute("tongtien", tongtien);
                         }
                     }
-
                     if (dem == 0) {
-
                         tongtien = tongtien + giasp;
                         sum = String.valueOf(tongtien);
                         GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai());
                         dsgh.add(ghang);
-
                     }
-
                     System.out.println("DSLIST: " + dsgh.size());
                     System.out.println("SL: " + sl);
                     System.out.println("TongTien: " + tongtien);
                     System.out.println("Alert: " + alert);
                 }
-
+                model.addAttribute("tongtien", sum);
                 model.addAttribute("listsp", dssp);
                 model.addAttribute("soluong", soluong);
                 model.addAttribute("tongtien", tongtien);
                 model.addAttribute("sumCart", dsgh.size());
                 session.setAttribute("list", dsgh);
                 model.addAttribute("listcart", dsgh);
-
                 if (ck.equals("single")) {
                     for (int i = 0; i < url.length; i++) {
                         SlideBean slide = new SlideBean(url[i]);
@@ -882,20 +863,18 @@ public class XuLyTrangChu {
                     return "single";
                 }
                 System.out.println("Continue 2");
-
                 if (ck.equals("all")) {
                     double sumMoney = 0;
                     for (int i = 0; i < dsgh.size(); i++) {
                         sumMoney = sumMoney + dsgh.get(i).getGiaSP();
                         System.out.println("ABCDEF");
-
                     }
-                    model.addAttribute("tongtien", sum);
+                    model.addAttribute("sumCart", dsgh.size());
+                    model.addAttribute("tongtien", "$" + sum);
                     model.addAttribute("listcart", dsgh);
                     System.out.println("TrueGH: " + dsgh.size());
                     return "checkout";
                 }
-
             } else {
                 if (ck.equals("all")) {
                     double sumMoney = 0;
@@ -904,6 +883,7 @@ public class XuLyTrangChu {
                         System.out.println("ABCDEF");
 
                     }
+                    model.addAttribute("sumCart", dsgh.size());
                     model.addAttribute("tongtien", sum);
                     model.addAttribute("listcart", dsgh);
                     System.out.println("TrueGH: " + dsgh.size());
@@ -911,20 +891,7 @@ public class XuLyTrangChu {
                 }
             }
             return "cartDetail";
-//            else {
-//                if (ck.equals("all")) {
-//                    double sumMoney = 0;
-//                    for (int i = 0; i < dsgh.size(); i++) {
-//                        sumMoney = sumMoney + dsgh.get(i).getGiaSP();
-//                        System.out.println("ABCDEF");
-//
-//                    }
-//                    model.addAttribute("listcart", dsgh);
-//                    model.addAttribute("tongtien", sum);
-//                    System.out.println("TrueGH: " + dsgh.size());
-//                    return "checkout";
-//                }
-//            }
+
         } catch (Exception ex) {
             System.out.println(ex);
         }

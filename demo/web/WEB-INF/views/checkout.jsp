@@ -59,11 +59,11 @@
                                 <%
                                     String idsp = String.valueOf(request.getAttribute("idsp"));
                                 %>
-                                <c:forEach var="sp" items="${listcart}">
+                                <c:forEach var="sp" items="${listcart}" varStatus="st">
                                     <c:set var="IDSP" value="${sp.IDSP}"></c:set>
                                     <c:set var="ID" value="<%=idsp%>"></c:set>
                                     <tr id="check-${sp.IDSP}" class="rem1">
-                                        <td class="invert">1</td>
+                                        <td class="invert">${st.index+1}</td>
                                         <td style="width: 160px;height: 80px;" class=""><a href="single.html"><img src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" alt=" " class="img-responsive"></a></td>
                                         <td class="invert">
                                             <div class="quantity">
@@ -94,9 +94,9 @@
                             <h4><a href="Home/pageShop.htm?code=1@all">Continue to basket</a></h4>
                             <ul>
                                 <c:forEach var="sp" items="${listcart}" varStatus="s">
-                                    <li>Product ${s.index} <i>-</i> <span>$${sp.giaSP} </span></li>
+                                    <li style="font-weight: bold;">Product ${sp.IDSP} <i>-</i> <span>$${sp.giaSP} </span></li>
                                 </c:forEach>
-                                <li>Total Service Charges <i>-</i> <span>$55.00</span></li>
+                                
                                 <li>Total <i>-</i> <span>${tongtien}</span></li>
                             </ul>
                         </div>
@@ -135,7 +135,6 @@
                                                     <option>Office</option>
                                                     <option>Home</option>
                                                     <option>Commercial</option>
-
                                                 </select>
                                             </div>
                                         </div>
@@ -143,17 +142,13 @@
                                 </section>
                             </form>
                             <div class="checkout-right-basket">
-                                <a href="#"> ORDER</a>
+                                <a href="Home/redirectPage.htm?page=payment"> ORDER</a>
                             </div>
                             <div class="checkout-right-basket">
                                 <a href="#">COD </a>
                             </div>
                         </div>
-
                         <div class="clearfix"> </div>
-
-
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>

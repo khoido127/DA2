@@ -86,19 +86,19 @@
                     <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                     <span class="box-cart">
 
-                        
-                        <c:forEach var="sp" items="${list}">
-                        <div style="border-bottom: 1px solid black;" class="fluid-container">
-                            <div class="row">
-                                <div class="col-md-3"><img style="width: 100%;" src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" /></div>
-                                <div style="text-align: left;" class="col-md-5">${sp.tenSP}</div>
-                                <div class="col-md-2">x${sp.soluong}</div>
-                                <div class="col-md-2">${sp.giaSP}$</div>
-                            </div>
 
-                        </div>
+                        <c:forEach var="sp" items="${list}">
+                            <div style="border-bottom: 1px solid black;" class="fluid-container">
+                                <div class="row">
+                                    <div class="col-md-3"><img style="width: 100%;" src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" /></div>
+                                    <div style="text-align: left;" class="col-md-5">${sp.tenSP}</div>
+                                    <div class="col-md-2">x${sp.soluong}</div>
+                                    <div class="col-md-2">${sp.giaSP}$</div>
+                                </div>
+
+                            </div>
                         </c:forEach>
-                        
+
                         <div class="fluid-container">
                             <div class="row">
                                 <div style="font-weight: bold;text-align: left;" class="col-md-6">Subtotal</div>
@@ -107,8 +107,7 @@
                         </div>
                         <div class="fluid-container">
                             <div class="row">
-
-                                <div style="cursor: pointer; font-weight: bold;text-align: center;text-transform: uppercase;font-size: 18px;color: #eb694b;" class="col-md-12">Checkout</div>
+                                <div onclick="checkout();" style="cursor: pointer; font-weight: bold;text-align: center;text-transform: uppercase;font-size: 18px;color: #eb694b;" class="col-md-12">Checkout</div>
                             </div>
                         </div>
                     </span>
@@ -174,7 +173,13 @@
             <div class="clearfix"> </div>
         </div>
         <!-- //slider -->
-
+        <!--Checkout-->
+        <script>
+            function checkout() {
+//                var sum = document.getElementById('tongtien').innerHTML;
+                window.location = ("Home/getGioHang.htm?ck=all&sum=" + sum);
+            }
+        </script>
     </div>
 </div>
 <!-- //banner -->

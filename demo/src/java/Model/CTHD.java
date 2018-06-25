@@ -29,6 +29,9 @@ public class CTHD {
     private String diaChi;
     private String Email;
     @ManyToOne
+    @JoinColumn(name = "IDSP")
+    private SanPham sp;
+    @ManyToOne
     @JoinColumn(name = "IDHD")
     private HoaDon hd;
     public CTHD() {
