@@ -13,6 +13,7 @@ import java.util.List;
  * @author ASUS
  */
 public class GioHang {
+
     private String IDSP;
     private String hinhSP;
     private String tenSP;
@@ -21,7 +22,9 @@ public class GioHang {
     private double tongtien;
     private String idLoai;
     private double giaGoc;
-    public static List<GioHang> gh=new ArrayList<>();
+    private String size;
+    public static List<GioHang> gh = new ArrayList<>();
+
     public GioHang() {
     }
 
@@ -34,7 +37,7 @@ public class GioHang {
         this.tongtien = tongtien;
     }
 
-    public GioHang(String IDSP, String hinhSP, String tenSP, double giaSP, int soluong, double tongtien, String idLoai) {
+    public GioHang(String IDSP, String hinhSP, String tenSP, double giaSP, int soluong, double tongtien, String idLoai, String size) {
         this.IDSP = IDSP;
         this.hinhSP = hinhSP;
         this.tenSP = tenSP;
@@ -42,9 +45,10 @@ public class GioHang {
         this.soluong = soluong;
         this.tongtien = tongtien;
         this.idLoai = idLoai;
+        this.size = size;
     }
 
-    public GioHang(String IDSP, String hinhSP, String tenSP, double giaSP, int soluong, double tongtien, String idLoai, double giaGoc) {
+    public GioHang(String IDSP, String hinhSP, String tenSP, double giaSP, int soluong, double tongtien, String idLoai, double giaGoc, String size) {
         this.IDSP = IDSP;
         this.hinhSP = hinhSP;
         this.tenSP = tenSP;
@@ -53,8 +57,9 @@ public class GioHang {
         this.tongtien = tongtien;
         this.idLoai = idLoai;
         this.giaGoc = giaGoc;
+        this.size = size;
     }
-    
+
     public String getIDSP() {
         return IDSP;
     }
@@ -125,6 +130,14 @@ public class GioHang {
 
     public void setGiaGoc(double giaGoc) {
         this.giaGoc = giaGoc;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
     
 }

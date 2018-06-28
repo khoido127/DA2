@@ -53,7 +53,7 @@
                                     <div style="display: flex;" class="col-md-6">
                                         <c:forEach var="kho" items="${listkho}" varStatus="st">
                                             <input id="index" type="hidden" value="${sumIndex}" />
-                                            <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}')" style="cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block;margin-right: 10px;">${kho.size}</span>
+                                            <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}','${sp.IDSP}')" style="cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block;margin-right: 10px;">${kho.size}</span>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -70,6 +70,7 @@
                             </div>
 
                             <div class="occasion-cart col-md-8">
+                                <!--<input type="hidden" id="tongtien" value="${tongtien}" />-->
                                 <div class="shoe single-item single_page_b">
                                     <input onclick="checkout();" id="add-to-cart" type="button"  value="Add to cart" class="button add">
                                 </div>
@@ -400,14 +401,14 @@
         <script>
 
             function downFunction(id) {
-
+                var size = document.getElementById('choose-size').innerHTML;
                 var quantity = document.getElementById('' + id + '').value;
                 if (quantity > 1) {
                     document.getElementById('add-to-cart').removeAttribute("disabled");
                     document.getElementById('outofstock').innerHTML = "";
                     quantity--;
                     document.getElementById('' + id + '').value = quantity;
-                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single"}, function (data) {
+                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single", 'size': size}, function (data) {
                         console.log(id);
 //                        $("body").html(data);
                     });
@@ -419,6 +420,7 @@
 
             }
             function upFunction(id, giagoc) {
+                var size = document.getElementById('choose-size').innerHTML;
                 var quantity = document.getElementById('' + id + '').value;
                 quantity++;
                 if (quantity > 5) {
@@ -429,7 +431,7 @@
                 } else {
 
                     document.getElementById('' + id + '').value = quantity;
-                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single"}, function (data) {
+                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single", 'size': size}, function (data) {
                         console.log(id);
 //                    $('body').html(data);
 
@@ -440,18 +442,12 @@
 
 
         </script>
-        <!--Checkout-->
-        <script>
-            function checkout() {
-//                var sum = document.getElementById('tongtien').innerHTML;
-                window.location = ("Home/getGioHang.htm?ck=all");
-            }
-        </script>
+
         <!--Get Size-->
         <script>
 
 
-            function getSize(size, index, trangthai) {
+            function getSize(size, index, trangthai,id) {
                 var sumIndex = document.getElementById('index').value;
                 console.log(sumIndex);
                 console.log(index);
@@ -468,12 +464,15 @@
                 }
 
                 document.getElementById('choose-size').innerHTML = size;
+                $.post('Home/getGioHang.htm', {'id': id, 'ck': "single", 'size': size}, function (data) {
+                    
+                });
             }
         </script>
         <!--Checkout-->
         <script>
             function checkout() {
-//                var sum = document.getElementById('tongtien').innerHTML;
+//                var size = document.getElementById('choose-size').innerHTML;
                 window.location = ("Home/getGioHang.htm?ck=all");
             }
         </script>

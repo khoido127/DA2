@@ -56,8 +56,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%
-                                    String idsp = String.valueOf(request.getAttribute("idsp"));
+                                <%                                    String idsp = String.valueOf(request.getAttribute("idsp"));
                                 %>
                                 <c:forEach var="sp" items="${listcart}" varStatus="st">
                                     <c:set var="IDSP" value="${sp.IDSP}"></c:set>
@@ -95,32 +94,32 @@
                             <ul>
                                 <c:forEach var="sp" items="${listcart}" varStatus="s">
                                     <li style="font-weight: bold;">Product ${sp.IDSP} <i>-</i> <span>$${sp.giaSP} </span></li>
-                                </c:forEach>
-                                
+                                    </c:forEach>
+
                                 <li>Total <i>-</i> <span>${tongtien}</span></li>
                             </ul>
                         </div>
                         <div class="col-md-8 address_form">
                             <h4>Add a new Details</h4>
-                            <form action="Home/payment.htm" method="post" class="creditly-card-form agileinfo_form">
+                            <form action="Home/payment.htm" method="get" class="creditly-card-form agileinfo_form">
                                 <section class="creditly-wrapper wrapper">
                                     <div class="information-wrapper">
                                         <div class="first-row form-group">
                                             <div class="controls">
                                                 <label class="control-label">Full name: </label>
-                                                <input class="billing-address-name form-control" type="text" name="name" placeholder="Full name">
+                                                <input class="billing-address-name form-control" type="text" name="TenKH" placeholder="Full name">
                                             </div>
                                             <div class="card_number_grids">
                                                 <div class="card_number_grid_left">
                                                     <div class="controls">
                                                         <label class="control-label">Mobile number:</label>
-                                                        <input class="form-control" type="text" placeholder="Mobile number">
+                                                        <input name="SDT" class="form-control" type="text" placeholder="Mobile number">
                                                     </div>
                                                 </div>
                                                 <div class="card_number_grid_right">
                                                     <div class="controls">
-                                                        <label class="control-label">Landmark: </label>
-                                                        <input class="form-control" type="text" placeholder="Landmark">
+                                                        <label class="control-label">Address: </label>
+                                                        <input name="diaChi" class="form-control" type="text" placeholder="Address">
                                                     </div>
                                                 </div>
                                                 <div class="clear"> </div>
@@ -130,12 +129,8 @@
                                                 <input class="form-control" type="text" placeholder="Town/City">
                                             </div>
                                             <div class="controls">
-                                                <label class="control-label">Address type: </label>
-                                                <select class="form-control option-w3ls">
-                                                    <option>Office</option>
-                                                    <option>Home</option>
-                                                    <option>Commercial</option>
-                                                </select>
+                                                <label class="control-label">Email: </label>
+                                                <input name="Email" class="form-control" type="text" placeholder="Email">
                                             </div>
                                         </div>
                                     </div>

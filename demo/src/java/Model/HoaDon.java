@@ -10,8 +10,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,7 +22,6 @@ import javax.persistence.TemporalType;
 public class HoaDon {
     @Id
     private String IDHD;
-    private String LoaiHD;
     @Temporal(TemporalType.TIMESTAMP)
     private Date Ngay;
     private String HinhThucTT;
@@ -35,29 +32,26 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String IDHD, String LoaiHD, Date Ngay, String HinhThucTT, List<CTHD> cthd) {
+    public HoaDon(String IDHD, Date Ngay, String HinhThucTT, List<CTHD> cthd) {
         this.IDHD = IDHD;
-        this.LoaiHD = LoaiHD;
         this.Ngay = Ngay;
         this.HinhThucTT = HinhThucTT;
         this.cthd = cthd;
         
     }
 
+    public HoaDon(String IDHD, Date Ngay, String HinhThucTT) {
+        this.IDHD = IDHD;
+        this.Ngay = Ngay;
+        this.HinhThucTT = HinhThucTT;
+    }
+    
     public String getIDHD() {
         return IDHD;
     }
 
     public void setIDHD(String IDHD) {
         this.IDHD = IDHD;
-    }
-
-    public String getLoaiHD() {
-        return LoaiHD;
-    }
-
-    public void setLoaiHD(String LoaiHD) {
-        this.LoaiHD = LoaiHD;
     }
 
     public Date getNgay() {

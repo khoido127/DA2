@@ -3,23 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
- * @author Administrator
+ * @author ASUS
  */
-@Entity
-public class CTHD {
-    @Id 
-    @GeneratedValue
-    private Integer STT;
+public class CTHDBean {
+    private String IDHD;
+    private Date ngay;
+    private String hinhthuctt;
     private String TenSP;
     private String SL;
     private String Size;
@@ -28,17 +25,15 @@ public class CTHD {
     private String SDT;
     private String diaChi;
     private String Email;
-    @ManyToOne
-    @JoinColumn(name = "IDSP")
-    private SanPham sp;
-    @ManyToOne
-    @JoinColumn(name = "IDHD")
-    private HoaDon hd;
-    public CTHD() {
+    private String IDSP;
+    public static List<CTHDBean> hd=new ArrayList<>();
+    public CTHDBean() {
     }
 
-    public CTHD(Integer STT, String TenSP, String SL, String Size, String Gia, String TenKH, String SDT, String diaChi, String Email, HoaDon hd) {
-        this.STT = STT;
+    public CTHDBean(String IDHD, Date ngay, String hinhthuctt, String TenSP, String SL, String Size, String Gia, String TenKH, String SDT, String diaChi, String Email, String IDSP) {
+        this.IDHD = IDHD;
+        this.ngay = ngay;
+        this.hinhthuctt = hinhthuctt;
         this.TenSP = TenSP;
         this.SL = SL;
         this.Size = Size;
@@ -47,10 +42,10 @@ public class CTHD {
         this.SDT = SDT;
         this.diaChi = diaChi;
         this.Email = Email;
-        this.hd = hd;
+        this.IDSP = IDSP;
     }
-
-    public CTHD(String TenSP, String SL, String Size, String Gia, String TenKH, String SDT, String diaChi, String Email, SanPham sp, HoaDon hd) {
+ 
+    public CTHDBean(String TenSP, String SL, String Size, String Gia, String TenKH, String SDT, String diaChi, String Email, String IDSP) {
         this.TenSP = TenSP;
         this.SL = SL;
         this.Size = Size;
@@ -59,16 +54,31 @@ public class CTHD {
         this.SDT = SDT;
         this.diaChi = diaChi;
         this.Email = Email;
-        this.sp = sp;
-        this.hd = hd;
-    }
-    
-    public Integer getSTT() {
-        return STT;
+        this.IDSP = IDSP;
     }
 
-    public void setSTT(Integer STT) {
-        this.STT = STT;
+    public String getIDHD() {
+        return IDHD;
+    }
+
+    public void setIDHD(String IDHD) {
+        this.IDHD = IDHD;
+    }
+
+    public Date getNgay() {
+        return ngay;
+    }
+
+    public void setNgay(Date ngay) {
+        this.ngay = ngay;
+    }
+
+    public String getHinhthuctt() {
+        return hinhthuctt;
+    }
+
+    public void setHinhthuctt(String hinhthuctt) {
+        this.hinhthuctt = hinhthuctt;
     }
 
     public String getTenSP() {
@@ -77,14 +87,6 @@ public class CTHD {
 
     public void setTenSP(String TenSP) {
         this.TenSP = TenSP;
-    }
-
-    public String getSize() {
-        return Size;
-    }
-
-    public void setSize(String Size) {
-        this.Size = Size;
     }
 
     public String getSL() {
@@ -103,6 +105,15 @@ public class CTHD {
         this.Gia = Gia;
     }
     
+    public String getSize() {
+        return Size;
+    }
+
+    public void setSize(String Size) {
+        this.Size = Size;
+    }
+
+
     public String getTenKH() {
         return TenKH;
     }
@@ -135,12 +146,20 @@ public class CTHD {
         this.Email = Email;
     }
 
-    public HoaDon getHd() {
+    public String getIDSP() {
+        return IDSP;
+    }
+
+    public void setIDSP(String IDSP) {
+        this.IDSP = IDSP;
+    }
+
+    public static List<CTHDBean> getHd() {
         return hd;
     }
 
-    public void setHd(HoaDon hd) {
-        this.hd = hd;
+    public static void setHd(List<CTHDBean> hd) {
+        CTHDBean.hd = hd;
     }
     
 }
