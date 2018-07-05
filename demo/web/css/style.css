@@ -2203,42 +2203,52 @@ button.btn1 {
 /* end font size*/
 /*margin & padding*/
 .no-margin{margin: 0;}
+
+.mg-b-0{margin-bottom: 0px}
 .mg-b-5{margin-bottom: 5px}
 .mg-b-10{margin-bottom: 10px}
 .mg-b-15{margin-bottom: 15px}
 .mg-b-20{margin-bottom: 20px}
 
+.mg-t-0{margin-top: 0px}
 .mg-t-5{margin-top: 5px}
 .mg-t-10{margin-top: 10px}
 .mg-t-15{margin-top: 15px}
 .mg-t-20{margin-top: 20px}
 
+.mg-l-0{margin-left: 0px}
 .mg-l-5{margin-left: 5px}
 .mg-l-10{margin-left: 10px}
 .mg-l-15{margin-left: 15px}
 .mg-l-20{margin-left: 20px}
 
+.mg-r-0{margin-right: 0px}
 .mg-r-5{margin-right: 5px}
 .mg-r-10{margin-right: 10px}
 .mg-r-15{margin-right: 15px}
 .mg-r-20{margin-right: 20px}
 
 .no-padding{padding: 0}
+
+.p-t-0{padding-top:0px}
 .p-t-5{padding-top:5px}
 .p-t-10{padding-top:10px}
 .p-t-15{padding-top:15px}
 .p-t-20{padding-top:20px}
 
+.p-r-0{padding-right:0px}
 .p-r-5{padding-right:5px}
 .p-r-10{padding-right:10px}
 .p-r-15{padding-right:15px}
 .p-r-20{padding-right:20px}
 
+.p-b-0{padding-bottom:0px}
 .p-b-5{padding-bottom:5px}
 .p-b-10{padding-bottom:10px}
 .p-b-15{padding-bottom:15px}
 .p-b-20{padding-bottom:20px}
 
+.p-l-0{padding-left:0px}
 .p-l-5{padding-left:5px}
 .p-l-10{padding-left:10px}
 .p-l-15{padding-left:15px}
@@ -2310,7 +2320,8 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
     top: 10px!important;
     right: 90px!important;
 }
-
+.edit-label{width: 35%}
+.edit-field{width: 65%}
 /*manage page*/
 .content-manage-page .navbar{
     background-color: black;
@@ -2335,6 +2346,27 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
 .content-manage-page .sidebar-nav .menu-title li:hover .sub-menu li:hover {background-color: white;}
 .content-manage-page .sidebar-nav .menu-title li:hover .sub-menu li:hover a{color: #a3a3a3;}
 .content-manage-page .sidebar-nav .menu-title li .sub-menu a{font-size: 14px;}
+
+/*admin css*/
+.content-manage-page .content-left-panel .flexslider {
+    width: 300px;
+    margin: 0;
+}
+.content-manage-page .content-left-panel .flexslider .flex-control-thumbs{
+    text-align: center;
+}
+.content-manage-page .content-left-panel .flexslider .flex-control-thumbs li{
+    width: 90px;
+    height: 100px;
+}
+.content-manage-page .content-right-panel .table-responsive {
+    height: 355px;
+}
+.content-manage-page .content-right-panel .table-responsive table tr:focus{
+    background: red;
+}
+/*end admin css*/
+
 
 
 
