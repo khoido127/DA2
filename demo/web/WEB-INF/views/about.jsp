@@ -221,10 +221,10 @@
                                                     <input type="button" class="btn" value="Choose Image"/>
                                                 </td>
                                                 <td>
-                                                    <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="100"> </textarea>
+                                                    <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="100"></textarea>
                                                 </td>
                                                 <td>
-                                                    <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"> </textarea>
+                                                    <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"></textarea>
                                                 </td>
                                                 <td>
                                                     <input type="button" class="btn btn-trash" value="Delete"/>
