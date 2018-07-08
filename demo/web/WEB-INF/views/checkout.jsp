@@ -1,5 +1,5 @@
 
-
+<%@page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -133,13 +133,14 @@
                                         </div>
                                     </div>
                                 </section>
+
+                                <div class="checkout-right-basket">
+                                    <input type="submit" value="Order" />
+                                </div>
+                                <div class="checkout-right-basket">
+                                    <a href="#">COD </a>
+                                </div>
                             </form>
-                            <div class="checkout-right-basket">
-                                <a href="Home/redirectPage.htm?page=payment"> ORDER</a>
-                            </div>
-                            <div class="checkout-right-basket">
-                                <a href="#">COD </a>
-                            </div>
                         </div>
                         <div class="clearfix"> </div>
                     </div>
@@ -275,7 +276,7 @@
 
 
         </script>
-        <script></script>
+
     </body>
 
 </html>

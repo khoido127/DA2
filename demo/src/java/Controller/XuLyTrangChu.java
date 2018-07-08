@@ -15,9 +15,10 @@ import Bean.PageNumberBean;
 import Bean.SanPhamBean;
 import Bean.SearchBean;
 import Bean.SlideBean;
+import Model.HoaDon;
 import Model.CTSP;
 import Model.Comment;
-import Model.HoaDon;
+
 import Model.Loai;
 import Model.SanPham;
 import java.text.SimpleDateFormat;
@@ -791,7 +792,7 @@ public class XuLyTrangChu {
                             if (soluong > 0) {
                                 System.out.println("ID: " + i);
                                 sl = soluong;
-                                
+
                             } else {
                                 if (soluong == -1) {
                                     System.out.println("DSGH: " + dsgh.size());
@@ -914,8 +915,10 @@ public class XuLyTrangChu {
 
     @RequestMapping("payment")
     public String payment(HttpServletRequest request, CTHDBean cthd) {
-
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
         try {
+            System.out.println("Address: " + cthd.getDiaChi());
             String idsp = "";
             String tensp = "";
             String sl = "";
@@ -925,48 +928,41 @@ public class XuLyTrangChu {
             Date d = new Date();
             String chuoingay = format.format(d);
             Date ngaymua = format.parse(chuoingay);
+            System.out.println("NgayMua: " + chuoingay);
             String idhd = "";
-            Session s = factory.getCurrentSession();
             String hql = "From HoaDon";
             Query query = s.createQuery(hql);
             List<HoaDon> ds = query.list();
-            int dshd = ds.size();
+            int dshd = 0;
+            if (ds.size() == 0) {
+                dshd = 1;
+            }
+            idhd = "HD" + dshd;
             GioHang gh = new GioHang();
             List<GioHang> g = gh.getGh();
             List<CTHDBean> dshdbean = new ArrayList<>();
             for (int i = 0; i < g.size(); i++) {
-                if (dshd == 0) {
-                    dshd = 1;
-                }
-                idhd = "HD" + dshd;
+
                 idsp = idsp + "^" + String.valueOf(g.get(i).getIDSP());
                 tensp = tensp + "^" + String.valueOf(g.get(i).getTenSP());
                 sl = sl + "^" + String.valueOf(g.get(i).getSoluong());
                 size = size + "^" + String.valueOf(g.get(i).getSize());
                 gia = gia + "^" + String.valueOf(g.get(i).getGiaSP());
             }
-            CTHDBean ctbean = new CTHDBean(idhd, ngaymua, "COD", tensp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), idsp);
-            dshdbean.add(ctbean);
+            System.out.println("IDHD: " + idhd);
+            System.out.println("IDSP: " + idsp);
+            System.out.println("TenSP: " + tensp);
+            System.out.println("SoLuong: " + sl);
+            System.out.println("Size: " + size);
+            System.out.println("Gia: " + gia);
+            HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "Đặt hàng");
+            s.save(ct);
+            t.commit();
         } catch (Exception ex) {
-
-        }
-        return "payment";
-    }
-
-    @RequestMapping("savePayment")
-    public String savePayment() {
-        Session s = factory.openSession();
-        Transaction t = s.beginTransaction();
-        try {
-            CTHDBean ctbean = new CTHDBean();
-            List<CTHDBean> ds = ctbean.getHd();
-            for (CTHDBean ct : ds) {
-                HoaDon hd = new HoaDon(ct.getIDHD(), ct.getNgay(), ct.getHinhthuctt());
-                s.save(hd);
-            }
-        } catch (Exception ex) {
+            t.rollback();
             System.out.println(ex);
         }
-        return "payment";
+        return "index";
     }
+
 }

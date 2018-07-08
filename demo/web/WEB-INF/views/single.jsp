@@ -451,13 +451,9 @@
             if (st === "F") {
                 console.log(st);
                 document.getElementById('size-detail-' + 0 + '').setAttribute("style", "cursor: pointer;color: #FFC226;");
-                var size = document.getElementById('size-detail-' + 0 + '').innerHTML;
-                var id = document.getElementById('idsp').value;
-                console.log(size);
-                $.post('Home/getGioHang.htm', {'id': id, 'ck': "single", 'size': size}, function (data) {
-
-                });
-                console.log(document.getElementById('statusSize').value);
+                document.getElementById('choose-size').innerHTML = document.getElementById('size-detail-' + 0 + '').innerHTML;
+//                var size = document.getElementById('choose-size').innerHTML;
+//                var id = document.getElementById('idsp').value;
             }
             function getSize(size, index, trangthai, id) {
                 var sumIndex = document.getElementById('index').value;

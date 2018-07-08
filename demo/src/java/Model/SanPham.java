@@ -31,8 +31,6 @@ public class SanPham implements Serializable{
     @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
     List<CTSP> ctsp;
     @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
-    List<CTHD> cthd;
-    @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
     List<Comment> commnent;
     @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
     List<Kho> kho;
@@ -42,7 +40,7 @@ public class SanPham implements Serializable{
     public SanPham() {
     }
 
-    public SanPham(String IDSP, String TenSP, Double GiaSPKM, Double GiaSP, String isHot, String MoTa, String HinhSP, List<CTSP> ctsp, List<CTHD> cthd, List<Comment> commnent, List<Kho> kho, Loai loai) {
+    public SanPham(String IDSP, String TenSP, Double GiaSPKM, Double GiaSP, String isHot, String MoTa, String HinhSP, List<CTSP> ctsp, List<Comment> commnent, List<Kho> kho, Loai loai) {
         this.IDSP = IDSP;
         this.TenSP = TenSP;
         this.GiaSPKM = GiaSPKM;
@@ -51,7 +49,6 @@ public class SanPham implements Serializable{
         this.MoTa = MoTa;
         this.HinhSP = HinhSP;
         this.ctsp = ctsp;
-        this.cthd = cthd;
         this.commnent = commnent;
         this.kho = kho;
         this.loai = loai;
@@ -149,14 +146,6 @@ public class SanPham implements Serializable{
         this.loai = loai;
     }
 
-    public List<CTHD> getCthd() {
-        return cthd;
-    }
-
-    public void setCthd(List<CTHD> cthd) {
-        this.cthd = cthd;
-    }
-    
     public List<Kho> getKho() {
         return kho;
     }
