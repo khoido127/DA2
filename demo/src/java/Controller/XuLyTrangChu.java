@@ -204,7 +204,7 @@ public class XuLyTrangChu {
             if (tieude == null) {
                 tieudeCTSP[0] = "";
             } else {
-                tieudeCTSP = list.get(0).getCtsp().get(0).getTieudeCTSP().split(";");
+                tieudeCTSP = list.get(0).getCtsp().get(0).getTieudeCTSP().split("\\^");
             }
             motact = list.get(0).getCtsp().get(0).getMotaCT().split("\\^");
             int result = motact.length - hinhsp.length;
@@ -223,7 +223,7 @@ public class XuLyTrangChu {
             for (int j = 0; j < length; j++) {
                 System.out.println("HINHSP: " + hinhsp[j]);
 
-                sp = new CTSPBean(motact[j], hinhsp[j], "");
+                sp = new CTSPBean(motact[j], hinhsp[j], tieudeCTSP[j]);
 
                 ctspbean.add(sp);
             }
@@ -740,11 +740,11 @@ public class XuLyTrangChu {
         GioHang gh = new GioHang();
         List<GioHang> dsgh = gh.getGh();
         try {
-            Cookie[] cookies=request.getCookies();
-            
-            for(Cookie c:cookies){
-                System.out.println("Cookies Name: "+c.getName());
-                System.out.println("Cookies Value: "+c.getValue());
+            Cookie[] cookies = request.getCookies();
+
+            for (Cookie c : cookies) {
+                System.out.println("Cookies Name: " + c.getName());
+                System.out.println("Cookies Value: " + c.getValue());
             }
             if (ck == null) {
                 ck = "false";
@@ -791,7 +791,7 @@ public class XuLyTrangChu {
                             if (soluong > 0) {
                                 System.out.println("ID: " + i);
                                 sl = soluong;
-
+                                
                             } else {
                                 if (soluong == -1) {
                                     System.out.println("DSGH: " + dsgh.size());
@@ -899,7 +899,6 @@ public class XuLyTrangChu {
                     model.addAttribute("sumCart", dsgh.size());
                     model.addAttribute("tongtien", sumMoney);
                     model.addAttribute("listcart", dsgh);
-
                     System.out.println("TrueGH: " + dsgh.size());
                     return "checkout";
                 }

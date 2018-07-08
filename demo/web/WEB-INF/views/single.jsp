@@ -48,13 +48,15 @@
                         <div class="color-quality">
                             <div class="color-quality-right">
                                 <h5 style="float: left;">Size:<span style="display: inline-block;margin: 0 12px;" id="choose-size"></span><span id="status" style="color: red; font-size: 14px;display: inline-block;margin-left: 108px;font-style: italic;"></span></h5> 
+                                <input type="hidden" id="statusSize" value="F" />
                                 <div style="clear: both;"></div>
                                 <div id="size" class="row">
                                     <div style="display: flex;" class="col-md-6">
                                         <c:forEach var="kho" items="${listkho}" varStatus="st">
                                             <div class="wrap-size">
-                                            <input id="index" type="hidden" value="${sumIndex}" />
-                                            <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}','${sp.IDSP}')" class="custom-size">${kho.size}</span>
+                                                <input id="index" type="hidden" value="${sumIndex}" />
+                                                <input id="idsp" type="hidden" value="${sp.IDSP}" />
+                                                <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}', '${sp.IDSP}')" class="custom-size">${kho.size}</span>
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -166,7 +168,7 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                                <div class="tab3" style="display:none">
+                            <div class="tab3" style="display:none">
                                 <div class="single_page">
                                     <h6>Shoe Rock Vision(SRV) Sneakers (Blue)</h6>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie
@@ -445,9 +447,19 @@
 
         <!--Get Size-->
         <script>
+            var st = document.getElementById('statusSize').value;
+            if (st === "F") {
+                console.log(st);
+                document.getElementById('size-detail-' + 0 + '').setAttribute("style", "cursor: pointer;color: #FFC226;");
+                var size = document.getElementById('size-detail-' + 0 + '').innerHTML;
+                var id = document.getElementById('idsp').value;
+                console.log(size);
+                $.post('Home/getGioHang.htm', {'id': id, 'ck': "single", 'size': size}, function (data) {
 
-
-            function getSize(size, index, trangthai,id) {
+                });
+                console.log(document.getElementById('statusSize').value);
+            }
+            function getSize(size, index, trangthai, id) {
                 var sumIndex = document.getElementById('index').value;
                 console.log(sumIndex);
                 console.log(index);
@@ -457,22 +469,27 @@
                         console.log(trangthai);
                         document.getElementById('size-detail-' + i + '').setAttribute("style", "cursor: pointer;color: #FFC226;");
                         document.getElementById('status').innerHTML = trangthai;
+                        document.getElementById('statusSize').value = "T";
                     } else {
                         console.log("null");
                         document.getElementById('size-detail-' + i + '').setAttribute("style", "cursor: pointer;color: white;");
+
                     }
                 }
-
+                console.log(document.getElementById('statusSize').value);
                 document.getElementById('choose-size').innerHTML = size;
                 $.post('Home/getGioHang.htm', {'id': id, 'ck': "single", 'size': size}, function (data) {
-                    
+
                 });
+                console.log(document.getElementById('statusSize').value);
             }
         </script>
         <!--Checkout-->
         <script>
+
             function checkout() {
 //                var size = document.getElementById('choose-size').innerHTML;
+
                 window.location = ("Home/getGioHang.htm?ck=all");
             }
         </script>
