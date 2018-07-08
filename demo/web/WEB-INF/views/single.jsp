@@ -52,8 +52,10 @@
                                 <div id="size" class="row">
                                     <div style="display: flex;" class="col-md-6">
                                         <c:forEach var="kho" items="${listkho}" varStatus="st">
+                                            <div class="wrap-size">
                                             <input id="index" type="hidden" value="${sumIndex}" />
-                                            <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}','${sp.IDSP}')" style="cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block;margin-right: 10px;">${kho.size}</span>
+                                            <span id="size-detail-${st.index}" onclick="getSize('${kho.size}',${st.index}, '${kho.trangthai}','${sp.IDSP}')" class="custom-size">${kho.size}</span>
+                                            </div>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -72,7 +74,7 @@
                             <div class="occasion-cart col-md-8">
                                 <!--<input type="hidden" id="tongtien" value="${tongtien}" />-->
                                 <div class="shoe single-item single_page_b">
-                                    <input onclick="checkout();" id="add-to-cart" type="button"  value="Add to cart" class="button add">
+                                    <input onclick="checkout();" id="add-to-cart" type="button"  value="Add to cart" class="btn btn-add">
                                 </div>
 
                             </div>
@@ -91,7 +93,7 @@
                             <ul class="resp-tabs-list">
                                 <li>Description</li>
                                 <li>Reviews</li>
-                                <li>Information</li>
+                                <li style="display: none">Information</li>
                             </ul>
                             <div class="resp-tabs-container">
                                 <!--/tab_one-->
@@ -134,11 +136,9 @@
                                                 </div>
                                                 <div class="bootstrap-tab-text-grid-right">
                                                     <ul>
-                                                        <li><a href="#">Admin</a></li>
+                                                        <li><a href="#">Z4 Team</a></li>
                                                     </ul>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget.Ut enim ad minima veniam,
-                                                        quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis
-                                                        autem vel eum iure reprehenderit.</p>
+                                                    <p>Being a legionnaire meant walking, crawling, running and climbing, day and night. It wasn't about fighting, but about navigating and surviving in some of the world's most hostile environments.</p>
                                                 </div>
                                                 <div class="clearfix"> </div>
                                             </div>
@@ -166,7 +166,7 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                            <div class="tab3">
+                                <div class="tab3" style="display:none">
                                 <div class="single_page">
                                     <h6>Shoe Rock Vision(SRV) Sneakers (Blue)</h6>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie
@@ -455,11 +455,11 @@
                     console.log(i);
                     if (i === index) {
                         console.log(trangthai);
-                        document.getElementById('size-detail-' + i + '').setAttribute("style", "margin-right:10px;background-color:yellow;cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block");
+                        document.getElementById('size-detail-' + i + '').setAttribute("style", "cursor: pointer;color: #FFC226;");
                         document.getElementById('status').innerHTML = trangthai;
                     } else {
                         console.log("null");
-                        document.getElementById('size-detail-' + i + '').setAttribute("style", "margin-right:10px;cursor: pointer;line-height: 48px;text-align: center;width: 48px;height: 48px;border: 1px solid red; display: inline-block");
+                        document.getElementById('size-detail-' + i + '').setAttribute("style", "cursor: pointer;color: white;");
                     }
                 }
 

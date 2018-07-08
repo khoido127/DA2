@@ -2322,6 +2322,38 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
 }
 .edit-label{width: 35%}
 .edit-field{width: 65%}
+
+/*singel page*/
+.wrap-size{
+    position: relative;
+    background-image: url(../images/sneakers.png);
+    background-repeat: no-repeat;
+    background-size: 50px;
+    cursor: pointer;
+    margin-right: 10px;
+    background-size: 65px;
+    width: 65px;
+    height: 60px;
+}
+.custom-size{
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    top: 5px;
+    left: 4px;
+    color: white;
+    font-weight: bold;
+    
+}
+.custom-size:hover{
+    color: #FFC226;
+}
+/*end single page*/
+
 /*manage page*/
 .content-manage-page .navbar{
     background-color: black;

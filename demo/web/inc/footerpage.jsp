@@ -1,10 +1,13 @@
 <%@ page pageEncoding="utf-8"%>
 <div class="footer_agileinfo_w3">
     <div class="footer_inner_info_w3ls_agileits">
-        <div class="col-md-3 footer-left">
+        <div class="col-md-12 footer-left">
+            <div class="col-md-6">
             <h2><a href="Home/redirectPage.htm?page=index"><span>Z4</span>SNEAKERS</a></h2>
             <p>A history in running. A future in style.</p>
-            <ul class="social-nav model-3d-0 footer-social social two">
+            </div>
+            <div class="col-md-6">
+            <ul class="social-nav model-3d-0 footer-social social two tx-al-r">
 
                 <li>
                     <a href="#" class="facebook">
@@ -32,6 +35,7 @@
                     </a>
                 </li>
             </ul>
+                </div>
         </div>
 
         <div class="clearfix"></div>

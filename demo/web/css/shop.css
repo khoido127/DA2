@@ -1118,21 +1118,23 @@ input.button.add {
 }
 .single-right-left .product-quantity .product-minus{
     display: inline-block;
-    padding: 14px 18px;
+    padding: 5px 10px;
     background-color: #F2F2F2;
     cursor: pointer;
 }
 .single-right-left .product-quantity .product-minus:hover{
-    background-color: #D9D9D9;
+    background-color: #FFC226;
+        color: white;
 }
 .single-right-left .product-quantity .product-plus{
     display: inline-block;
-    padding: 14px 18px;
+    padding: 5px 10px;
     background-color: #F2F2F2;
     cursor: pointer;
 }
 .single-right-left .product-quantity .product-plus:hover{
-    background-color: #D9D9D9;
+    background-color: #FFC226;
+    color: white;
 }
 .single-right-left .product-quantity input[type=number]{
     text-align: center;

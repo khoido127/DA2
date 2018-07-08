@@ -128,6 +128,7 @@
                                         <th>STATUS</th>
                                         <th>DATE</th>
                                         <th>PRICE</th>
+                                        <th>EDIT</th>
                                         <th>DELETE</th>
                                         <th>PRODUCT DETAIL</th>
                                     </tr>
@@ -139,6 +140,9 @@
                                         <td>SALE</td>
                                         <td class="txt-oflo">April 18, 2017</td>
                                         <td><span class="text-success">$24</span></td>
+                                        <td>
+                                            <input type="button" class="btn btn-edit" value="Edit"/>
+                                        </td>
                                         <td>
                                             <input style="display: none" type="checkbox" class="custom-checkbox"/>
                                             <input type="button" class="btn btn-trash" value="Delete"/>
@@ -154,6 +158,9 @@
                                         <td class="txt-oflo">April 19, 2017</td>
                                         <td><span class="text-info">$1250</span></td>
                                         <td>
+                                            <input type="button" class="btn btn-edit" value="Edit"/>
+                                        </td>
+                                        <td>
                                             <input style="display: none" type="checkbox" class="custom-checkbox"/>
                                             <input type="button" class="btn btn-trash" value="Delete"/>
                                         </td>
@@ -168,6 +175,9 @@
                                         <td class="txt-oflo">April 19, 2017</td>
                                         <td><span class="text-info">$1250</span></td>
                                         <td>
+                                            <input type="button" class="btn btn-edit" value="Edit"/>
+                                        </td>
+                                        <td>
                                             <input style="display: none" type="checkbox" class="custom-checkbox"/>
                                             <input type="button" class="btn btn-trash" value="Delete"/>
                                         </td>
@@ -181,6 +191,9 @@
                                         <td>TAX</td>
                                         <td class="txt-oflo">April 20, 2017</td>
                                         <td><span class="text-danger">-$24</span></td>
+                                        <td>
+                                            <input type="button" class="btn btn-edit" value="Edit"/>
+                                        </td>
                                         <td>
                                             <input style="display: none" type="checkbox" class="custom-checkbox"/>
                                             <input type="button" class="btn btn-trash" value="Delete"/>
@@ -201,7 +214,7 @@
                         <h1> Product Description</h1>
                         <div class="col-md-12">
                             <div class="white-box">
-                                <h3 class="box-title">Product table</h3>
+                                <h3 class="box-title">Description table</h3>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -286,6 +299,100 @@
                                 <input type="button" class="btn" value="Save"/>
                                 <input type="button" class="btn" value="Add New"/>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row mg-t-10">
+                        <h1> Product Review</h1>
+                        <div class="col-md-12">
+                            <div class="white-box">
+                                <h3 class="box-title">Review table</h3>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>NAME</th>
+                                                <th>EMAIL</th>
+                                                <th>COMMENT</th>
+                                                <th>REPLY</th>
+                                                <th>SAVE</th>
+                                                <th>DELETE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td><p>guest</p></td>
+                                                <td><p>guest123@gmail.com</p></td>
+                                                <td>
+                                                    <p class="comment-field">asdasdasdasdasdasdasddfasdfasdfasdf</p>
+                                                </td>
+                                                <td>
+                                                    <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"></textarea>
+                                                </td>
+                                                <td>
+                                                    <input type="button" class="btn btn-edit" value="Edit"/>
+                                                </td>
+                                                <td>
+                                                    <input type="button" class="btn btn-trash" value="Delete"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td><p>guest</p></td>
+                                                <td><p>guest123@gmail.com</p></td>
+                                                <td>
+                                                    <p class="comment-field">asdasdasdasdasdasdasddfasdfasdfasdf</p>
+                                                </td>
+                                                <td>
+                                                    <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"> </textarea>
+                                                </td>
+                                                 <td>
+                                                    <input type="button" class="btn btn-edit" value="Edit"/>
+                                                </td>
+                                                <td>
+                                                    <input type="button" class="btn btn-trash" value="Delete"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td><p>guest</p></td>
+                                                <td><p>guest123@gmail.com</p></td>
+                                                <td>
+                                                    <p class="comment-field">asdasdasdasdasdasdasddfasdfasdfasdf</p>
+                                                </td>
+                                                <td>
+                                                    <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"> </textarea>
+                                                </td>
+                                                 <td>
+                                                    <input type="button" class="btn btn-edit" value="Edit"/>
+                                                </td>
+                                                <td>
+                                                    <input type="button" class="btn btn-trash" value="Delete"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td><p>guest</p></td>
+                                                <td><p>guest123@gmail.com</p></td>
+                                                <td>
+                                                    <p class="comment-field">asdasdasdasdasdasdasddfasdfasdfasdf</p>
+                                                </td>
+                                                <td>
+                                                    <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"> </textarea>
+                                                </td>
+                                                 <td>
+                                                    <input type="button" class="btn btn-edit" value="Edit"/>
+                                                </td>
+                                                <td>
+                                                    <input type="button" class="btn btn-trash" value="Delete"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <!-- end content product decription-->
