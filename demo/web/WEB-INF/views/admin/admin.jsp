@@ -56,9 +56,9 @@
                 </div>
                 <!-- End Left Sidebar -->
                 <!-- Page Content -->
-                
+                <div id="page-wrapper" class="pull-right" style="width: 80%">
                 <c:import url="${page}"></c:import>
-                
+                </div>
             </div>
             <div class="clearfix"></div>
             <!-- footer -->
@@ -66,7 +66,7 @@
         </div>
 
         <!-- //footer -->
-        <!-- All Jquery -->
+       <!-- All Jquery -->
         <!-- Bootstrap Core JavaScript -->
         <script src="../manage-lib/bootstrap/dist/js/bootstrap.min.js"></script>
         <!--slimscroll JavaScript -->
@@ -76,6 +76,102 @@
         <!-- Custom Theme JavaScript -->
         <script src="../manage-lib/js/custom.min.js"></script>
         <script src="../manage-lib/js/dashboard1.js"></script>
+        <!-- js -->
+        <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+        <!-- //js -->
+        <!-- cart-js -->
+        <script src="js/minicart.js"></script>
+        <script>
+            shoe.render();
+            shoe.cart.on('shoe_checkout', function (evt) {
+                var items, len, i;
+                if (this.subtotal() > 0) {
+                    items = this.items();
+                    for (i = 0, len = items.length; i < len; i++) {
+                    }
+                }
+            });
+        </script>
+        <!-- //cart-js -->
+        <!-- /nav -->
+        <script src="js/modernizr-2.6.2.min.js"></script>
+        <script src="js/classie.js"></script>
+        <script src="js/demo1.js"></script>
+        <!-- //nav -->
+        <!-- single -->
+        <script src="js/imagezoom.js"></script>
+        <!-- single -->
+        <!-- script for responsive tabs -->
+        <script src="js/easy-responsive-tabs.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#horizontalTab').easyResponsiveTabs({
+                    type: 'default', //Types: default, vertical, accordion           
+                    width: 'auto', //auto or any width like 600px
+                    fit: true, // 100% fit in a container
+                    closed: 'accordion', // Start closed if in accordion view
+                    activate: function (event) { // Callback function if tab is switched
+                        var $tab = $(this);
+                        var $info = $('#tabInfo');
+                        var $name = $('span', $info);
+                        $name.text($tab.text());
+                        $info.show();
+                    }
+                });
+                $('#verticalTab').easyResponsiveTabs({
+                    type: 'vertical',
+                    width: 'auto',
+                    fit: true
+                });
+            });
+        </script>
+        <!-- FlexSlider -->
+        <script src="js/jquery.flexslider.js"></script>
+
+        <!--        // Can also be used with $(document).ready()-->
+        <script>
+
+            // Can also be used with $(document).ready()
+            function viewDetail(id) {
+
+
+                $.post('Home/quickviewSingle.htm', {'id': id}, function (data) {
+                    $(".modal-body").html(data);
+                    $('.flexslider').flexslider({
+                        animation: "slide",
+                        controlNav: "thumbnails"
+                    });
+                });
+//                                                                
+            }
+
+        </script>
+        <script>
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        </script>
+        <!-- //FlexSlider-->
+
+        <!--search-bar-->
+        <script src="js/search.js"></script>
+        <!--//search-bar-->
+        <!-- start-smoth-scrolling -->
+        <script type="text/javascript" src="js/move-top.js"></script>
+        <script type="text/javascript" src="js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+                    $('html,body').animate({
+                        scrollTop: $(this.hash).offset().top
+                    }, 1000);
+                });
+            });
+        </script>
+        <!-- //end-smoth-scrolling -->
+        <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
     </body>
 
 </html>
