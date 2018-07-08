@@ -5,6 +5,9 @@
  */
 package Controller;
 
+import java.io.File;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +22,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class QuanTri {
 
     @RequestMapping("index")
-    public String index(ModelMap model) {
+    public String index(ModelMap model, HttpServletRequest request) {
+        System.out.println("URL: " + request.getRealPath(""));
+        String[] s = request.getRealPath("").split("build");
+        System.out.println("Path: " + s[0] + s[1]);
+        String url = s[0] + s[1] + "images\\product\\ABC";
+        File f = new File(url);
+        if (!f.exists()) {
+            if (f.mkdir()) {
+                System.out.println("Success");
+            } else {
+                System.out.println("Fail");
+            }
+        }
         model.addAttribute("page", "/inc/admin/" + 1 + ".jsp");
         return "admin/admin";
     }

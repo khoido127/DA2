@@ -50,6 +50,7 @@
                                 <tr>
                                     <th>SL No.</th>
                                     <th>Product</th>
+                                    <th>Size</th>
                                     <th>Quality</th>
                                     <th>Product Name</th>
                                     <th>Price</th>
@@ -64,6 +65,7 @@
                                     <tr id="check-${sp.IDSP}" class="rem1">
                                         <td class="invert">${st.index+1}</td>
                                         <td style="width: 160px;height: 80px;" class=""><a href="single.html"><img src="images/product/${sp.idLoai}/${sp.IDSP}/${sp.hinhSP}" alt=" " class="img-responsive"></a></td>
+                                        <td>${sp.size}</td>
                                         <td class="invert">
                                             <div class="quantity">
                                                 <div class="quantity-select">
@@ -123,10 +125,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="clear"> </div>
-                                            </div>
-                                            <div class="controls">
-                                                <label class="control-label">Town/City: </label>
-                                                <input class="form-control" type="text" placeholder="Town/City">
                                             </div>
                                             <div class="controls">
                                                 <label class="control-label">Email: </label>
