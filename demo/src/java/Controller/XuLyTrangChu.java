@@ -941,8 +941,9 @@ public class XuLyTrangChu {
             GioHang gh = new GioHang();
             List<GioHang> g = gh.getGh();
             List<CTHDBean> dshdbean = new ArrayList<>();
+            double tongtien = 0;
             for (int i = 0; i < g.size(); i++) {
-
+                tongtien = tongtien + (g.get(i).getGiaSP());
                 idsp = idsp + "^" + String.valueOf(g.get(i).getIDSP());
                 tensp = tensp + "^" + String.valueOf(g.get(i).getTenSP());
                 sl = sl + "^" + String.valueOf(g.get(i).getSoluong());
@@ -955,7 +956,7 @@ public class XuLyTrangChu {
             System.out.println("SoLuong: " + sl);
             System.out.println("Size: " + size);
             System.out.println("Gia: " + gia);
-            HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "Đặt hàng");
+            HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "Đặt hàng",tongtien);
             s.save(ct);
             t.commit();
         } catch (Exception ex) {
