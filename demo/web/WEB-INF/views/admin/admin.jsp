@@ -37,7 +37,7 @@
                             <li>
                                 <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Product</a>
                                 <ul class="sub-menu">
-                                    <li><a href="admin/content.htm?page=1" class="p-l-20">Product Detail</a></li>
+                                    <li><a href="admin/contentDetailProduct.htm?page=1" class="p-l-20">Product Detail</a></li>
                                     <li><a href="admin/content.htm?page=2" class="p-l-20">Product Describe</a></li>
                                 </ul>
                             </li>

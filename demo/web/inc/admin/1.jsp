@@ -5,10 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <base href="${pageContext.servletContext.contextPath}/">
         <title>Product Detail Page</title>
     </head>
     <body>
@@ -73,15 +75,15 @@
                         </div>
                     </div>
                     <div class="white-box">
-                        <h3 class="box-title">Product table</h3>
+                        <h3 class="box-title">Product Table</h3>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>ID</th>
+                                        <th>IMAGE</th>
                                         <th>NAME</th>
-                                        <th>STATUS</th>
-                                        <th>DATE</th>
+                                        <th>BRAND</th>
                                         <th>PRICE</th>
                                         <th>EDIT</th>
                                         <th>DELETE</th>
@@ -89,12 +91,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <c:forEach var="sp" items="${list}" varStatus="st">
                                     <tr>
-                                        <td>1</td>
-                                        <td class="txt-oflo">Elite admin</td>
-                                        <td>SALE</td>
-                                        <td class="txt-oflo">April 18, 2017</td>
-                                        <td><span class="text-success">$24</span></td>
+                                        <td>${st.index}</td>
+                                        <td style="width: 80px; height: 80px;"><img style="width: 80px; height: 80px;" src="images/product/${sp.IDLoai}/${sp.IDSP}/${sp.hinhSP}" /></td>
+                                        <td class="txt-oflo">${sp.tenSP}</td>
+                                        <td>${sp.IDLoai}</td>
+                                        <td><span class="text-success">${sp.giaSP}</span></td>
                                         <td>
                                             <input type="button" class="btn btn-edit" value="Edit"/>
                                         </td>
@@ -106,57 +109,7 @@
                                             <input type="button" class="btn btn-detail" value="Detail"/>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td class="txt-oflo">Real Homes WP Theme</td>
-                                        <td>EXTENDED</td>
-                                        <td class="txt-oflo">April 19, 2017</td>
-                                        <td><span class="text-info">$1250</span></td>
-                                        <td>
-                                            <input type="button" class="btn btn-edit" value="Edit"/>
-                                        </td>
-                                        <td>
-                                            <input style="display: none" type="checkbox" class="custom-checkbox"/>
-                                            <input type="button" class="btn btn-trash" value="Delete"/>
-                                        </td>
-                                        <td>
-                                            <input type="button" class="btn btn-detail" value="Detail"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td class="txt-oflo">Ample Admin</td>
-                                        <td>EXTENDED</td>
-                                        <td class="txt-oflo">April 19, 2017</td>
-                                        <td><span class="text-info">$1250</span></td>
-                                        <td>
-                                            <input type="button" class="btn btn-edit" value="Edit"/>
-                                        </td>
-                                        <td>
-                                            <input style="display: none" type="checkbox" class="custom-checkbox"/>
-                                            <input type="button" class="btn btn-trash" value="Delete"/>
-                                        </td>
-                                        <td>
-                                            <input type="button" class="btn btn-detail" value="Detail"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td class="txt-oflo">Medical Pro WP Theme</td>
-                                        <td>TAX</td>
-                                        <td class="txt-oflo">April 20, 2017</td>
-                                        <td><span class="text-danger">-$24</span></td>
-                                        <td>
-                                            <input type="button" class="btn btn-edit" value="Edit"/>
-                                        </td>
-                                        <td>
-                                            <input style="display: none" type="checkbox" class="custom-checkbox"/>
-                                            <input type="button" class="btn btn-trash" value="Delete"/>
-                                        </td>
-                                        <td>
-                                            <input type="button" class="btn btn-detail" value="Detail"/>
-                                        </td>
-                                    </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>

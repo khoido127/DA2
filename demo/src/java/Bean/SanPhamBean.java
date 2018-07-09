@@ -48,6 +48,14 @@ public class SanPhamBean {
         this.GiaSPKM = GiaSPKM;
     }
 
+    public SanPhamBean(String TenSP, double GiaSP, String HinhSP, String IDLoai, String IDSP) {
+        this.TenSP = TenSP;
+        this.GiaSP = GiaSP;
+        this.HinhSP = HinhSP;
+        this.IDLoai = IDLoai;
+        this.IDSP = IDSP;
+    }
+
     public String getIDSP() {
         return IDSP;
     }
@@ -127,5 +135,5 @@ public class SanPhamBean {
     public void setHinhPhu(String hinhPhu) {
         this.hinhPhu = hinhPhu;
     }
-    
+
 }

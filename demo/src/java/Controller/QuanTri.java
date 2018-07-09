@@ -5,9 +5,17 @@
  */
 package Controller;
 
+import Bean.SanPhamBean;
+import Model.SanPham;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpRequest;
+import javax.transaction.Transactional;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +26,12 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author ASUS
  */
 @Controller
+@Transactional
 @RequestMapping("admin")
 public class QuanTri {
+
+    @Autowired
+    SessionFactory factory;
 
     @RequestMapping("index")
     public String index(ModelMap model, HttpServletRequest request) {
@@ -42,6 +54,30 @@ public class QuanTri {
     @RequestMapping("content")
     public String content(@RequestParam("page") String page, ModelMap model) {
         model.addAttribute("page", "/inc/admin/" + page + ".jsp");
+        return "admin/admin";
+    }
+
+    @RequestMapping("contentDetailProduct")
+    public String contentDetailProduct(@RequestParam("page") String page, ModelMap model) {
+        Session s = factory.getCurrentSession();
+        try {
+            String hql = "From SanPham";
+            Query query = s.createQuery(hql);
+            List<SanPham> ds = query.list();
+            List<SanPhamBean> dsbean = new ArrayList<>();
+            for (SanPham sp : ds) {
+                String[] ch = sp.getHinhSP().split(";");
+                SanPhamBean spbean = new SanPhamBean(sp.getTenSP(), sp.getGiaSP(), ch[0], sp.getLoai().getIDLoai(), sp.getIDSP());
+                dsbean.add(spbean);
+            }
+            System.out.println("HinhSP: "+dsbean.get(0).getHinhSP());
+            System.out.println("ListSPBean: " + dsbean.size());
+            model.addAttribute("list", dsbean);
+            model.addAttribute("page", "/inc/admin/" + page + ".jsp");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
         return "admin/admin";
     }
 }
