@@ -69,6 +69,8 @@ public class XuLyTrangChu {
                 return "checkout";
             case "payment":
                 return "payment";
+            case "login":
+                return "login";
         }
         return "index";
     }

@@ -2320,7 +2320,7 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
     top: 10px!important;
     right: 90px!important;
 }
-.edit-label{width: 35%}
+.edit-label{width: 30%;margin-right: 10px; text-align: right}
 .edit-field{width: 65%}
 
 /*singel page*/

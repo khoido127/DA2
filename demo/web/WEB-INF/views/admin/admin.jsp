@@ -45,12 +45,12 @@
                                 <a href="admin/content.htm?page=3" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>User</a>
                             </li>
                             <li>
-                                <a href="admin/content.htm?page=4" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Comment</a>
+                                <a href="admin/content.htm?page=4" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Brand</a>
                             </li>
                             <li>
                                 <a href="admin/content.htm?page=5" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Bill</a>
                             </li>
-
+                            
                         </ul>
                     </div>
                 </div>

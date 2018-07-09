@@ -1,5 +1,4 @@
 
-<!DOCTYPE html>
 <html lang="zxx">
 
     <%@page pageEncoding="UTF-8" %>
@@ -14,6 +13,9 @@
     </head>
 
     <body>
+        <div class="head-about">
+                    <%@include file="/inc/toppage.jsp" %>
+        </div>
             <div class="content-about">
                 <div class="ads-grid_shop">
                     <div class="shop_inner_inf">
