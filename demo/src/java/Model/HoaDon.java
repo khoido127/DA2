@@ -5,12 +5,10 @@
  */
 package Model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -19,19 +17,19 @@ import javax.persistence.TemporalType;
  * @author Administrator
  */
 @Entity
-public class HoaDon {
+public class HoaDon implements Serializable{
     @Id 
     private String IDHD;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date Ngay;
-    private String HinhThucTT;
+    private Date ngay;
+    private String hinhThucTT;
     private String loaiHD;
-    private String TenSP;
-    private String IDSP;
+    private String tenSP;
+    private String idSP;
     private String SL;
     private String Size;
     private String Gia;
-    private String TenKH;
+    private String tenKH;
     private String SDT;
     private String diaChi;
     private String Email;
@@ -40,17 +38,17 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String IDHD, Date Ngay, String HinhThucTT, String loaiHD, String TenSP, String IDSP, String SL, String Size, String Gia, String TenKH, String SDT, String diaChi, String Email, String trangThai, Double tongTien) {
+    public HoaDon(String IDHD, Date ngay, String hinhThucTT, String loaiHD, String tenSP, String IDSP, String SL, String Size, String Gia, String tenKH, String SDT, String diaChi, String Email, String trangThai, Double tongTien) {
         this.IDHD = IDHD;
-        this.Ngay = Ngay;
-        this.HinhThucTT = HinhThucTT;
+        this.ngay = ngay;
+        this.hinhThucTT = hinhThucTT;
         this.loaiHD = loaiHD;
-        this.TenSP = TenSP;
-        this.IDSP = IDSP;
+        this.tenSP = tenSP;
+        this.idSP = IDSP;
         this.SL = SL;
         this.Size = Size;
         this.Gia = Gia;
-        this.TenKH = TenKH;
+        this.tenKH = tenKH;
         this.SDT = SDT;
         this.diaChi = diaChi;
         this.Email = Email;
@@ -67,37 +65,37 @@ public class HoaDon {
     }
 
     public Date getNgay() {
-        return Ngay;
+        return ngay;
     }
 
-    public void setNgay(Date Ngay) {
-        this.Ngay = Ngay;
+    public void setNgay(Date ngay) {
+        this.ngay = ngay;
     }
 
     public String getHinhThucTT() {
-        return HinhThucTT;
+        return hinhThucTT;
     }
 
-    public void setHinhThucTT(String HinhThucTT) {
-        this.HinhThucTT = HinhThucTT;
+    public void setHinhThucTT(String hinhThucTT) {
+        this.hinhThucTT = hinhThucTT;
     }
 
     public String getTenSP() {
-        return TenSP;
+        return tenSP;
     }
 
-    public void setTenSP(String TenSP) {
-        this.TenSP = TenSP;
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
     }
 
-    public String getIDSP() {
-        return IDSP;
+    public String getIdSP() {
+        return idSP;
     }
 
-    public void setIDSP(String IDSP) {
-        this.IDSP = IDSP;
+    public void setIdSP(String idSP) {
+        this.idSP = idSP;
     }
-
+    
     public String getSL() {
         return SL;
     }
@@ -123,13 +121,13 @@ public class HoaDon {
     }
 
     public String getTenKH() {
-        return TenKH;
+        return tenKH;
     }
 
-    public void setTenKH(String TenKH) {
-        this.TenKH = TenKH;
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
     }
-
+    
     public String getSDT() {
         return SDT;
     }
