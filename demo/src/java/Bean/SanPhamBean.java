@@ -20,12 +20,13 @@ public class SanPhamBean {
     private String HinhSP;
     private String hinhPhu;
     private String IDLoai;
+    private String tenLoai;
     private String saveMoney;
 
     public SanPhamBean() {
     }
 
-    public SanPhamBean(String IDSP, String TenSP, String GiaSPKM, double GiaSP, String isHot, String MoTa, String HinhSP, String Loai) {
+    public SanPhamBean(String IDSP, String TenSP, String GiaSPKM, double GiaSP, String isHot, String MoTa, String HinhSP, String IDLoai, String moTa) {
         this.IDSP = IDSP;
         this.TenSP = TenSP;
         this.GiaSPKM = GiaSPKM;
@@ -33,7 +34,8 @@ public class SanPhamBean {
         this.isHot = isHot;
         this.moTa = MoTa;
         this.HinhSP = HinhSP;
-        this.IDLoai = Loai;
+        this.IDLoai = IDLoai;
+        this.moTa = moTa;
     }
 
     public SanPhamBean(String IDSP, String TenSP, double GiaSP, String HinhSP, String hinhPhu, String loai, String mota, String saveMoney, String GiaSPKM) {
@@ -48,12 +50,25 @@ public class SanPhamBean {
         this.GiaSPKM = GiaSPKM;
     }
 
-    public SanPhamBean(String TenSP, double GiaSP, String HinhSP, String IDLoai, String IDSP) {
+    public SanPhamBean(String TenSP, double GiaSP, String HinhSP, String IDLoai, String IDSP, String tenLoai) {
         this.TenSP = TenSP;
         this.GiaSP = GiaSP;
         this.HinhSP = HinhSP;
         this.IDLoai = IDLoai;
         this.IDSP = IDSP;
+        this.tenLoai = tenLoai;
+
+    }
+
+    public SanPhamBean(String TenSP, double GiaSP, String GiaSPKM, String HinhSP, String IDLoai, String IDSP, String tenLoai, String moTa) {
+        this.TenSP = TenSP;
+        this.GiaSP = GiaSP;
+        this.GiaSPKM=GiaSPKM;
+        this.HinhSP = HinhSP;
+        this.IDLoai = IDLoai;
+        this.IDSP = IDSP;
+        this.tenLoai = tenLoai;
+        this.moTa = moTa;
     }
 
     public String getIDSP() {
@@ -134,6 +149,14 @@ public class SanPhamBean {
 
     public void setHinhPhu(String hinhPhu) {
         this.hinhPhu = hinhPhu;
+    }
+
+    public String getTenLoai() {
+        return tenLoai;
+    }
+
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
     }
 
 }

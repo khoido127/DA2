@@ -2367,7 +2367,7 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
     padding-left: 10px;
     margin-bottom: 20px;
 }
-.content-manage-page #page-wrapper .top-content .edit-label{width: 25%; text-align: right; margin-right: 10px}
+.content-manage-page #page-wrapper .top-content .edit-label{width: 30%; text-align: right; margin-right: 10px}
 .content-manage-page #page-wrapper .top-content .edit-field{width: 60%}
 .content-manage-page .sidebar-nav .menu-title li {padding: 20px 10px; position: relative}
 .content-manage-page .sidebar-nav .menu-title li a{font-size: 16px}

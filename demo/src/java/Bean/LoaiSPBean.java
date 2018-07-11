@@ -12,18 +12,18 @@ package Bean;
 public class LoaiSPBean {
 
     private String IDLoai;
-    private String TenLoai;
+    private String tenLoai;
     private String checked;
-
+    private String selected;
     public LoaiSPBean() {
     }
 
-    public LoaiSPBean(String IDLoai, String TenLoai, String checked) {
+    public LoaiSPBean(String IDLoai, String TenLoai, String selected) {
         this.IDLoai = IDLoai;
-        this.TenLoai = TenLoai;
-        this.checked = checked;
+        this.tenLoai = TenLoai;
+        this.selected = selected;
     }
-
+    
     public String getIDLoai() {
         return IDLoai;
     }
@@ -41,11 +41,19 @@ public class LoaiSPBean {
     }
 
     public String getTenLoai() {
-        return TenLoai;
+        return tenLoai;
     }
 
-    public void setTenLoai(String TenLoai) {
-        this.TenLoai = TenLoai;
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
+    }
+    
+    public String getSelected() {
+        return selected;
     }
 
+    public void setSelected(String selected) {
+        this.selected = selected;
+    }
+    
 }
