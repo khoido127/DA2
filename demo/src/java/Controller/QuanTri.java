@@ -5,16 +5,21 @@
  */
 package Controller;
 
+import Bean.CTSPBean;
 import Bean.LoaiSPBean;
 import Bean.SanPhamBean;
 import Bean.SlideBean;
+import Model.CTSP;
 import Model.Loai;
 import Model.SanPham;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.Query;
@@ -26,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
@@ -122,7 +128,7 @@ public class QuanTri {
     //Xu ly phan Edit
     //Xu ly phan show du lieu de Edit
     @RequestMapping("getDataEdit")
-    public String getDataEdit(@RequestParam("id") String id, ModelMap model) {
+    public String getDataEdit(@RequestParam("id") String id, ModelMap model, HttpServletResponse response) {
         Session s = factory.getCurrentSession();
         try {
             String hql = "From SanPham sp where sp.IDSP=:id";
@@ -163,6 +169,7 @@ public class QuanTri {
             //End 
 
             showDataTable(model);
+            model.addAttribute("urlDescription", "admin/showDescription.htm?id=" + id);
             model.addAttribute("listLoai", dsLoaiSPBean);
             model.addAttribute("status", "readonly");
             model.addAttribute("statusBrand", "disabled");
@@ -171,6 +178,7 @@ public class QuanTri {
             model.addAttribute("listSlide", slide);
             System.out.println("DSPageEdit: " + dsbean.size());
             System.out.println("DSSlide: " + slide.size());
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -321,18 +329,285 @@ public class QuanTri {
     }
 
     @RequestMapping("deleteSP")
-    public String deleteSP(@RequestParam("id") String id) {
+    public String deleteSP(@RequestParam("id") String id, HttpServletRequest request) {
         Session s = factory.openSession();
         Transaction t = s.beginTransaction();
+        context = request.getServletContext();
         try {
+            String idloai = getLoaiSP(id);
+            String pathbuild = context.getRealPath("/images/product/" + idloai + "/" + id);
+            String[] ch = context.getRealPath("/images/product/" + idloai + "/" + id).split("build");
+            String pathDest = ch[0] + ch[1];
+            File fBuild = new File(pathbuild);
+            File fDest = new File(pathDest);
             SanPham sp = new SanPham();
             sp.setIDSP(id);
             s.delete(sp);
+            if (deleteDir(fBuild, fDest)) {
+                System.out.println("SuccessDelete");
+            }
             t.commit();
         } catch (Exception ex) {
             t.rollback();
             System.out.println(ex);
         }
         return "redirect:contentDetailProduct.htm?page=1";
+    }
+
+    //Hàm xóa thư mục sản phẩm sau khi delete
+    public boolean deleteDir(File fBuild, File fDest) {
+        try {
+            FileUtils.deleteDirectory(fBuild);
+            FileUtils.deleteDirectory(fDest);
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+
+    //Xu ly phan Description Product
+    //Tạo hàm lấy dữ liệu của 1 sản phẩm -> có thể được dùng lại
+    public List<SanPham> getDataProduct(String id) {
+        Session s = factory.getCurrentSession();
+        List<SanPham> ds = new ArrayList<>();
+        try {
+            String hql = "From SanPham sp where sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            ds = query.list();
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return ds;
+    }
+
+    //Get thong tin loai SP theo IDSP
+    public String getLoaiSP(String id) {
+        Session s = factory.getCurrentSession();
+        String idLoai = "";
+        try {
+            String hql = "From SanPham sp where sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            List<SanPham> ds = query.list();
+            idLoai = ds.get(0).getLoai().getIDLoai();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return idLoai;
+    }
+    //Xu ly phan Show Data CTSP
+
+    @RequestMapping("showDescription")
+    public String showDescription(ModelMap model, @RequestParam("id") String id, HttpServletRequest request) {
+        String func = request.getParameter("function");
+        try {
+            List<SanPham> ds = getDataProduct(id);
+            List<CTSPBean> list = new ArrayList<>();
+            int index = 0;
+            int size = 0;
+            int dem = 0;
+            for (SanPham sp : ds) {
+                String idLoai = sp.getLoai().getIDLoai();
+                String[] tieude = sp.getCtsp().get(0).getTieudeCTSP().split("\\^");
+                List<String> td = new ArrayList<>();
+                for (int i = 0; i < tieude.length; i++) {
+                    td.add(tieude[i]);
+                }
+                String[] mota = sp.getCtsp().get(0).getMotaCT().split("\\^");
+                List<String> mt = new ArrayList<>();
+                for (int i = 0; i < mota.length; i++) {
+                    mt.add(mota[i]);
+                }
+                String[] hinh = sp.getCtsp().get(0).getHinhCTSP().split(";");
+                List<String> anh = new ArrayList<>();
+                for (int i = 0; i < hinh.length; i++) {
+                    anh.add(hinh[i]);
+                }
+                Integer[] n = {tieude.length, mota.length, hinh.length};
+                Arrays.sort(n, Collections.reverseOrder());
+                size = n[0];
+                if (tieude.length > mota.length) {
+                    dem = 1;
+//                    size = tieude.length;
+                } else if (tieude.length < mota.length) {
+                    dem = 2;
+//                    size = mota.length;
+                } else {
+                    dem = 3;
+//                    size = hinh.length;
+                }
+                System.out.println("Size: " + size);
+                System.out.println("Dem: " + dem);
+                if (dem == 1) {
+
+                    for (int i = mota.length; i < tieude.length; i++) {
+                        mt.add("");
+                    }
+                    for (int i = hinh.length; i < tieude.length; i++) {
+                        anh.add("");
+                    }
+                }
+                if (dem == 2) {
+
+                    for (int i = tieude.length; i < mota.length; i++) {
+                        td.add("");
+                    }
+                    for (int i = hinh.length; i < mota.length; i++) {
+                        anh.add("");
+                    }
+                }
+                if (dem == 3) {
+
+                    for (int i = mota.length; i < hinh.length; i++) {
+                        mt.add("");
+                    }
+                    for (int i = tieude.length; i < hinh.length; i++) {
+                        td.add("");
+                    }
+                }
+                System.out.println("ListTD: " + td.size());
+                System.out.println("ListMT: " + mt.size());
+                System.out.println("ListHinh: " + anh.size());
+                if (func != null) {
+                    size = size + 1;
+                }
+                System.out.println("Size: " + size);
+                for (int i = 0; i < size; i++) {
+                    CTSPBean ctbean;
+                    if (func != null && size - i == 1) {
+                        ctbean = new CTSPBean(id, idLoai, "", "images/product/no-image.jpg", "", "");
+                    } else {
+                        ctbean = new CTSPBean(id, idLoai, mt.get(i), "images/product/" + idLoai + "/" + id + "/" + anh.get(i), td.get(i), anh.get(i));
+                    }
+//                    ctbean = new CTSPBean(id, idLoai, mt.get(i), anh.get(i), td.get(i));
+                    list.add(ctbean);
+                }
+
+            }
+            System.out.println("Success");
+            CTSPBean ctbean = new CTSPBean();
+            model.addAttribute("sumIndex", size);
+            model.addAttribute("formEdit", ctbean);
+            model.addAttribute("listCTSP", list);
+            model.addAttribute("page", "/inc/admin/" + "2" + ".jsp");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
+        return "admin/admin";
+    }
+
+    //Xử lý phần Save khi Edit Description
+    @RequestMapping("saveToEditDescription")
+    public String saveToEditDescription(HttpServletRequest request, ModelMap model, @RequestParam("fileUpload") CommonsMultipartFile[] fileUpload) {
+        String index = request.getParameter("vitri");
+        int sumIndex = Integer.parseInt(String.valueOf(request.getParameter("sumIndex")));
+        String image = request.getParameter("image");
+        String id = request.getParameter("IDSP");
+        String tieude = request.getParameter("tieude");
+        String mota = request.getParameter("mota");
+        String idloai = request.getParameter("idloai");
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        context = request.getServletContext();
+        try {
+            System.out.println("Index: " + index);
+            System.out.println("IDSP: " + id);
+            System.out.println("TieuDe: " + tieude);
+            System.out.println("MoTa: " + mota);
+            String[] ch = context.getRealPath("/images/product/" + idloai + "/" + id + "/").split("build");
+            String urlBuild = context.getRealPath("/images/product/" + idloai + "/" + id + "/");
+            String destPath = ch[0] + ch[1];
+            String img = "";
+            if (fileUpload != null && fileUpload.length > 0) {
+                for (CommonsMultipartFile aFile : fileUpload) {
+
+                    System.out.println("Saving file: " + aFile.getOriginalFilename());
+                    String[] c = aFile.getOriginalFilename().split("\\.");
+
+                    String nameImage = "CT" + index;
+                    System.out.println("NameImage: " + nameImage);
+                    if (!aFile.getOriginalFilename().equals("")) {
+                        aFile.transferTo(new File(urlBuild + nameImage + ".jpg"));
+                        aFile.transferTo(new File(destPath + nameImage + ".jpg"));
+                    }
+
+                }
+                int n = checkImage(id);
+                System.out.println("Length: " + n);
+                int vitri = Integer.parseInt(index);
+
+                for (int i = 0; i < sumIndex; i++) {
+                    img = img + "CT" + (i + 1) + ".jpg" + ";";
+//                    System.out.println("Link: " + img);
+                }
+            }
+            System.out.println("URL: " + image);
+            List<SanPham> ds = getCTSP(id);
+            int stt = 0;
+            for (SanPham sp : ds) {
+                stt = sp.getCtsp().get(0).getSTT();
+            }
+            System.out.println("IMG: " + img);
+            System.out.println("SumIndex: " + sumIndex);
+            SanPham sp = new SanPham();
+            sp.setIDSP(id);
+            CTSP ct = new CTSP(stt, mota, image, tieude, sp);
+            saveDescription(ct);
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+//        System.out.println("Index: " + index);
+        return "redirect:showDescription.htm?id=" + id;
+    }
+
+    //Kiểm tra số hinh hiện đang có trong database
+    public int checkImage(String id) {
+        Session s = factory.getCurrentSession();
+        String hql = "From SanPham sp where sp.IDSP=:id";
+        Query query = s.createQuery(hql);
+        query.setParameter("id", id);
+        List<SanPham> ds = query.list();
+        int number = 0;
+        for (SanPham sp : ds) {
+            String[] image = sp.getCtsp().get(0).getHinhCTSP().split(";");
+            number = image.length;
+        }
+        return number;
+    }
+
+    public List<SanPham> getCTSP(String id) {
+        Session s = factory.getCurrentSession();
+        String hql = "From SanPham sp where sp.IDSP=:id";
+        Query query = s.createQuery(hql);
+        query.setParameter("id", id);
+        List<SanPham> ds = query.list();
+        return ds;
+    }
+
+    //Save Description Product
+    public void saveDescription(CTSP ct) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.update(ct);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            ex.printStackTrace();
+        }
+    }
+
+    //Chuyển trang delete Description
+    @RequestMapping("pageDeleteDescription")
+    public String pageDeleteDescription(@RequestParam("vitri") String vitri, ModelMap model) {
+
+        model.addAttribute("vitri", vitri);
+        System.out.println("Vitri: " + vitri);
+        return "admin/pageDeleteDesc";
     }
 }

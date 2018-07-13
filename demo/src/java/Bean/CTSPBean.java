@@ -11,10 +11,23 @@ package Bean;
  */
 public class CTSPBean {
 
+    private String IDSP;
+    private String idLoai;
     private String motaCT;
     private String hinhCTSP;
     private String tieudeCTSP;
+    private String tenHinh;
+
     public CTSPBean() {
+    }
+
+    public CTSPBean(String IDSP, String idLoai, String motaCT, String hinhCTSP, String tieudeCTSP, String tenHinh) {
+        this.IDSP = IDSP;
+        this.idLoai = idLoai;
+        this.motaCT = motaCT;
+        this.hinhCTSP = hinhCTSP;
+        this.tieudeCTSP = tieudeCTSP;
+        this.tenHinh = tenHinh;
     }
 
     public CTSPBean(String motaCT, String hinhCTSP, String tieudeCTSP) {
@@ -22,7 +35,13 @@ public class CTSPBean {
         this.hinhCTSP = hinhCTSP;
         this.tieudeCTSP = tieudeCTSP;
     }
-    
+
+    public CTSPBean(String IDSP, String motaCT, String hinhCTSP, String tieudeCTSP) {
+        this.IDSP = IDSP;
+        this.motaCT = motaCT;
+        this.hinhCTSP = hinhCTSP;
+        this.tieudeCTSP = tieudeCTSP;
+    }
 
     public String getMotaCT() {
         return motaCT;
@@ -48,5 +67,28 @@ public class CTSPBean {
         this.tieudeCTSP = tieudeCTSP;
     }
 
-    
+    public String getIDSP() {
+        return IDSP;
+    }
+
+    public void setIDSP(String IDSP) {
+        this.IDSP = IDSP;
+    }
+
+    public String getIdLoai() {
+        return idLoai;
+    }
+
+    public void setIdLoai(String idLoai) {
+        this.idLoai = idLoai;
+    }
+
+    public String getTenHinh() {
+        return tenHinh;
+    }
+
+    public void setTenHinh(String tenHinh) {
+        this.tenHinh = tenHinh;
+    }
+
 }

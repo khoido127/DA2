@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ import javax.persistence.ManyToOne;
  * @author Visible
  */
 @Entity
-public class CTSP {
+public class CTSP implements Serializable{
     @Id
     @GeneratedValue
     private Integer STT;
@@ -30,14 +31,8 @@ public class CTSP {
     public CTSP() {
     }
 
-    public CTSP(Integer STT, String motaCT, String HinhCTSP, SanPham sp) {
+    public CTSP(Integer STT, String motaCT, String HinhCTSP,String tieudeCTSP, SanPham sp) {
         this.STT = STT;
-        this.motaCT = motaCT;
-        this.HinhCTSP = HinhCTSP;
-        this.sp = sp;
-    }
-
-    public CTSP(String motaCT, String HinhCTSP, String tieudeCTSP, SanPham sp) {
         this.motaCT = motaCT;
         this.HinhCTSP = HinhCTSP;
         this.tieudeCTSP = tieudeCTSP;

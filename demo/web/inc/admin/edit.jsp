@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <base href="${pageContext.servletContext.contextPath}/">
-        
+        <meta http-equiv="Cache-Control" content="no-store"/>
         <style>
             .boxSlide{
                 width: 300px;
@@ -20,7 +20,11 @@
         </style>
     </head>
     <body>
-        <form role="form" action="admin/saveToEdit.htm" method="post" enctype="multipart/form-data">
+        <%  response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1 
+            response.setHeader("Pragma", "no-cache"); //HTTP 1.0 
+            response.setDateHeader("Expires", 0); //prevents caching at the proxy server  
+%>
+        <form id="formProduct" role="form" action="admin/saveToEdit.htm" method="post" enctype="multipart/form-data">
             <!-- content product -->
             <c:forEach var="sp" items="${listEdit}">
                 <div class="row top-content mg-b-20">
@@ -116,12 +120,38 @@
                             <div class="tx-al-r">
                                 <button onclick="addNew()" type="button" class="btn" >AddNew</button>
                                 <!--<button onclick="getDataToSave('${sp.IDSP}')" id="save" type="button" class="btn" value="Save" >Save</button>-->
-                                <input type="submit" class="btn" value="Save" />
+                                <input onclick="getDataToSave()" type="submit" class="btn" value="Save" />
                             </div>
                         </div>
                     </div>
                 </div>
             </c:forEach>
         </form>
+        <!--Xu ly phan hinh anh slide-->
+        <script>
+            var nameImage = "";
+            for (var i = 1; i <= 3; i++) {
+                nameImage = nameImage + document.getElementById('index-' + i).value + ".jpg" + ";";
+
+            }
+            document.getElementById('nameImage').value = nameImage;
+//                alert(nameImage);
+            function getImage(s, id) {
+//                    alert(nameImage);
+                for (var i = 1; i <= 3; i++) {
+
+                    if (i == id) {
+                        document.getElementById('thumbImage-' + i).setAttribute("style", "border:1px solid red;width:80px;height:80px;");
+                    } else {
+                        document.getElementById('thumbImage-' + i).setAttribute("style", "width:80px;height:80px;");
+                    }
+                }
+
+                var src = document.getElementById('thumbImage-' + id).src;
+                document.getElementById('anhDaiDien').src = src;
+                document.getElementById('idImage').value = id;
+            }
+
+        </script>
     </body>
 </html>

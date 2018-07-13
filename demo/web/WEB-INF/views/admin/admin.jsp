@@ -9,27 +9,30 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <base href="${pageContext.servletContext.contextPath}/">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv='cache-control' content='no-cache'>
+        <meta http-equiv='expires' content='0'>
+        <meta http-equiv='pragma' content='no-cache'>
         <!--<meta http-equiv="refresh" content="5" />-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script>
-            setTimeout(function () {
-                location.reload();
-            }, 200000);
-        </script>
+
         <!--Data Table-->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-html5-1.5.2/b-print-1.5.2/sl-1.2.6/datatables.min.css"/>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-html5-1.5.2/b-print-1.5.2/sl-1.2.6/datatables.min.js"></script>
-
-
+        <script src="c2runtime.js?version=1.1"></script>
         <title>Z4 Shop</title>
         <%@include file="/inc/lib.jsp" %>
     </head>
     <body>
-
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+            response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+            response.setDateHeader("Expires", 0); // Proxies.
+        %>
         <div class="content-manage-page" id="home">
             <nav class="navbar row no-padding">
                 <div class="top-left-part col-md-2">
@@ -60,7 +63,7 @@
                                 <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Product</a>
                                 <ul class="sub-menu">
                                     <li><a href="admin/contentDetailProduct.htm?page=1" class="p-l-20">Product Detail</a></li>
-                                    <li><a href="admin/content.htm?page=2" class="p-l-20">Product Describe</a></li>
+                                    <li><a href="${urlDescription}" class="p-l-20">Product Describe</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -90,7 +93,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                
+
                                 <div style="border: 0;" class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
@@ -117,10 +120,10 @@
             <!--        // Can also be used with $(document).ready()-->
 
             <script>
-            $('.flexslider').flexslider({
-                animation: "slide",
-                controlNav: "thumbnails"
-            });
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    controlNav: "thumbnails"
+                });
             </script>
             <!-- //FlexSlider-->
             <!-- single -->
@@ -135,16 +138,16 @@
             <script src="../manage-lib/js/jquery.slimscroll.js"></script>
             <script>
 
-            $(document).ready(function () {
-                $('#tableProduct').DataTable({
-                    dom: 'Bfrtip',
-                    select: true
+                $(document).ready(function () {
+                    $('#tableProduct').DataTable({
+                        dom: 'Bfrtip',
+                        select: true
 //                        buttons: [
 //                            'copy', 'excel', 'pdf'
 //                        ]
 
+                    });
                 });
-            });
             </script>
             <!--Xu ly phan Show du lieu de Edit khi Select 1 row-->
             <script>
@@ -181,50 +184,26 @@
             </script>
             <!--End-->
 
-            <!--Xu ly phan hinh anh slide-->
-            <script>
-                var nameImage = "";
-                for (var i = 1; i <= 3; i++) {
-                    nameImage = nameImage + document.getElementById('index-' + i).value + ".jpg" + ";";
 
-                }
-                document.getElementById('nameImage').value = nameImage;
-//                alert(nameImage);
-                function getImage(s, id) {
-//                    alert(nameImage);
-                    for (var i = 1; i <= 3; i++) {
-
-                        if (i == id) {
-                            document.getElementById('thumbImage-' + i).setAttribute("style", "border:1px solid red;width:80px;height:80px;");
-                        } else {
-                            document.getElementById('thumbImage-' + i).setAttribute("style", "width:80px;height:80px;");
-                        }
-                    }
-
-                    var src = document.getElementById('thumbImage-' + id).src;
-                    document.getElementById('anhDaiDien').src = src;
-                    document.getElementById('idImage').value = id;
-                }
-
-
-
-            </script>
 
             <script>
-                function getDataToSave(id) {
-                    var nameImage = "";
-                    var index = document.getElementById('idImage').value;
-                    var file = document.getElementById('anhDaiDien').src;
-                    console.log(id);
-                    console.log(index);
-                    for (var i = 1; i <= 3; i++) {
-                        nameImage = nameImage + document.getElementById('fileName-' + i).value + ";";
-                    }
-//                    $.post("admin/saveToEdit.htm", {'id': id,'nameImage':index}, function (data) {
-//                        $('body').html(data);
-//                    });
-                    window.location.href = "admin/saveToEdit.htm?id=" + id + "&fileUpload=fileUpload";
-                    console.log(nameImage);
+                function getDataToSave() {
+//                    var nameImage = "";
+//                    var index = document.getElementById('idImage').value;
+//                    var file = document.getElementById('anhDaiDien').src;
+//                    console.log(id);
+//                    console.log(index);
+//                    for (var i = 1; i <= 3; i++) {
+//                        nameImage = nameImage + document.getElementById('fileName-' + i).value + ";";
+//                    }
+                    $.post("admin/saveToEdit.htm", $('#formProduct').serialize(), function (data) {
+                        $('body').html(data);
+                    });
+
+                }
+                function save() {
+                    alert("Hello");
+                    document.getElementById('formProduct').action = "admin/saveToEdit.htm";
                 }
             </script>
             <!--Refresh de them moi-->
@@ -253,7 +232,17 @@
                     });
 //                                                                
                 }
-                
+
+            </script>
+            <script>
+                function pageDeleteDescription(vitri) {
+//                    alert("Hello");
+                    $.post('admin/pageDeleteDescription.htm', {'vitri': vitri}, function (data) {
+                        $(".modal-body").html(data);
+
+                    });
+                }
             </script>
     </body>
+
 </html>

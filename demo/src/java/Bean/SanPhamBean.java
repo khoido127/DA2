@@ -59,7 +59,7 @@ public class SanPhamBean {
         this.tenLoai = tenLoai;
 
     }
-
+    
     public SanPhamBean(String TenSP, double GiaSP, String GiaSPKM, String HinhSP, String IDLoai, String IDSP, String tenLoai, String moTa) {
         this.TenSP = TenSP;
         this.GiaSP = GiaSP;
