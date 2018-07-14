@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
     </head>
     <body>
         <table id="tableProduct" class="table display">
@@ -20,8 +20,10 @@
                     <th>NAME</th>
                     <th>BRAND</th>
                     <th>PRICE</th>
+                    <th>EDIT</th>
                     <th>DELETE</th>
-                    <th>PRODUCT DETAIL</th>
+                    <th>DESCRIPTION</th>
+                    <th>COMMENT</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,12 +35,18 @@
                         <td>${sp.tenLoai}</td>
                         <td>$ ${sp.giaSP}</td>
                         <td>
+                            <button onclick="getDataEdit('${sp.IDSP}')" type="button" class="btn btn-detail">Edit</button>
+                        </td>
+                        <td>
                             <input style="display: none" type="checkbox" class="custom-checkbox"/>
                             <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-delete">Open Modal</button>-->
                             <button onclick="pageDeleteSP('${sp.IDSP}')" data-toggle="modal" data-target="#modal-delete" type="button" class="btn btn-trash" >Delete</button>
                         </td>
                         <td>
-                            <button onclick="getDataEdit('${sp.IDSP}')" type="button" class="btn btn-detail">Detail</button>
+                            <button onclick="getShowDetail('${sp.IDSP}')" type="button" class="btn btn-detail">Detail</button>
+                        </td>
+                        <td>
+                            <button onclick="getShowComment('${sp.IDSP}')" type="button" class="btn btn-detail">Detail</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -46,6 +54,19 @@
         </table>
 
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-
+        <script>
+                                function getShowDetail(id) {
+                                    $.post("admin/showDescription.htm", {'id': id}, function (data) {
+                                        $('body').html(data);
+                                    });
+                                }
+        </script>
+        <script>
+            function getShowComment(id) {
+                $.post("admin/showComment.htm", {'id': id}, function (data) {
+                    $('body').html(data);
+                });
+            }
+        </script>
     </body>
 </html>

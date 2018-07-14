@@ -69,7 +69,7 @@
         <!--Lấy dữ liệu comment để save-->
         <script>
             function getDataToSaveComment(vitri, stt) {
-                alert(vitri + stt);
+//                alert(vitri + stt);
                 alert(document.getElementById('reply-' + vitri).value);
                 var reply = document.getElementById('reply-' + vitri).value;
                 document.getElementById('stt').value = stt;
