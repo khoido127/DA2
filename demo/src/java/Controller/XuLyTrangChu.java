@@ -48,7 +48,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Transactional
 @RequestMapping("Home")
 public class XuLyTrangChu {
-    
+
     @Autowired
     SessionFactory factory;
 
@@ -78,20 +78,20 @@ public class XuLyTrangChu {
     //Xu ly phan show san pham ra page Shop theo tung nha san xuat
     @RequestMapping("pageShop")
     public String pageShop(SearchBean sbean, HttpServletRequest request, ModelMap model) {
-        
+
         try {
             String tensp = sbean.getTenSP();
             String code = request.getParameter("code");
             System.out.println("Code: " + code);
-            
+
             String sort = "", type = "", idsp = "";
             int id = 1;
             if (code != null) {
-                
+
                 int t = 0;
                 String[] s = getCode(code);
                 while (s.length > 0) {
-                    
+
                     System.out.println("T: " + t);
                     if (s.length - t == 0) {
                         break;
@@ -113,9 +113,9 @@ public class XuLyTrangChu {
                     t++;
                 }
             }
-            
+
             int sotrang = getPageNumberOfLoaiSP(type);
-            
+
             System.out.println("TenSP: " + tensp);
             int maxNumberInPage = 6;
             int firstResult = phanTrang(maxNumberInPage, id);
@@ -163,7 +163,7 @@ public class XuLyTrangChu {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        
+
         return "shop";
     }
 
@@ -175,13 +175,13 @@ public class XuLyTrangChu {
         String idsp = "";
         int t = 0;
         while (scode.length > 0) {
-            
+
             System.out.println("T: " + t);
             if (scode.length - t == 0) {
                 break;
             }
             switch (t) {
-                
+
                 case 0:
                     idsp = scode[t];
                     break;
@@ -225,9 +225,9 @@ public class XuLyTrangChu {
             CTSPBean sp = null;
             for (int j = 0; j < length; j++) {
                 System.out.println("HINHSP: " + hinhsp[j]);
-                
+
                 sp = new CTSPBean(motact[j], hinhsp[j], tieudeCTSP[j]);
-                
+
                 ctspbean.add(sp);
             }
         }
@@ -322,7 +322,7 @@ public class XuLyTrangChu {
             }
             System.out.println("Gia: " + giasp);
             System.out.println("GiaKM: " + giakm);
-            
+
             SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
             listspbean.add(spbean);
             for (int i = 0; i < url.length; i++) {
@@ -349,7 +349,7 @@ public class XuLyTrangChu {
         List<SanPham> list = query1.list();
 //        List<SlideBean> listurl = new ArrayList<>();
         List<SanPhamBean> listspbean = new ArrayList<>();
-        
+
         for (SanPham sp : list) {
             String[] url = sp.getHinhSP().split(";");
             String giakm = "";
@@ -367,9 +367,9 @@ public class XuLyTrangChu {
             }
             SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
             listspbean.add(spbean);
-            
+
         }
-        
+
         return listspbean;
     }
 
@@ -400,18 +400,18 @@ public class XuLyTrangChu {
             list = query.list();
             String checked = "";
             for (Loai l : list) {
-                
+
                 if (l.getIDLoai().equals(type)) {
                     checked = "checked";
-                    
+
                 } else {
                     checked = "";
-                    
+
                 }
                 System.out.println("Check: " + checked);
                 LoaiSPBean spbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), checked);
                 listspbean.add(spbean);
-                
+
             }
             System.out.println("ListSPBean: " + listspbean.size());
         } catch (Exception ex) {
@@ -431,7 +431,7 @@ public class XuLyTrangChu {
             List<SanPhamBean> listspbean = new ArrayList<>();
             List<PageNumberBean> dsPage = new ArrayList<>();
             for (SanPham sp : list) {
-                
+
                 String[] url = sp.getHinhSP().split(";");
                 String giakm = "";
                 String moneySave = "";
@@ -446,7 +446,7 @@ public class XuLyTrangChu {
                     System.out.println("PercentSale: " + percentSale);
                     moneySave = "You Save " + percentSale + "% " + " ($" + moneySale + ")";
                 }
-                
+
                 SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
                 listspbean.add(spbean);
                 System.out.println(list.size());
@@ -465,7 +465,7 @@ public class XuLyTrangChu {
         }
         return "shop";
     }
-    
+
     @RequestMapping("searchSP")
     public List<SanPham> searchSP(String tensp, HttpServletRequest request) {
         List<SanPham> listsp = new ArrayList<>();
@@ -552,7 +552,7 @@ public class XuLyTrangChu {
                                     dssp.add(sp);
                                     list.remove(t);
                                     i = 0;
-                                    
+
                                 }
                                 if (list.size() == 1) {
                                     System.out.println("ListSizeLast: " + list.size());
@@ -564,7 +564,7 @@ public class XuLyTrangChu {
                             }
                         }
                     } else if (sort.equals("desc")) {
-                        
+
                         for (int i = 0; i < list.size(); i++) {
 //                            System.out.println("I: " + i);
                             int t = i;
@@ -585,10 +585,10 @@ public class XuLyTrangChu {
                                 if (b > a) {
                                     a = b;
                                     t = j;
-                                    
+
                                 }
                                 if (list.size() - j == 1) {
-                                    
+
                                     System.out.println("T: " + t);
                                     System.out.println("a[" + j + "]= " + j);
                                     System.out.println("TenSP: " + list.get(t).getTenSP());
@@ -597,7 +597,7 @@ public class XuLyTrangChu {
                                     list.remove(t);
                                     System.out.println("ListSize: " + list.size());
                                     i = 0;
-                                    
+
                                 }
                                 if (list.size() == 1) {
                                     System.out.println("ListSizeLast: " + list.size());
@@ -611,7 +611,7 @@ public class XuLyTrangChu {
                     }
                     return dssp;
                 }
-                
+
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -683,7 +683,7 @@ public class XuLyTrangChu {
     //Insert Comment vao Database
     @RequestMapping("insertComment")
     public String insertComment(CommentBean cmbean) {
-        
+
         Session s = factory.openSession();
         Transaction t = s.beginTransaction();
         String id = cmbean.getIDSP();
@@ -715,12 +715,28 @@ public class XuLyTrangChu {
             Query query = s.createQuery(hql);
             query.setParameter("id", id);
             ds = query.list();
+            String reply = "";
+            String ngayReply = "";
             for (Comment cm : ds) {
-                CommentBean cmbean = new CommentBean(cm.getTenKH(), cm.getEmail(), cm.getMoTa(), format.format(cm.getNgayCM()), cm.getURL());
+                if (cm.getReply() != null) {
+                    ngayReply = format.format(cm.getNgayReply());
+                    reply = "<div style='height: 90px;border-bottom: 1px solid #E8E8E8;min-height: 50px;min-width: 100px;margin:20px 40px;' class='comment'>"
+                            + "<span style='display: block;float: left; margin-right:10px;margin-top: 6px;padding: 10px 10px;border-radius: 100%;'>" + "<img src='images/user.png' /></span>"
+                            + "<div style='float: left;'>"
+                            + "<p style='font-weight: bold;font-size: 15px;'>Admin</p>"
+                            + "<p style='color: gray;'>" + cm.getReply() + "</p>"
+                            + "<p style='color: rgba(0,0,0,0.54);font-size: 12px;'>" + ngayReply + "</p>"
+                            + "</div>"
+                            + "</div>";
+                } else {
+                    ngayReply = "";
+                    reply = "";
+                }
+                CommentBean cmbean = new CommentBean(cm.getTenKH(), cm.getEmail(), cm.getMoTa(), format.format(cm.getNgayCM()), cm.getURL(), reply, ngayReply);
                 listcm.add(cmbean);
                 System.out.println(format.format(cm.getNgayCM()));
             }
-            
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -744,7 +760,7 @@ public class XuLyTrangChu {
         List<GioHang> dsgh = gh.getGh();
         try {
             Cookie[] cookies = request.getCookies();
-            
+
             for (Cookie c : cookies) {
                 System.out.println("Cookies Name: " + c.getName());
                 System.out.println("Cookies Value: " + c.getValue());
@@ -794,7 +810,7 @@ public class XuLyTrangChu {
                             if (soluong > 0) {
                                 System.out.println("ID: " + i);
                                 sl = soluong;
-                                
+
                             } else {
                                 if (soluong == -1) {
                                     System.out.println("DSGH: " + dsgh.size());
@@ -897,7 +913,7 @@ public class XuLyTrangChu {
                     for (int i = 0; i < dsgh.size(); i++) {
                         sumMoney = sumMoney + dsgh.get(i).getGiaSP();
                         System.out.println("ABCDEF");
-                        
+
                     }
                     model.addAttribute("sumCart", dsgh.size());
                     model.addAttribute("tongtien", sumMoney);
@@ -907,14 +923,14 @@ public class XuLyTrangChu {
                 }
             }
             return "cartDetail";
-            
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        
+
         return "checkout";
     }
-    
+
     @RequestMapping("payment")
     public String payment(HttpServletRequest request, CTHDBean cthd) {
         Session s = factory.getCurrentSession();
@@ -933,7 +949,7 @@ public class XuLyTrangChu {
             String idhd = "";
             String hql = "From HoaDon";
             Query query = s.createQuery(hql);
-            List<HoaDon> ds= query.list();
+            List<HoaDon> ds = query.list();
             int dshd = 0;
             if (ds.size() == 0) {
                 dshd = 1;
@@ -961,7 +977,7 @@ public class XuLyTrangChu {
             System.out.println("Gia: " + gia);
             HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "Đặt hàng", tongtien);
             savePayment(ct);
-            
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -974,7 +990,7 @@ public class XuLyTrangChu {
         try {
             s.save(ct);
             t.commit();
-            
+
         } catch (Exception ex) {
             t.rollback();
             System.out.println(ex);

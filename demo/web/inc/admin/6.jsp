@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>User Page</title>
+        <title>Bill Page</title>
     </head>
     <body>
-        <h1>Hello User!</h1>
+        <h1>Hello Bill!</h1>
     </body>
 </html>

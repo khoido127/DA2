@@ -57,10 +57,10 @@
                                                 <input type="hidden" id="mota" name="mota" value="" />
                                                 <input type="hidden" id="image" name="image" value="" />
                                                 <input id="image-${st.index+1}" type="hidden" value="${sp.tenHinh}" />
-                                                <input id="tieude-${st.index+1}" type="hidden" name="tieude" value="${sp.tieudeCTSP}" />
+                                                <!--<input id="tieude-${st.index+1}" type="hidden" name="tieude" value="${sp.tieudeCTSP}" />-->
                                                 <input id="id" type="hidden" name="IDSP" value="${sp.IDSP}" />
                                                 <input id="vitri" name="vitri" value="${st.index+1}" type="hidden" />
-                                                <input id="mota-${st.index+1}" type="hidden" name="mota" value="${sp.motaCT}" />
+                                                <!--<input id="mota-${st.index+1}" type="hidden" name="mota" value="${sp.motaCT}" />-->
                                                 <button onclick='saveToEditDescription("${st.index+1}")' type="button" class="btn">Save</button>
                                                 <!--<input type="submit" value="Save" />-->
                                             </td>
@@ -80,100 +80,7 @@
         </div>
 
         <hr>
-        <div class="row mg-t-10">
-            <h1> Product Review</h1>
-            <div class="col-md-12">
-                <div class="white-box">
-                    <h3 class="box-title">Review table</h3>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>NAME</th>
-                                    <th>EMAIL</th>
-                                    <th>COMMENT</th>
-                                    <th>REPLY</th>
-                                    <th>SAVE</th>
-                                    <th>DELETE</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><p>guest</p></td>
-                                    <td><p>guest123@gmail.com</p></td>
-                                    <td>
-                                        <p class="comment-field">asdasdasdasdasdasdasddfasdfasdfasdf</p>
-                                    </td>
-                                    <td>
-                                        <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"></textarea>
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn btn-edit" value="Edit"/>
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn btn-trash" value="Delete"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><p>guest</p></td>
-                                    <td><p>guest123@gmail.com</p></td>
-                                    <td>
-                                        <p class="comment-field">asdasdasdasdasdasdasddfasdfasdfasdf</p>
-                                    </td>
-                                    <td>
-                                        <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"> </textarea>
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn btn-edit" value="Edit"/>
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn btn-trash" value="Delete"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><p>guest</p></td>
-                                    <td><p>guest123@gmail.com</p></td>
-                                    <td>
-                                        <p class="comment-field">asdasdasdasdasdasdasddfasdfasdfasdf</p>
-                                    </td>
-                                    <td>
-                                        <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"> </textarea>
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn btn-edit" value="Edit"/>
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn btn-trash" value="Delete"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><p>guest</p></td>
-                                    <td><p>guest123@gmail.com</p></td>
-                                    <td>
-                                        <p class="comment-field">asdasdasdasdasdasdasddfasdfasdfasdf</p>
-                                    </td>
-                                    <td>
-                                        <textarea class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500"> </textarea>
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn btn-edit" value="Edit"/>
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn btn-trash" value="Delete"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
 
-            </div>
-        </div>
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
         <!-- end content product decription-->
     </body>
@@ -215,10 +122,12 @@
             var func = del;
             var sumIndex = document.getElementById('sumIndex').value;
             var tieude = "", mota = "", hinh = "";
-            for (var i = 1; i <= vitri; i++) {
-                if (func == "delete" && vitri == i) {
-                    dem = 1;
-                    continue;
+            for (var i = 1; i <= sumIndex; i++) {
+                if (func === "delete") {
+                    if (vitri === i) {
+                        dem = 1;
+                        continue;
+                    }
                 }
                 hinh = hinh + "CT" + i + ".jpg" + ";";
                 tieude = tieude + document.getElementById('tieude-' + i).value + "^";
@@ -226,6 +135,8 @@
             }
 //            alert(dem);
 //            alert(hinh);
+//            alert(tieude);
+//            alert(mota);
             document.getElementById('tieude').value = tieude;
             document.getElementById('mota').value = mota;
             document.getElementById('image').value = hinh;

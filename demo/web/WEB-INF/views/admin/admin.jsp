@@ -45,7 +45,7 @@
                 <div class="pull-right col-md-4">
                     <div class="pull-right">
                         <a class="profile-pic" href="#"> 
-                            <b class="username f-20">Steave</b></a>
+                            <b class="username f-20">${username}</b></a>
                         <img src="images/t1.jpg" alt="user-img" width="75" class="img-circle mg-l-20 mg-r-20 mg-t-10">
                     </div>
                 </div>
@@ -64,16 +64,17 @@
                                 <ul class="sub-menu">
                                     <li><a href="admin/contentDetailProduct.htm?page=1" class="p-l-20">Product Detail</a></li>
                                     <li><a href="${urlDescription}" class="p-l-20">Product Describe</a></li>
+                                    <li><a href="${urlComment}" class="p-l-20">Product Comment</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="admin/content.htm?page=3" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>User</a>
+                                <a href="admin/content.htm?page=4" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>User</a>
                             </li>
                             <li>
-                                <a href="admin/content.htm?page=4" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Brand</a>
+                                <a href="admin/content.htm?page=5" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Brand</a>
                             </li>
                             <li>
-                                <a href="admin/content.htm?page=5" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Bill</a>
+                                <a href="admin/content.htm?page=6" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Bill</a>
                             </li>
 
                         </ul>

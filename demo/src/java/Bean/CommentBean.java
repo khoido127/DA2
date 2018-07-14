@@ -10,12 +10,17 @@ package Bean;
  * @author Administrator
  */
 public class CommentBean {
+
+    private int stt;
     private String Name;
     private String Email;
     private String Message;
     private String IDSP;
     private String NgayCM;
     private String URL;
+    private String reply;
+    private String ngayReply;
+
     public CommentBean() {
     }
 
@@ -25,15 +30,28 @@ public class CommentBean {
         this.Message = Message;
     }
 
-    public CommentBean(String Name, String Email, String Message, String NgayCM, String URL) {
+    public CommentBean(String Name, String Email, String Message, String NgayCM, String URL, String reply, String ngayReply) {
         this.Name = Name;
         this.Email = Email;
         this.Message = Message;
         this.NgayCM = NgayCM;
         this.URL = URL;
+        this.reply = reply;
+        this.ngayReply = ngayReply;
     }
-    
-    
+
+    public CommentBean(int stt, String Name, String Email, String Message, String IDSP, String NgayCM, String URL, String reply, String ngayReply) {
+        this.stt = stt;
+        this.Name = Name;
+        this.Email = Email;
+        this.Message = Message;
+        this.IDSP = IDSP;
+        this.NgayCM = NgayCM;
+        this.URL = URL;
+        this.reply = reply;
+        this.ngayReply = ngayReply;
+    }
+
     public String getName() {
         return Name;
     }
@@ -81,5 +99,29 @@ public class CommentBean {
     public void setURL(String URL) {
         this.URL = URL;
     }
-    
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public String getNgayReply() {
+        return ngayReply;
+    }
+
+    public void setNgayReply(String ngayReply) {
+        this.ngayReply = ngayReply;
+    }
+
+    public int getStt() {
+        return stt;
+    }
+
+    public void setStt(int stt) {
+        this.stt = stt;
+    }
+
 }

@@ -29,8 +29,11 @@ public class Comment implements Serializable {
     private String moTa;
     private String Email;
     private String URL;
+    private String reply;
     @Temporal(TemporalType.TIMESTAMP)
     private Date NgayCM;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ngayReply;
     @ManyToOne
     @JoinColumn(name = "IDSP")
     SanPham sp;
@@ -53,6 +56,18 @@ public class Comment implements Serializable {
         this.NgayCM = NgayCM;
         this.sp = sp;
         this.URL = URL;
+    }
+
+    public Comment(Integer STT, SanPham sp, String TenKH, String moTa, String Email, String URL, String reply, Date NgayCM, Date ngayReply) {
+        this.STT = STT;
+        this.sp = sp;
+        this.TenKH = TenKH;
+        this.moTa = moTa;
+        this.Email = Email;
+        this.URL = URL;
+        this.reply = reply;
+        this.NgayCM = NgayCM;
+        this.ngayReply = ngayReply;
     }
 
     public Integer getSTT() {
@@ -109,6 +124,22 @@ public class Comment implements Serializable {
 
     public void setNgayCM(Date NgayCM) {
         this.NgayCM = NgayCM;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public Date getNgayReply() {
+        return ngayReply;
+    }
+
+    public void setNgayReply(Date ngayReply) {
+        this.ngayReply = ngayReply;
     }
 
 }

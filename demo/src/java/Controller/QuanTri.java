@@ -6,20 +6,26 @@
 package Controller;
 
 import Bean.CTSPBean;
+import Bean.CommentBean;
 import Bean.LoaiSPBean;
 import Bean.SanPhamBean;
 import Bean.SlideBean;
 import Model.CTSP;
+import Model.Comment;
 import Model.Loai;
+import Model.NhanVien;
 import Model.SanPham;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.Query;
@@ -31,7 +37,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
@@ -47,21 +52,53 @@ public class QuanTri {
     SessionFactory factory;
     ServletContext context;
 
+    @RequestMapping("login")
+    public String Login() {
+        return "admin/login";
+    }
+
+    @RequestMapping("checkLogin")
+    public String checkLogin(HttpServletRequest request, HttpSession session) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Session s = factory.getCurrentSession();
+        try {
+            String hql = "From NhanVien nv where nv.username=:username and nv.password=:password";
+            Query query = s.createQuery(hql);
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            List<NhanVien> ds = query.list();
+            if (ds.size() > 0) {
+                session.setAttribute("username", username);
+                return "redirect:index.htm?user=" + username;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return "admin/login";
+    }
+
     @RequestMapping("index")
-    public String index(ModelMap model, HttpServletRequest request) {
+    public String index(ModelMap model, HttpServletRequest request, HttpSession session) {
         System.out.println("URL: " + request.getRealPath(""));
         String[] s = request.getRealPath("").split("build");
         System.out.println("Path: " + s[0] + s[1]);
-        String url = s[0] + s[1] + "images\\product\\ABC";
-        File f = new File(url);
-        if (!f.exists()) {
-            if (f.mkdir()) {
-                System.out.println("Success");
-            } else {
-                System.out.println("Fail");
-            }
+        String user = request.getParameter("user");
+        System.out.println("User: " + user);
+        if (user == null) {
+            return "admin/login";
         }
+//        String url = s[0] + s[1] + "images\\product\\ABC";
+//        File f = new File(url);
+//        if (!f.exists()) {
+//            if (f.mkdir()) {
+//                System.out.println("Success");
+//            } else {
+//                System.out.println("Fail");
+//            }
+//        }
 //        model.addAttribute("page", "/inc/admin/" + 1 + ".jsp");
+        session.setAttribute("user", user);
         return "redirect:contentDetailProduct.htm?page=1";
     }
 
@@ -73,28 +110,37 @@ public class QuanTri {
 
     //Xu ly chuyen trang show data Table
     @RequestMapping("contentDetailProduct")
-    public String contentDetailProduct(@RequestParam("page") String page, ModelMap model) {
-        List<SanPhamBean> dsPageEdit = new ArrayList<>();
-        List<Loai> dsLoai = getLoaiSP();
-        List<LoaiSPBean> dsLoaiSPBean = new ArrayList<>();
-        List<SlideBean> slide = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            slide.add(new SlideBean("images/product/no-image.jpg"));
-        }
-        String selected = "";
-        for (Loai l : dsLoai) {
-            LoaiSPBean loaispbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), selected);
-            dsLoaiSPBean.add(loaispbean);
-        }
+    public String contentDetailProduct(@RequestParam("page") String page, ModelMap model, HttpSession session) {
+        try {
+            String user = session.getAttribute("user").toString();
+            if (user == null) {
+                return "admin/login";
+            }
+            List<SanPhamBean> dsPageEdit = new ArrayList<>();
+            List<Loai> dsLoai = getLoaiSP();
+            List<LoaiSPBean> dsLoaiSPBean = new ArrayList<>();
+            List<SlideBean> slide = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                slide.add(new SlideBean("images/product/no-image.jpg"));
+            }
+            String selected = "";
+            for (Loai l : dsLoai) {
+                LoaiSPBean loaispbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), selected);
+                dsLoaiSPBean.add(loaispbean);
+            }
 //        List<SanPhamBean> dsbean = showDataTable();
-        SanPhamBean spbean = new SanPhamBean("", 0, "0", "", "", "", "", "");
-        dsPageEdit.add(spbean);
-        showDataTable(model);
-        model.addAttribute("listSlide", slide);
-        model.addAttribute("listLoai", dsLoaiSPBean);
-        model.addAttribute("listEdit", dsPageEdit);
-        model.addAttribute("page", "/inc/admin/" + page + ".jsp");
-        model.addAttribute("src", "images/product/no-image.jpg");
+            SanPhamBean spbean = new SanPhamBean("", 0, "0", "", "", "", "", "");
+            dsPageEdit.add(spbean);
+            showDataTable(model);
+            model.addAttribute("listSlide", slide);
+            model.addAttribute("listLoai", dsLoaiSPBean);
+            model.addAttribute("listEdit", dsPageEdit);
+            model.addAttribute("page", "/inc/admin/" + page + ".jsp");
+            model.addAttribute("src", "images/product/no-image.jpg");
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return "admin/login";
+        }
         return "admin/admin";
     }
 
@@ -170,6 +216,7 @@ public class QuanTri {
 
             showDataTable(model);
             model.addAttribute("urlDescription", "admin/showDescription.htm?id=" + id);
+            model.addAttribute("urlComment", "admin/showComment.htm?id=" + id);
             model.addAttribute("listLoai", dsLoaiSPBean);
             model.addAttribute("status", "readonly");
             model.addAttribute("statusBrand", "disabled");
@@ -609,5 +656,102 @@ public class QuanTri {
         model.addAttribute("vitri", vitri);
         System.out.println("Vitri: " + vitri);
         return "admin/pageDeleteDesc";
+    }
+
+    //Xử lý page Comment
+    //Show Comment của 1 product
+    @RequestMapping("showComment")
+    public String showComment(@RequestParam("id") String id, ModelMap model) {
+        Session s = factory.getCurrentSession();
+        SimpleDateFormat frm = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            System.out.println("ID: " + id);
+            String hql = "From Comment cm where cm.sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            List<Comment> ds = query.list();
+            if (ds.size() == 0) {
+                model.addAttribute("notShow", "Sản phẩm này chưa được comment!");
+            }
+            List<CommentBean> dsbean = new ArrayList<>();
+            for (Comment cm : ds) {
+                String ngaycm = frm.format(cm.getNgayCM());
+                CommentBean cmbean = new CommentBean(cm.getSTT(), cm.getTenKH(), cm.getEmail(), cm.getMoTa(), cm.getSp().getIDSP(), ngaycm, cm.getURL(), cm.getReply(), "");
+                dsbean.add(cmbean);
+            }
+            System.out.println("ListCM: " + ds.size());
+            model.addAttribute("listcm", dsbean);
+            model.addAttribute("page", "/inc/admin/" + "3" + ".jsp");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return "admin/admin";
+    }
+
+    public List<Comment> getDataComment(String id, int stt) {
+        Session s = factory.getCurrentSession();
+        List<Comment> ds = new ArrayList<>();
+        try {
+            String hql = "From Comment cm where cm.sp.IDSP=:id and cm.STT=:stt";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            query.setParameter("stt", stt);
+            ds = query.list();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return ds;
+    }
+
+    //Xử lý Save data Comment
+    @RequestMapping("getDataToSaveComment")
+    public String getDataToSaveComment(ModelMap model, HttpServletRequest request) {
+        String id = request.getParameter("idsp");
+        String messageReply = request.getParameter("messageReply");
+        int stt = Integer.parseInt(String.valueOf(request.getParameter("stt")));
+        SimpleDateFormat frm = new SimpleDateFormat("yyyy-MM-dd");
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            List<Comment> ds = getDataComment(id, stt);
+            System.out.println("ListCM: " + ds.size());
+            for (Comment cm : ds) {
+                SanPham sp = new SanPham();
+                sp.setIDSP(id);
+                Comment comment = new Comment(stt, sp, cm.getTenKH(), cm.getMoTa(), cm.getEmail(), cm.getURL(), messageReply, cm.getNgayCM(), new Date());
+                s.update(comment);
+                t.commit();
+            }
+
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+        return "redirect:showComment.htm?id=" + id;
+    }
+
+    //Page Delete Comment
+    @RequestMapping("pageDeleteComment")
+    public String pageDeleteComment(@RequestParam("stt") int stt, @RequestParam("id") String id, ModelMap model) {
+        model.addAttribute("stt", stt);
+        model.addAttribute("id", id);
+        return "admin/pageDeleteComment";
+    }
+
+    //Delete Comment
+    @RequestMapping("deleteComment")
+    public String deleteComment(@RequestParam("stt") int stt, @RequestParam("id") String id) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            Comment cm = new Comment();
+            cm.setSTT(stt);
+            s.delete(cm);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+        return "redirect:showComment.htm?id=" + id;
     }
 }

@@ -6,6 +6,7 @@
 
     <head>
         <title>Z4 Shop</title>
+        <base href="${pageContext.servletContext.contextPath}/">
         <%@include file="/inc/lib.jsp" %>
         <style>
             .flexslider ol{
@@ -162,6 +163,7 @@
                                                             <p style="color: rgba(0,0,0,0.54);font-size: 12px;">${c.ngayCM}</p>
                                                         </div>
                                                     </div>
+                                                    ${c.reply}
                                                 </c:forEach>
                                             </div>
                                         </div>
