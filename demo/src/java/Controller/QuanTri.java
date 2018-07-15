@@ -372,30 +372,36 @@ public class QuanTri {
     @RequestMapping("pageDeleteSP")
     public String pageDeleteSP(@RequestParam("id") String id, ModelMap model) {
         model.addAttribute("id", id);
+        System.out.println("ID: " + id);
         return "admin/pageDeleteSP";
     }
 
     @RequestMapping("deleteSP")
     public String deleteSP(@RequestParam("id") String id, HttpServletRequest request) {
-        Session s = factory.openSession();
-        Transaction t = s.beginTransaction();
         context = request.getServletContext();
         try {
-            String idloai = getLoaiSP(id);
-            String pathbuild = context.getRealPath("/images/product/" + idloai + "/" + id);
-            String[] ch = context.getRealPath("/images/product/" + idloai + "/" + id).split("build");
-            String pathDest = ch[0] + ch[1];
-            File fBuild = new File(pathbuild);
-            File fDest = new File(pathDest);
-            SanPham sp = new SanPham();
-            sp.setIDSP(id);
-            s.delete(sp);
-            if (deleteDir(fBuild, fDest)) {
-                System.out.println("SuccessDelete");
+
+            String[] ids = id.split(";");
+            for (int i = 0; i < ids.length; i++) {
+                String idloai = getLoaiSP(ids[i]);
+                String pathbuild = context.getRealPath("/images/product/" + idloai + "/" + ids[i]);
+                String[] ch = context.getRealPath("/images/product/" + idloai + "/" + ids[i]).split("build");
+                String pathDest = ch[0] + ch[1];
+                File fBuild = new File(pathbuild);
+                File fDest = new File(pathDest);
+                SanPham sp = new SanPham();
+                sp.setIDSP(ids[i]);
+
+                System.out.println("Length: " + ids.length);
+                if (deleteDir(fBuild, fDest)) {
+                    System.out.println("SuccessDelete");
+                }
+                deleteProduct(sp);
+
             }
-            t.commit();
+
         } catch (Exception ex) {
-            t.rollback();
+//            t.rollback();
             System.out.println(ex);
         }
         return "redirect:contentDetailProduct.htm?page=1";
@@ -411,6 +417,18 @@ public class QuanTri {
             System.out.println(ex);
         }
         return false;
+    }
+
+    public void deleteProduct(SanPham sp) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.delete(sp);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
     }
 
     //Xu ly phan Description Product

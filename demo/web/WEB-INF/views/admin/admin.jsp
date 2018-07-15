@@ -142,7 +142,7 @@
                 $(document).ready(function () {
                     $('#tableProduct').DataTable({
                         dom: 'Bfrtip',
-                        select: true
+                        select: false
 //                        buttons: [
 //                            'copy', 'excel', 'pdf'
 //                        ]
@@ -224,10 +224,31 @@
                     alert($('#loaiSP')).val();
                 }
             </script>
+            <!--Xử lý phần Delete SP-->
             <script>
-                function pageDeleteSP(id) {
-//                    alert(id);
-                    $.post('admin/pageDeleteSP.htm', {'id': id}, function (data) {
+                function deleteSP() {
+                    var inputs = document.getElementsByTagName("input");
+                    var count = "";
+                    for (var i = 0; i < inputs.length; i++) {
+                        var input = inputs[i];
+                        if (inputs[i].type == "checkbox" && inputs[i].checked) {
+                            count = count + inputs[i].value + ";";
+                        }
+                    }
+                    document.getElementById('count').value = count;
+//                    alert(document.getElementById('count').value);
+                    if (count.length > 0) {
+                        document.getElementById('deleteSP').disabled = false;
+                    } else {
+                        document.getElementById('deleteSP').disabled = true;
+                    }
+                }
+            </script>
+            <script>
+                function pageDeleteSP() {
+                    var count = document.getElementById('count').value;
+//                    alert(count);
+                    $.post('admin/pageDeleteSP.htm', {'id': count}, function (data) {
                         $(".modal-body").html(data);
 
                     });
@@ -235,6 +256,7 @@
                 }
 
             </script>
+            <!--End--> 
             <script>
                 function pageDeleteDescription(vitri) {
 //                    alert("Hello");

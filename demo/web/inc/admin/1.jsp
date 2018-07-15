@@ -9,7 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <base href="${pageContext.servletContext.contextPath}/">
+        <link href="css/checkbox.css" rel="stylesheet" >
 
+        <style>
+
+        </style>
     </head>
     <body>
         <table id="tableProduct" class="table display">
@@ -20,8 +25,8 @@
                     <th>NAME</th>
                     <th>BRAND</th>
                     <th>PRICE</th>
-                    <th>EDIT</th>
                     <th>DELETE</th>
+                    <th>EDIT</th>
                     <th>DESCRIPTION</th>
                     <th>COMMENT</th>
                 </tr>
@@ -35,18 +40,24 @@
                         <td>${sp.tenLoai}</td>
                         <td>$ ${sp.giaSP}</td>
                         <td>
+                            <div class="checkbox">
+                                <label style="font-size: 1.5em; padding-left: 8px;">
+                                    <input type="hidden" id="count" value="" />
+                                    <input onclick="deleteSP()" type="checkbox" value="${sp.IDSP}" id="checkBox">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                </label>
+                            </div>
+                            <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-delete">Open Modal</button>-->
+                        </td>
+                        <td>
                             <button onclick="getDataEdit('${sp.IDSP}')" type="button" class="btn btn-detail">Edit</button>
                         </td>
+
                         <td>
-                            <input style="display: none" type="checkbox" class="custom-checkbox"/>
-                            <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-delete">Open Modal</button>-->
-                            <button onclick="pageDeleteSP('${sp.IDSP}')" data-toggle="modal" data-target="#modal-delete" type="button" class="btn btn-trash" >Delete</button>
+                            <button onclick="getShowDetail('${sp.IDSP}')" type="button" class="btn btn-detail">Show</button>
                         </td>
                         <td>
-                            <button onclick="getShowDetail('${sp.IDSP}')" type="button" class="btn btn-detail">Detail</button>
-                        </td>
-                        <td>
-                            <button onclick="getShowComment('${sp.IDSP}')" type="button" class="btn btn-detail">Detail</button>
+                            <button onclick="getShowComment('${sp.IDSP}')" type="button" class="btn btn-detail">Show</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -66,6 +77,21 @@
                 $.post("admin/showComment.htm", {'id': id}, function (data) {
                     $('body').html(data);
                 });
+            }
+        </script>
+        <script>
+
+            function checkDelete(id) {
+//                var inputs = document.getElementsByTagName("input");
+//                alert(inputs.length);
+//                var count = "";
+//                for (var i = 0; i < inputs.length; i++) {
+//                    var input = inputs[i];
+//                    if (inputs[i].type == "checkbox" && inputs[i].checked) {
+//                        count = count + inputs[i].value + ";";
+//                    }
+//                }
+//                alert(count);
             }
         </script>
     </body>

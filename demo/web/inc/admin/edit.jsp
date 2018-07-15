@@ -23,7 +23,7 @@
         <%  response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1 
             response.setHeader("Pragma", "no-cache"); //HTTP 1.0 
             response.setDateHeader("Expires", 0); //prevents caching at the proxy server  
-%>
+        %>
         <form id="formProduct" role="form" action="admin/saveToEdit.htm" method="post" enctype="multipart/form-data">
             <!-- content product -->
             <c:forEach var="sp" items="${listEdit}">
@@ -121,6 +121,7 @@
                                 <button onclick="addNew()" type="button" class="btn" >AddNew</button>
                                 <!--<button onclick="getDataToSave('${sp.IDSP}')" id="save" type="button" class="btn" value="Save" >Save</button>-->
                                 <input onclick="getDataToSave()" type="submit" class="btn" value="Save" />
+                                <button id="deleteSP" disabled onclick="pageDeleteSP()" data-toggle="modal" data-target="#modal-delete" type="button" class="btn btn-trash" >Delete</button>
                             </div>
                         </div>
                     </div>
