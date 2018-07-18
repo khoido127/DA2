@@ -669,11 +669,46 @@ public class QuanTri {
 
     //Chuyển trang delete Description
     @RequestMapping("pageDeleteDescription")
-    public String pageDeleteDescription(@RequestParam("vitri") String vitri, ModelMap model) {
-
-        model.addAttribute("vitri", vitri);
-        System.out.println("Vitri: " + vitri);
+    public String pageDeleteDescription(HttpServletRequest request, ModelMap model) {
+        String hinh = request.getParameter("hinh");
+        String tieude = request.getParameter("tieude");
+        String mota = request.getParameter("mota");
+        String id = request.getParameter("id");
+        
+        model.addAttribute("hinh", hinh);
+        model.addAttribute("tieude", tieude);
+        model.addAttribute("mota", mota);
+        model.addAttribute("id", id);
+        System.out.println("MoTa: " + mota);
         return "admin/pageDeleteDesc";
+    }
+
+    //Xử lý phần Delete Description
+    @RequestMapping("deleteDescription")
+    public String deleteDescription(HttpServletRequest request) {
+        System.out.println("PageDeleteDescription");
+        String hinh = request.getParameter("hinh");
+        String tieude = request.getParameter("tieude");
+        String mota = request.getParameter("mota");
+        String id = request.getParameter("id");
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            List<SanPham> ds = getCTSP(id);
+            int stt = 0;
+            for (SanPham sp : ds) {
+                stt = sp.getCtsp().get(0).getSTT();
+            }
+            SanPham sp = new SanPham();
+            sp.setIDSP(id);
+            CTSP ct = new CTSP(stt, mota, hinh, tieude, sp);
+            s.update(ct);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+        return "redirect:showDescription.htm?id=" + id;
     }
 
     //Xử lý page Comment

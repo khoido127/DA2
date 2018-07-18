@@ -69,7 +69,7 @@
                         <div style="margin-top: 14px;margin-left: 0;" class="row">
                             <div class="product-quantity col-md-4">
                                 <span onclick="downFunction('${sp.IDSP}');" id="minus" class="product-minus"><i class="fa fa-minus"></i></span>
-                                <input type="number" min="1" size="2" class="quantity" name="quantity" id="${sp.IDSP}" value="${soluong}" max="30">
+                                <input type="number" min="1" size="2" class="quantity" name="quantity" id="sl" value="${soluong}" max="30">
                                 <span onclick="upFunction('${sp.IDSP}')" id="plus" class="product-plus"><i class="fa fa-plus"></i></span>
                                 <span style="border:0;color: red;font-style: italic;font-size:12px;width:100%; display:block" id="outofstock"></span>
                             </div>
@@ -77,7 +77,9 @@
                             <div class="occasion-cart col-md-8">
                                 <!--<input type="hidden" id="tongtien" value="${tongtien}" />-->
                                 <div class="shoe single-item single_page_b">
-                                    <input onclick="checkout();" id="add-to-cart" type="button"  value="Add to cart" class="btn btn-add">
+                                    <input type="hidden" id="sz" value=""/>
+
+                                    <input onclick="checkout('${sp.IDSP}');" id="add-to-cart" type="button"  value="Add to cart" class="btn btn-add">
                                 </div>
 
                             </div>
@@ -101,7 +103,6 @@
                             <div class="resp-tabs-container">
                                 <!--/tab_one-->
                                 <div class="tab1">
-
                                     <div style="width: 100%" class="single_page">
                                         <c:forEach var="ctsp" items="${listctsp}" varStatus="st">
                                             <c:set var="p" value="${st.index}"></c:set>
@@ -225,7 +226,6 @@
                                                     <input type="hidden" name="shoe_item" value="Shuberry Heels">
                                                     <input type="hidden" name="amount" value="575.00">
                                                     <button type="submit" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
-
                                                     <a href="#" data-toggle="modal" data-target="#myModal1"></a>
                                                 </form>
 
@@ -248,7 +248,6 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-
                                         <div style="border: 0;" class="modal-footer">
 
                                         </div>
@@ -263,7 +262,6 @@
                     <div class="clearfix"></div>
                 </div>
                 <!--//new_arrivals-->
-
 
             </div>
         </div>
@@ -328,8 +326,6 @@
 
                                                     // Can also be used with $(document).ready()
                                                     function viewDetail(id) {
-
-
                                                         $.post('Home/quickviewSingle.htm', {'id': id}, function (data) {
                                                             $(".modal-body").html(data);
                                                             $('.flexslider').flexslider({
@@ -406,40 +402,40 @@
 
             function downFunction(id) {
                 var size = document.getElementById('choose-size').innerHTML;
-                var quantity = document.getElementById('' + id + '').value;
+                var quantity = document.getElementById('sl').value;
                 if (quantity > 1) {
                     document.getElementById('add-to-cart').removeAttribute("disabled");
                     document.getElementById('outofstock').innerHTML = "";
                     quantity--;
-                    document.getElementById('' + id + '').value = quantity;
+                    document.getElementById('sl').value = quantity;
                     $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single", 'size': size}, function (data) {
                         console.log(id);
 //                        $("body").html(data);
                     });
                 } else {
                     quantity = 1;
-                    document.getElementById('box-' + id + '').setAttribute("style", "display:none");
-                    document.getElementById('' + id + '').value = quantity;
+//                    document.getElementById('box-' + id + '').setAttribute("style", "display:none");
+                    document.getElementById('sl').value = quantity;
                 }
 
             }
             function upFunction(id, giagoc) {
                 var size = document.getElementById('choose-size').innerHTML;
-                var quantity = document.getElementById('' + id + '').value;
+                var quantity = document.getElementById('sl').value;
                 quantity++;
                 if (quantity > 5) {
                     quantity = 5;
                     document.getElementById('outofstock').innerHTML = "You can't buy more than 5 products! Please, contact us for more information.";
                     document.getElementById('add-to-cart').setAttribute("disabled", "");
-                    document.getElementById('' + id + '').value = quantity;
+                    document.getElementById('sl').value = quantity;
                 } else {
 
-                    document.getElementById('' + id + '').value = quantity;
-                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single", 'size': size}, function (data) {
-                        console.log(id);
-//                    $('body').html(data);
-
-                    });
+                    document.getElementById('sl').value = quantity;
+//                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "single", 'size': size}, function (data) {
+//                        console.log(id);
+////                    $('body').html(data);
+//
+//                    });
                 }
 
             }
@@ -454,6 +450,7 @@
                 console.log(st);
                 document.getElementById('size-detail-' + 0 + '').setAttribute("style", "cursor: pointer;color: #FFC226;");
                 document.getElementById('choose-size').innerHTML = document.getElementById('size-detail-' + 0 + '').innerHTML;
+                document.getElementById('sz').value = "35";
 //                var size = document.getElementById('choose-size').innerHTML;
 //                var id = document.getElementById('idsp').value;
             }
@@ -468,6 +465,7 @@
                         document.getElementById('size-detail-' + i + '').setAttribute("style", "cursor: pointer;color: #FFC226;");
                         document.getElementById('status').innerHTML = trangthai;
                         document.getElementById('statusSize').value = "T";
+                        document.getElementById('sz').value = size;
                     } else {
                         console.log("null");
                         document.getElementById('size-detail-' + i + '').setAttribute("style", "cursor: pointer;color: white;");
@@ -476,19 +474,26 @@
                 }
                 console.log(document.getElementById('statusSize').value);
                 document.getElementById('choose-size').innerHTML = size;
-                $.post('Home/getGioHang.htm', {'id': id, 'ck': "single", 'size': size}, function (data) {
-
-                });
+//                $.post('Home/getGioHang.htm', {'id': id, 'ck': "single", 'size': size, 'st': "1"}, function (data) {
+//                    $('body').html(data);
+//                });
                 console.log(document.getElementById('statusSize').value);
             }
         </script>
         <!--Checkout-->
         <script>
 
-            function checkout() {
-//                var size = document.getElementById('choose-size').innerHTML;
-
-                window.location = ("Home/getGioHang.htm?ck=all");
+            function checkout(id) {
+                var size = document.getElementById('sz').value;
+                var sl = document.getElementById('sl').value;
+                if (size == null) {
+                    size = "35";
+                }
+                alert(size + sl);
+                $.post('Home/getGioHang.htm', {'id': id, 'ck': "all", 'size': size, 'sl': sl}, function (data) {
+                    $('body').html(data);
+                });
+//                window.location = ("Home/getGioHang.htm?ck=all");
             }
         </script>
     </body>

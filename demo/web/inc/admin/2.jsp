@@ -64,7 +64,15 @@
                                                 <button onclick='saveToEditDescription("${st.index+1}")' type="button" class="btn">Save</button>
                                                 <!--<input type="submit" value="Save" />-->
                                             </td>
-                                            <td><button data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteDescription('${st.index+1}')" type="button" class="btn btn-trash">Delete</button></td>
+                                            <td>
+                                                <div class="checkbox">
+                                                    <label style="font-size: 1.5em; padding-left: 8px;">
+                                                        <input type="hidden" id="count" value="" />
+                                                        <input type="checkbox" value="${st.index+1}" id="checkBox">
+                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                                    </label>
+                                                </div>
+                                            </td>
                                         </tr>
 
                                     </c:forEach>
@@ -75,6 +83,7 @@
                 </div>
                 <div class="button-bottom tx-al-r mg-r-20">
                     <input onclick="addNewDescription()" type="button" class="btn" value="Add New"/>
+                    <button data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteDescription()" type="button" class="btn btn-trash">Delete</button>
                 </div>
             </div>
         </div>
@@ -146,6 +155,45 @@
 
         }
         ;
+    </script>
+    <script>
+        function pageDeleteDescription() {
+            var inputs = document.getElementsByTagName("input");
+            var id = "";
+            var count = "";
+            var n = "";
+            var hinh = "", tieude = "", mota = "";
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                if (inputs[i].name == "IDSP") {
+                    id = inputs[i].value;
+                }
+                if (inputs[i].type == "checkbox" && inputs[i].checked) {
+                    count = count + inputs[i].value + ";";
+                } else if (inputs[i].type == "checkbox") {
+                    n = n + inputs[i].value + ";";
+                }
+            }
+            var ch = n.split(";");
+//            alert(ch.length);
+            for (var i = 0; i < ch.length - 1; i++) {
+                hinh = hinh + "CT" + ch[i] + ".jpg" + ";";
+                tieude = tieude + document.getElementById('tieude-' + ch[i]).value + "^";
+                mota = mota + document.getElementById('mota-' + ch[i]).value + "^";
+            }
+            document.getElementById('tieude').value = tieude;
+            document.getElementById('mota').value = mota;
+            document.getElementById('image').value = hinh;
+//            alert(id);
+            $.post("admin/pageDeleteDescription.htm", {'hinh': hinh, 'tieude': tieude, 'mota': mota, 'id': id}, function (data) {
+                $('.modal-body').html(data);
+            });
+//            document.getElementById('formEditDescription').submit();
+//            alert(n);
+//            alert(hinh);
+//            alert(tieude);
+//            alert(mota);
+        }
     </script>
     <script>
         function addNewDescription() {

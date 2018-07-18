@@ -16,8 +16,8 @@ import Bean.SanPhamBean;
 import Bean.SearchBean;
 import Bean.SlideBean;
 import Model.HoaDon;
-import Model.CTSP;
 import Model.Comment;
+import Model.Kho;
 
 import Model.Loai;
 import Model.SanPham;
@@ -181,7 +181,6 @@ public class XuLyTrangChu {
                 break;
             }
             switch (t) {
-
                 case 0:
                     idsp = scode[t];
                     break;
@@ -225,9 +224,7 @@ public class XuLyTrangChu {
             CTSPBean sp = null;
             for (int j = 0; j < length; j++) {
                 System.out.println("HINHSP: " + hinhsp[j]);
-
                 sp = new CTSPBean(motact[j], hinhsp[j], tieudeCTSP[j]);
-
                 ctspbean.add(sp);
             }
         }
@@ -400,18 +397,14 @@ public class XuLyTrangChu {
             list = query.list();
             String checked = "";
             for (Loai l : list) {
-
                 if (l.getIDLoai().equals(type)) {
                     checked = "checked";
-
                 } else {
                     checked = "";
-
                 }
                 System.out.println("Check: " + checked);
                 LoaiSPBean spbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), checked);
                 listspbean.add(spbean);
-
             }
             System.out.println("ListSPBean: " + listspbean.size());
         } catch (Exception ex) {
@@ -431,7 +424,6 @@ public class XuLyTrangChu {
             List<SanPhamBean> listspbean = new ArrayList<>();
             List<PageNumberBean> dsPage = new ArrayList<>();
             for (SanPham sp : list) {
-
                 String[] url = sp.getHinhSP().split(";");
                 String giakm = "";
                 String moneySave = "";
@@ -446,7 +438,6 @@ public class XuLyTrangChu {
                     System.out.println("PercentSale: " + percentSale);
                     moneySave = "You Save " + percentSale + "% " + " ($" + moneySale + ")";
                 }
-
                 SanPhamBean spbean = new SanPhamBean(sp.getIDSP(), sp.getTenSP(), giasp, url[0], url[1], sp.getLoai().getIDLoai(), sp.getMoTa(), moneySave, giakm);
                 listspbean.add(spbean);
                 System.out.println(list.size());
@@ -471,7 +462,6 @@ public class XuLyTrangChu {
         List<SanPham> listsp = new ArrayList<>();
         try {
 //            SearchBean sbean=new SearchBean();
-
             Session s = factory.getCurrentSession();
             String hql = "From SanPham";
             Query query = s.createQuery(hql);
@@ -564,7 +554,6 @@ public class XuLyTrangChu {
                             }
                         }
                     } else if (sort.equals("desc")) {
-
                         for (int i = 0; i < list.size(); i++) {
 //                            System.out.println("I: " + i);
                             int t = i;
@@ -585,7 +574,6 @@ public class XuLyTrangChu {
                                 if (b > a) {
                                     a = b;
                                     t = j;
-
                                 }
                                 if (list.size() - j == 1) {
 
@@ -611,7 +599,6 @@ public class XuLyTrangChu {
                     }
                     return dssp;
                 }
-
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -775,7 +762,7 @@ public class XuLyTrangChu {
             System.out.println("CHECK: " + ck);
             String sz = request.getParameter("size");
             if (sz == null) {
-                sz = "";
+                sz = getSize(id);
             }
             Session s = factory.getCurrentSession();
             String hql = "From SanPham sp where sp.IDSP=:id";
@@ -786,10 +773,12 @@ public class XuLyTrangChu {
                 double tongtien = 0;
                 int alert = 0;
                 int soluong = 0;
+                int sl = 0;
+                String st = request.getParameter("st");
                 List<SlideBean> listurl = new ArrayList<>();
                 String[] url = dssp.get(0).getHinhSP().split(";");
                 for (SanPham sp : dssp) {
-                    int sl = 1;
+                    sl = 1;
                     String ch = request.getParameter("sl");
                     if (ch != null) {
                         soluong = Integer.parseInt(ch);
@@ -806,11 +795,13 @@ public class XuLyTrangChu {
                     int size = dsgh.size();
                     for (int i = 0; i < dsgh.size(); i++) {
                         sl = dsgh.get(i).getSoluong();
-                        if (dsgh.get(i).getIDSP().equals(id)) {
+                        
+
+                        if (dsgh.get(i).getIDSP().equals(id) && dsgh.get(i).getSize().equals(sz) && st == null) {
+
                             if (soluong > 0) {
                                 System.out.println("ID: " + i);
                                 sl = soluong;
-
                             } else {
                                 if (soluong == -1) {
                                     System.out.println("DSGH: " + dsgh.size());
@@ -857,15 +848,20 @@ public class XuLyTrangChu {
                             sum = String.valueOf(tongtien);
 //                            model.addAttribute("tongtien", tongtien);
                             dem = 1;
+
                         } else {
                             System.out.println("Continue 3");
-                            sl = 1;
+                            System.out.println("DEM: " + dem);
+                            sl = soluong;
+                            System.out.println("SL: " + soluong);
                             tongtien = tongtien + dsgh.get(i).getGiaSP();
                             sum = String.valueOf(tongtien);
 //                        model.addAttribute("tongtien", tongtien);
                         }
                     }
                     if (dem == 0) {
+                        sl = soluong;
+                        System.out.println("Size: " + sz);
                         tongtien = tongtien + giasp;
                         sum = String.valueOf(tongtien);
                         GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai(), sz);
@@ -878,12 +874,15 @@ public class XuLyTrangChu {
                 }
                 model.addAttribute("tongtien", sum);
                 model.addAttribute("listsp", dssp);
-                model.addAttribute("soluong", soluong);
+                model.addAttribute("soluong", sl);
                 model.addAttribute("tongtien", tongtien);
                 model.addAttribute("sumCart", dsgh.size());
                 session.setAttribute("list", dsgh);
                 model.addAttribute("listcart", dsgh);
                 if (ck.equals("single")) {
+                    if (st != null) {
+                        model.addAttribute("soluong", sl);
+                    }
                     for (int i = 0; i < url.length; i++) {
                         SlideBean slide = new SlideBean(url[i]);
                         listurl.add(slide);
@@ -929,6 +928,24 @@ public class XuLyTrangChu {
         }
 
         return "checkout";
+    }
+
+    //Lấy size của một SP
+    public String getSize(String id) {
+        Session s = factory.getCurrentSession();
+        String size = "";
+        try {
+            String hql = "From Kho k where k.sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            List<Kho> ds = query.list();
+            size = ds.get(0).getSize();
+            String[] chSize = size.split(";");
+            size = chSize[0];
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return size;
     }
 
     @RequestMapping("payment")

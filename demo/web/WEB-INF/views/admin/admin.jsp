@@ -17,7 +17,7 @@
         <meta http-equiv='pragma' content='no-cache'>
         <!--<meta http-equiv="refresh" content="5" />-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+        <link href="css/checkbox.css" rel="stylesheet" >
         <!--Data Table-->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-html5-1.5.2/b-print-1.5.2/sl-1.2.6/datatables.min.css"/>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -257,15 +257,7 @@
 
             </script>
             <!--End--> 
-            <script>
-                function pageDeleteDescription(vitri) {
-//                    alert("Hello");
-                    $.post('admin/pageDeleteDescription.htm', {'vitri': vitri}, function (data) {
-                        $(".modal-body").html(data);
-
-                    });
-                }
-            </script>
+            
     </body>
 
 </html>

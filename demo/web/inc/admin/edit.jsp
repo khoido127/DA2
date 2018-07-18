@@ -32,7 +32,7 @@
                     <div style="margin-bottom: 10px;" class="content-left-panel col-md-4">
                         <div class="single-right-left ">
                             <div class="grid images_3_of_2">
-                                <div  class="boxSlide">
+                                <div class="boxSlide">
                                     <img id="anhDaiDien" style="margin-bottom: 10px;width: 300px; height: 240px;" src="${src}" alt="image"/>
                                     <div style="width: 100%; display: flex;justify-content: space-around;" >
                                         <input name="idImage" id="idImage" type="hidden" value="1" />
@@ -114,7 +114,7 @@
 
                     <div style="margin-top: 10px;" class="button-content col-md-12 tx-al-r p-r-20">
                         <div class="col-md-4 button-content-left tx-al-l">
-                            <input multiple="false" accept="image/*" onchange="getFileUpload(event)" id="uploadImage" name="fileUpload" type="file" />
+                            <input value="Choose Image" multiple="false" accept="image/*" onchange="getFileUpload(event)" id="uploadImage" name="fileUpload" type="file" />
                         </div>
                         <div class="col-md-8 button-content-right">
                             <div class="tx-al-r">

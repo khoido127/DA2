@@ -69,10 +69,10 @@
                                         <td class="invert">
                                             <div class="quantity">
                                                 <div class="quantity-select">
-
-                                                    <div onclick="downFunction('${sp.IDSP}');" class="entry value-minus">&nbsp;</div>
-                                                    <input id="${sp.IDSP}" style="width: 40px;height: 40px;text-align: center;" type="text" value="${sp.soluong}" />
-                                                    <div onclick="upFunction('${sp.IDSP}');" class="entry value-plus active">&nbsp;</div>
+                                                    <input type="hidden" id="sz-${sp.size}" value="${sp.size}" />
+                                                    <div onclick="downFunction('${sp.IDSP}', '${sp.size}');" class="entry value-minus">&nbsp;</div>
+                                                    <input id="${sp.IDSP}-${sp.size}" style="width: 40px;height: 40px;text-align: center;" type="text" value="${sp.soluong}" />
+                                                    <div onclick="upFunction('${sp.IDSP}', '${sp.size}');" class="entry value-plus active">&nbsp;</div>
                                                     <c:if test="${IDSP==idsp}">
                                                         <br />
                                                         ${stock}
@@ -239,13 +239,15 @@
         <!--Xu ly so luong-->
         <script>
 
-            function downFunction(id) {
+            function downFunction(id, sz) {
 
-                var quantity = document.getElementById('' + id + '').value;
+                var quantity = document.getElementById('' + id + '-' + sz).value;
+                var size = sz;
+                alert(size + quantity);
                 if (quantity > 1) {
                     quantity--;
-                    document.getElementById('' + id + '').value = quantity;
-                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "all"}, function (data) {
+                    document.getElementById('' + id + '-' + sz).value = quantity;
+                    $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "all", 'size': size}, function (data) {
                         console.log(id);
                         $('body').html(data);
                     });
@@ -253,19 +255,20 @@
                 } else {
 
                     document.getElementById('check-' + id + '').setAttribute("style", "display:none");
-                    $.post('Home/getGioHang.htm', {'id': id, 'sl': -1, 'ck': "all"}, function (data) {
+                    $.post('Home/getGioHang.htm', {'id': id, 'sl': -1, 'ck': "all", "size": size}, function (data) {
                         $('body').html(data);
                     });
                 }
 
             }
-            function upFunction(id) {
-                var quantity = document.getElementById('' + id + '').value;
-
+            function upFunction(id, sz) {
+                var quantity = document.getElementById('' + id + '-' + sz).value;
+                var size = sz;
+                alert(size + quantity);
                 quantity++;
                 console.log(quantity);
-                document.getElementById('' + id + '').value = quantity;
-                $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "all"}, function (data) {
+                document.getElementById('' + id + '-' + sz).value = quantity;
+                $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "all", "size": size}, function (data) {
                     console.log(id);
                     $('body').html(data);
 
