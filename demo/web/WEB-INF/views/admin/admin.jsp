@@ -32,7 +32,7 @@
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
             response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
             response.setDateHeader("Expires", 0); // Proxies.
-        %>
+%>
         <div class="content-manage-page" id="home">
             <nav class="navbar row no-padding">
                 <div class="top-left-part col-md-2">
@@ -60,12 +60,7 @@
                         </div>
                         <ul class="menu-title">
                             <li>
-                                <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Product</a>
-                                <ul class="sub-menu">
-                                    <li><a href="admin/contentDetailProduct.htm?page=1" class="p-l-20">Product Detail</a></li>
-                                    <li><a href="${urlDescription}" class="p-l-20">Product Describe</a></li>
-                                    <li><a href="${urlComment}" class="p-l-20">Product Comment</a></li>
-                                </ul>
+                                <a href="admin/contentDetailProduct.htm?page=1" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Product</a>
                             </li>
                             <li>
                                 <a href="admin/content.htm?page=4" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>User</a>
@@ -76,7 +71,9 @@
                             <li>
                                 <a href="admin/content.htm?page=6" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Bill</a>
                             </li>
-
+                            <li>
+                                <a href="admin/content.htm?page=7" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Storage</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -257,7 +254,7 @@
 
             </script>
             <!--End--> 
-            
+
     </body>
 
 </html>
