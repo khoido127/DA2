@@ -13,6 +13,7 @@ import Bean.LoaiSPBean;
 import Bean.SanPhamBean;
 import Bean.SizeBean;
 import Bean.SlideBean;
+import Bean.isAdmin;
 import Model.CTSP;
 import Model.Comment;
 import Model.HoaDon;
