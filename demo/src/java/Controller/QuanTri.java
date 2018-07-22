@@ -5,14 +5,18 @@
  */
 package Controller;
 
+import Bean.CTHDBean;
 import Bean.CTSPBean;
 import Bean.CommentBean;
+import Bean.HinhThucTTBean;
 import Bean.LoaiSPBean;
 import Bean.SanPhamBean;
+import Bean.SizeBean;
 import Bean.SlideBean;
-import Bean.isAdmin;
 import Model.CTSP;
 import Model.Comment;
+import Model.HoaDon;
+import Model.Kho;
 import Model.Loai;
 import Model.NhanVien;
 import Model.SanPham;
@@ -809,7 +813,496 @@ public class QuanTri {
         return "redirect:showComment.htm?id=" + id;
     }
 
-    // user page //
+    /*
+    Edit Brand
+    Show Data Brand
+     */
+    @RequestMapping("showBrand")
+    public String showBrand(ModelMap model, HttpServletRequest request) {
+        Session session = factory.getCurrentSession();
+        try {
+            String idLoai = request.getParameter("idLoai");
+            String tenLoai = request.getParameter("tenLoai");
+            String check = request.getParameter("check");
+            String sql = "FROM Loai";
+            Query query = session.createQuery(sql);
+            List<Loai> listLoai = query.list();
+            model.addAttribute("listLoai", listLoai);
+            model.addAttribute("page", "/inc/admin/" + "5" + ".jsp");
+            model.addAttribute("idLoai", idLoai);
+            model.addAttribute("tenLoai", tenLoai);
+            if (check != null) {
+                model.addAttribute("readonly", "readonly");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "admin/admin";
+    }
+
+    // Edit Brand
+    @RequestMapping("editBrand")
+    public String editBrand(@RequestParam("idLoai") String idLoai, @RequestParam("tenLoai") String tenLoai, ModelMap model) {
+        System.out.println("IDLoai: " + idLoai);
+        return "redirect:showBrand.htm?idLoai=" + idLoai + "&tenLoai=" + tenLoai + "&check=true";
+
+    }
+
+    public boolean checkBrand(String idLoai) {
+        Session session = factory.getCurrentSession();
+        try {
+            String sql = "FROM Loai loai WHERE loai.IDLoai=:idLoai";
+            Query query = session.createQuery(sql);
+            query.setParameter("idLoai", idLoai);
+            List<Loai> listLoai = query.list();
+            if (listLoai.size() > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @RequestMapping("saveEditBrand")
+    public String saveEditBrand(@RequestParam("idLoai") String idLoai, @RequestParam("tenLoai") String tenLoai, HttpServletRequest request, ModelMap model) {
+        context = request.getServletContext();
+        String[] s = context.getRealPath("/images/product/" + idLoai + "/").split("build");
+        System.out.println(s[0] + s[1]);
+        try {
+            Loai loai = new Loai(idLoai, tenLoai);
+            if (!checkBrand(idLoai)) {
+                System.out.println("Insert");
+                String url = s[0] + s[1];
+                File f = new File(url);
+                if (!f.exists()) {
+                    if (f.mkdir()) {
+                        System.out.println("Success");
+                    } else {
+                        System.out.println("Fail");
+                    }
+                }
+
+                insertSaveBrand(loai);
+
+            } else {
+                editSaveBrand(loai);
+                model.addAttribute("readonly", "");
+            }
+            model.addAttribute("page", "/inc/admin/" + 5 + ".jsp");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:showBrand.htm?idLoai=" + idLoai;
+    }
+
+    public void editSaveBrand(Loai loai) {
+        Session session = factory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(loai);
+            transaction.commit();
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println(ex);
+        }
+    }
+
+    //Xu ly phan Save sau khi Insert
+    public void insertSaveBrand(Loai loai) {
+        Session session = factory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(loai);
+            transaction.commit();
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println(ex);
+        }
+    }
+
+    // PageDeleteBrand
+    @RequestMapping("pageDeleteBrand")
+    public String pageDeleteBrand(@RequestParam("idLoai") String idLoai, ModelMap model) {
+        System.out.println("IDLoai: " + idLoai);
+        model.addAttribute("idLoai", idLoai);
+        return "admin/pageDeleteBrand";
+    }
+
+    @RequestMapping("deleteBrand")
+    public String deleteBrand(@RequestParam("idLoai") String idLoai, ModelMap model) {
+        Session session = factory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Loai loai = new Loai();
+            loai.setIDLoai(idLoai);
+            session.delete(loai);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+        return "redirect:showBrand.htm";
+    }
+
+    // Xử lý HoaDon
+    //Tạo 1 function show danh sach toan bo HoaDon
+    public List<HoaDon> getHoaDon() {
+        Session s = factory.getCurrentSession();
+        List<HoaDon> ds = new ArrayList<>();
+        try {
+            String hql = "From HoaDon";
+            Query query = s.createQuery(hql);
+            ds = query.list();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return ds;
+    }
+
+    //Tạo 1 function get thong tin cua 1 HoaDon dua vao IDHD
+    public List<HoaDon> getHoaDonByID(String id) {
+        Session s = factory.getCurrentSession();
+        List<HoaDon> ds = new ArrayList<>();
+        try {
+            String hql = "From HoaDon hd where hd.IDHD=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            ds = query.list();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return ds;
+    }
+
+    //Show danh sach HoaDon
+    @RequestMapping("showHoaDon")
+    public String showHoaDon(ModelMap model) {
+        List<HoaDon> ds = getHoaDon();
+        List<CTHDBean> dsBean = new ArrayList<>();
+        String[] s = {"In Process", "On Way", "Payed"};
+        List<HinhThucTTBean> dsTT = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            HinhThucTTBean ttBean = new HinhThucTTBean(s[i], "");
+            dsTT.add(ttBean);
+        }
+        CTHDBean ctbean = new CTHDBean("", new Date(), "", "", "", "", 0);
+        dsBean.add(ctbean);
+        model.addAttribute("listEditDescribe", dsBean);
+        model.addAttribute("listTT", dsTT);
+        model.addAttribute("listHD", ds);
+        model.addAttribute("page", "/inc/admin/" + "6" + ".jsp");
+        model.addAttribute("control", "");
+        return "admin/admin";
+    }
+
+    //Show Chi tiet HD
+    @RequestMapping("showDetailHD")
+    public String showDetailHD(ModelMap model, @RequestParam("id") String id) {
+        List<CTHDBean> dsBean = new ArrayList<>();
+        CTHDBean ctbean = new CTHDBean(id, "", "", "", "", "");
+        dsBean.add(ctbean);
+        showDetailHoaDon(id, model);
+        model.addAttribute("page", "/inc/admin/" + "7" + ".jsp");
+        model.addAttribute("listEditDetail", dsBean);
+        return "admin/admin";
+    }
+
+    public void showDetailHoaDon(String id, ModelMap model) {
+        List<HoaDon> ds = getHoaDonByID(id);
+        List<CTHDBean> dsHDBean = new ArrayList<>();
+        for (HoaDon hd : ds) {
+            String[] tensp = hd.getTenSP().split("\\^");
+            String[] size = hd.getSize().split("\\^");
+            String[] sl = hd.getSL().split("\\^");
+            String[] gia = hd.getGia().split("\\^");
+            String[] idsp = hd.getIdSP().split("\\^");
+            for (int i = 0; i < tensp.length; i++) {
+                CTHDBean ctbean = new CTHDBean(id, tensp[i], sl[i], size[i], gia[i], idsp[i]);
+                dsHDBean.add(ctbean);
+            }
+        }
+        System.out.println("DetailHD: " + dsHDBean.size());
+        model.addAttribute("control", "detail");
+        model.addAttribute("listDetailHD", dsHDBean);
+    }
+
+    //Get data show ra field để Edit Detail HD
+    @RequestMapping("getDataShowEditDetailHD")
+    public String getDataEditDetailHD(@RequestParam("id") String id, @RequestParam("index") int index, ModelMap model) {
+        List<CTHDBean> dsBean = new ArrayList<>();
+        List<HoaDon> ds = getHoaDonByID(id);
+        String IDSP = "", s = "", selected = "";
+        for (HoaDon hd : ds) {
+            String[] tensp = hd.getTenSP().split("\\^");
+            String[] size = hd.getSize().split("\\^");
+            String[] sl = hd.getSL().split("\\^");
+            String[] gia = hd.getGia().split("\\^");
+            String[] idsp = hd.getIdSP().split("\\^");
+            for (int i = 0; i < tensp.length; i++) {
+                if (i == index) {
+                    IDSP = idsp[i];
+                    s = size[i];
+                    CTHDBean ctbean = new CTHDBean(id, tensp[i], sl[i], size[i], gia[i], idsp[i]);
+                    dsBean.add(ctbean);
+
+                }
+            }
+            String[] sz = getSizeOfSP(IDSP).split(";");
+            List<SizeBean> dsSize = new ArrayList<>();
+            for (int i = 0; i < sz.length; i++) {
+                if (sz[i].equals(s)) {
+                    selected = "selected";
+                } else {
+                    selected = "";
+                }
+                SizeBean sizeBean = new SizeBean(sz[i], selected);
+                dsSize.add(sizeBean);
+            }
+            System.out.println("ListEditDetail: " + dsBean.size());
+            showDetailHoaDon(id, model);
+            model.addAttribute("listEditDetail", dsBean);
+            model.addAttribute("index", index);
+            model.addAttribute("page", "/inc/admin/" + "7" + ".jsp");
+            model.addAttribute("listSize", dsSize);
+        }
+        return "admin/admin";
+    }
+
+    //Hàm Save HoaDon
+    public void saveHoaDon(HoaDon hd) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.update(hd);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+    }
+
+    //Get Size trong kho theo từng sản phẩm
+    public String getSizeOfSP(String idsp) {
+        Session s = factory.getCurrentSession();
+        String size = "";
+        try {
+            String hql = "From Kho k where k.sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", idsp);
+            List<Kho> ds = query.list();
+            size = ds.get(0).getSize();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return size;
+    }
+
+    //Get Data To Save Detail HD
+    @RequestMapping("getDataToSaveDetailHD")
+    public String getDataToSaveDetailHD(ModelMap model, HttpServletRequest request) {
+        List<CTHDBean> dsBean = new ArrayList<>();
+        String id = request.getParameter("idhd");
+        int index = Integer.parseInt(String.valueOf(request.getParameter("index")));
+        String IDSP = request.getParameter("IDSP");
+        String Name = request.getParameter("TenSP");
+        String Size = request.getParameter("Size");
+        String SL = request.getParameter("SL");
+        String Gia = request.getParameter("Gia");
+        String s0 = "", s1 = "", s2 = "", s3 = "", s4 = "";
+        List<HoaDon> ds = getHoaDonByID(id);
+        for (HoaDon hd : ds) {
+            String[] idsp = hd.getIdSP().split("\\^");
+            String[] tensp = hd.getTenSP().split("\\^");
+            String[] size = hd.getSize().split("\\^");
+            String[] sl = hd.getSL().split("\\^");
+            String[] gia = hd.getGia().split("\\^");
+
+            for (int i = 0; i < tensp.length; i++) {
+                if (i == index) {
+                    idsp[i] = IDSP;
+                    tensp[i] = Name;
+                    size[i] = Size;
+                    sl[i] = SL;
+                    gia[i] = Gia;
+
+                }
+                s1 = s1 + tensp[i] + "^";
+                s2 = s2 + size[i] + "^";
+                s3 = s3 + sl[i] + "^";
+                s4 = s4 + gia[i] + "^";
+            }
+            HoaDon hoadon = new HoaDon(id, hd.getNgay(), hd.getHinhThucTT(), hd.getLoaiHD(), s1, hd.getIdSP(), s3, s2, s4, hd.getTenKH(), hd.getSDT(), hd.getDiaChi(), hd.getEmail(), hd.getTrangThai(), hd.getTongTien());
+            saveHoaDon(hoadon);
+        }
+        System.out.println("");
+
+        return "redirect:getDataShowEditDetailHD.htm?id=" + id + "&index=" + index;
+    }
+
+    //Chuyển sang trang PageDeleteDetailHD
+    @RequestMapping("pageDeleteDetailHD")
+    public String pageDeleteDetailHD(@RequestParam("id") String id, @RequestParam("count") String count, ModelMap model) {
+        model.addAttribute("id", id);
+        model.addAttribute("count", count);
+        return "admin/pageDeleteDetailHD";
+    }
+    //Tạo hàm Delete Detail HD
+
+    //Xử lý Delete Detail HD
+    @RequestMapping("deleteDetailHD")
+    public String deleteDetailHD(HttpServletRequest request, ModelMap model) {
+        String IDSP = request.getParameter("IDSP");
+        String idhd = request.getParameter("id");
+        String count = request.getParameter("count");
+        String s0 = "", s1 = "", s2 = "", s3 = "", s4 = "";
+        List<HoaDon> ds = getHoaDonByID(idhd);
+        for (HoaDon hd : ds) {
+            String[] idsp = hd.getIdSP().split("\\^");
+            String[] tensp = hd.getTenSP().split("\\^");
+            String[] size = hd.getSize().split("\\^");
+            String[] sl = hd.getSL().split("\\^");
+            String[] gia = hd.getGia().split("\\^");
+            String[] ch = count.split(";");
+            for (int i = 0; i < tensp.length; i++) {
+                for (int j = 0; j < ch.length; j++) {
+                    int vt = Integer.parseInt(ch[j]);
+                    if (i == vt) {
+                        s0 = s0 + idsp[i] + "^";
+                        s1 = s1 + tensp[i] + "^";
+                        s2 = s2 + size[i] + "^";
+                        s3 = s3 + sl[i] + "^";
+                        s4 = s4 + gia[i] + "^";
+                    }
+                }
+
+            }
+            String tongtien = "";
+            String[] chuoi = s4.split("\\^");
+            String[] chQuantity = s3.split("\\^");
+            double total = 0;
+            for (int i = 0; i < chuoi.length; i++) {
+                double g = Double.parseDouble(chuoi[i]);
+                int quantity = Integer.parseInt(chQuantity[i]);
+                total = total + g;
+            }
+            System.out.println("TongTien: " + total);
+//            total=Double.parseDouble(tongtien);
+            HoaDon hoadon = new HoaDon(idhd, hd.getNgay(), hd.getHinhThucTT(), hd.getLoaiHD(), s1, s0, s3, s2, s4, hd.getTenKH(), hd.getSDT(), hd.getDiaChi(), hd.getEmail(), hd.getTrangThai(), total);
+            saveHoaDon(hoadon);
+        }
+        return "redirect:showDetailHD.htm?id=" + idhd;
+    }
+
+    //Show data để Edit Describe HD
+    @RequestMapping("getDataShowEditDescribe")
+    public String getDataShowEditDescribe(@RequestParam("id") String id, ModelMap model) {
+        List<HoaDon> ds = getHoaDonByID(id);
+        List<CTHDBean> dsBean = new ArrayList<>();
+        List<HoaDon> dsHD = getHoaDon();
+
+        String trangthai = "";
+        for (HoaDon hd : ds) {
+            trangthai = hd.getTrangThai();
+            CTHDBean ctbean = new CTHDBean(id, hd.getNgay(), hd.getHinhThucTT(), hd.getTenKH(), hd.getSDT(), hd.getDiaChi(), hd.getTongTien());
+            dsBean.add(ctbean);
+        }
+        String[] s = {"In Process", "On Way", "Payed"};
+        List<HinhThucTTBean> dsTT = new ArrayList<>();
+        String checked = "";
+        System.out.println("HinhThucTT: " + trangthai);
+        for (int i = 0; i < 3; i++) {
+            if (trangthai.equalsIgnoreCase(s[i])) {
+                checked = "checked";
+            } else {
+                checked = "";
+            }
+            HinhThucTTBean ttBean = new HinhThucTTBean(s[i], checked);
+            dsTT.add(ttBean);
+        }
+        model.addAttribute("readonly", "readonly");
+        model.addAttribute("listEditDescribe", dsBean);
+        model.addAttribute("listTT", dsTT);
+        model.addAttribute("listHD", dsHD);
+        model.addAttribute("page", "/inc/admin/" + "6" + ".jsp");
+        model.addAttribute("control", "");
+        return "admin/admin";
+    }
+
+    //Get dữ liệu Size, số lượng trong kho theo IDSP
+    public List<Kho> getDataKho(String idsp) {
+        Session s = factory.getCurrentSession();
+        List<Kho> ds = new ArrayList<>();
+        try {
+            String hql = "From Kho k where k.sp.IDSP=:idsp";
+            Query query = s.createQuery(hql);
+            query.setParameter("idsp", idsp);
+            ds = query.list();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return ds;
+    }
+
+    //Tạo function xử lý việc update lại số lượng trong kho theo size
+    public void updateSoLuongKho(String idsp, String sl, String sz) {
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+        int soluong = Integer.parseInt(sl);
+        int n = 0;
+        String s = "";
+        try {
+            List<Kho> ds = getDataKho(idsp);
+            for (Kho k : ds) {
+                String[] size = k.getSize().split(";");
+                String[] quantity = k.getSL().split(";");
+                for (int i = 0; i < size.length; i++) {
+                    n = Integer.parseInt(quantity[i]);
+                    if (size[i].equals(sz)) {
+                        n = n - soluong;
+                    }
+                    s = s + String.valueOf(n) + ";";
+                }
+                SanPham sp = new SanPham();
+                sp.setIDSP(idsp);
+                Kho kho = new Kho(k.getSTT(), s, k.getSize(), sp);
+                session.update(kho);
+                t.commit();
+            }
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+
+    }
+
+    //Xử lý phần Save Describe
+    @RequestMapping("saveDescribeHD")
+    public String saveDescribeHD(CTHDBean ctbean, HinhThucTTBean ttBean) {
+        String idhd = ctbean.getIDHD();
+        String tenkh = ctbean.getTenKH();
+        String sdt = ctbean.getSDT();
+        String diachi = ctbean.getDiaChi();
+        String trangthai = ttBean.getHinhThucTT();
+        System.out.println("TrangThai: " + trangthai);
+        System.out.println("IDHD: " + idhd);
+        List<HoaDon> ds = getHoaDonByID(idhd);
+        for (HoaDon hd : ds) {
+            String[] idsp = hd.getIdSP().split("\\^");
+            String[] soluong = hd.getSL().split("\\^");
+            String[] size = hd.getSize().split("\\^");
+            if (trangthai.equalsIgnoreCase("Payed")) {
+                for (int i = 0; i < soluong.length; i++) {
+                    updateSoLuongKho(idsp[i], soluong[i], size[i]);
+                }
+            }
+            System.out.println("Hello");
+            HoaDon hoadon = new HoaDon(idhd, hd.getNgay(), hd.getHinhThucTT(), hd.getLoaiHD(), hd.getTenSP(), hd.getIdSP(), hd.getSL(), hd.getSize(), hd.getGia(), tenkh, sdt, diachi, hd.getEmail(), trangthai, hd.getTongTien());
+            saveHoaDon(hoadon);
+        }
+        return "redirect:showHoaDon.htm";
+    }
+	// user page //
     @RequestMapping("showuser") // do du lieu ra table //
     public String showuser(ModelMap model) {
         getalluser(model);
@@ -971,96 +1464,3 @@ public class QuanTri {
         return "admin/pageDeleteUser";
     }
 }
-// public String saveToEdit(@RequestParam("idImage") String nameImage, @RequestParam("fileUpload") CommonsMultipartFile[] fileUpload, HttpServletRequest request, ModelMap model) {
-//        String id = request.getParameter("IDSP");
-//        System.out.println("Size: " + id.length());
-//
-//        String idloai = request.getParameter("IDLoai");
-//        System.out.println("IDLoai: " + idloai);
-//        String tensp = request.getParameter("TenSP");
-//        String moTa = request.getParameter("moTa");
-//        String hinhsp = request.getParameter("nameImage");
-//        double giaspkm = Double.parseDouble(request.getParameter("GiaSPKM"));
-//        double giasp = Double.parseDouble(request.getParameter("GiaSP"));
-//        System.out.println("NameImage: " + hinhsp);
-//        context = request.getServletContext();
-//        String[] ch = context.getRealPath("/images/product/" + idloai + "/" + id + "/").split("build");
-//        String destPath = ch[0] + ch[1];
-//        String urlBuild = "";
-//        System.out.println("Path: " + destPath);
-//        System.out.println(checkSP(id));
-//        try {
-//            if (!checkSP(id)) {
-//
-////                String[] s = context.getRealPath("/images/product/" + idloai + "/" + idNew + "/").split("build");
-//                urlBuild = context.getRealPath("/images/product/" + idloai + "/" + id + "/");
-////                destPath = s[0] + s[1];
-//                System.out.println("IDSP-New: " + id);
-//                File f = new File(destPath);
-//                File fBuild = new File(urlBuild);
-//                if (!f.exists() && !fBuild.exists()) {
-//                    if (f.mkdir() && fBuild.mkdir()) {
-//                        System.out.println("Success");
-//                    } else {
-//                        System.out.println("Fail");
-//                    }
-//                }
-//            }
-//            if (fileUpload != null && fileUpload.length > 0) {
-//                for (CommonsMultipartFile aFile : fileUpload) {
-//
-//                    System.out.println("Saving file: " + aFile.getOriginalFilename());
-////                    String[] c = aFile.getOriginalFilename().split(".");
-//                    //Lay dinh dang file
-//                    String typeImage = "jpg";
-////                    System.out.println("TypeImage: " + c.length);
-//                    if (!aFile.getOriginalFilename().equals("")) {
-//
-//                        if (!checkSP(id)) {
-//                            hinhsp = "";
-//                            int indexImage = Integer.parseInt(nameImage);
-//                            for (int i = 1; i <= 3; i++) {
-//                                if (i == indexImage) {
-//                                    hinhsp = hinhsp + i + "." + typeImage + ";";
-//                                    aFile.transferTo(new File(destPath + nameImage + "." + typeImage));
-//                                    aFile.transferTo(new File(urlBuild + nameImage + "." + typeImage));
-//                                } else {
-//                                    hinhsp = hinhsp + i + ".jpg" + ";";
-//                                    String[] src = context.getRealPath("/images/product/no-image.jpg").split("build");
-//                                    String source = src[0] + src[1];
-//                                    File pathSource = new File(source);
-//                                    File renameFile = new File(destPath + i + ".jpg");
-//                                    File renameFileBuild = new File(urlBuild + i + ".jpg");
-//                                    File renameFileDest = new File(destPath + "no-image.jpg");
-//                                    File renameFileDestBuild = new File(urlBuild + "no-image.jpg");
-//                                    File pathDest = new File(destPath);
-//                                    File pathDestBuild = new File(urlBuild);
-//                                    FileUtils.copyFileToDirectory(pathSource, pathDest);
-//                                    FileUtils.copyFileToDirectory(pathSource, pathDestBuild);
-//                                    boolean result = renameFileDest.renameTo(renameFile);
-//                                    boolean resultBuild = renameFileDestBuild.renameTo(renameFileBuild);
-//                                    System.out.println("Result: " + result);
-//                                }
-//                            }
-//                            System.out.println("HinhSP: " + hinhsp);
-//                        } else {
-//                            aFile.transferTo(new File(urlBuild + nameImage + ".jpg"));
-//                            aFile.transferTo(new File(destPath + nameImage + ".jpg"));
-//                        }
-//                    }
-//                }
-//            }
-//            Loai loai = new Loai();
-//            loai.setIDLoai(idloai);
-//            SanPham sp = new SanPham(id, tensp, giaspkm, giasp, moTa, hinhsp, loai);
-//            System.out.println("ID-Edit: " + id);
-//            if (checkSP(id)) {
-//                editSave(sp);
-//            } else {
-//                insertSave(sp);
-//            }
-//        } catch (Exception ex) {
-//            System.out.println(ex);
-//        }
-//        return "redirect:getDataEdit.htm?id=" + id;
-//    }
