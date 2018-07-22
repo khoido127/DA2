@@ -40,6 +40,12 @@ public class Kho {
         this.SL = SL;
         this.Size = Size;
     }
+
+    public Kho(Integer STT, String SL, String Size) {
+        this.STT = STT;
+        this.SL = SL;
+        this.Size = Size;
+    }
     
     
     public Integer getSTT() {

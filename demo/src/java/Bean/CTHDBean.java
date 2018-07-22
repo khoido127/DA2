@@ -14,6 +14,7 @@ import java.util.List;
  * @author ASUS
  */
 public class CTHDBean {
+
     private String IDHD;
     private Date ngay;
     private String hinhthuctt;
@@ -26,7 +27,9 @@ public class CTHDBean {
     private String diaChi;
     private String Email;
     private String IDSP;
-    public static List<CTHDBean> hd=new ArrayList<>();
+    private double total;
+    public static List<CTHDBean> hd = new ArrayList<>();
+
     public CTHDBean() {
     }
 
@@ -44,7 +47,7 @@ public class CTHDBean {
         this.Email = Email;
         this.IDSP = IDSP;
     }
- 
+
     public CTHDBean(String TenSP, String SL, String Size, String Gia, String TenKH, String SDT, String diaChi, String Email, String IDSP) {
         this.TenSP = TenSP;
         this.SL = SL;
@@ -55,6 +58,25 @@ public class CTHDBean {
         this.diaChi = diaChi;
         this.Email = Email;
         this.IDSP = IDSP;
+    }
+
+    public CTHDBean(String IDHD, String TenSP, String SL, String Size, String Gia, String IDSP) {
+        this.IDHD = IDHD;
+        this.TenSP = TenSP;
+        this.SL = SL;
+        this.Size = Size;
+        this.Gia = Gia;
+        this.IDSP = IDSP;
+    }
+
+    public CTHDBean(String IDHD, Date ngay, String hinhthuctt, String TenKH, String SDT, String diaChi, double total) {
+        this.IDHD = IDHD;
+        this.ngay = ngay;
+        this.hinhthuctt = hinhthuctt;
+        this.TenKH = TenKH;
+        this.SDT = SDT;
+        this.diaChi = diaChi;
+        this.total = total;
     }
 
     public String getIDHD() {
@@ -104,7 +126,7 @@ public class CTHDBean {
     public void setGia(String Gia) {
         this.Gia = Gia;
     }
-    
+
     public String getSize() {
         return Size;
     }
@@ -112,7 +134,6 @@ public class CTHDBean {
     public void setSize(String Size) {
         this.Size = Size;
     }
-
 
     public String getTenKH() {
         return TenKH;
@@ -161,5 +182,13 @@ public class CTHDBean {
     public static void setHd(List<CTHDBean> hd) {
         CTHDBean.hd = hd;
     }
-    
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
 }

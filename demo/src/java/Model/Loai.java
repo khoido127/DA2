@@ -28,6 +28,11 @@ public class Loai implements Serializable {
     public Loai() {
     }
 
+    public Loai(String IDLoai, String tenLoai) {
+        this.IDLoai = IDLoai;
+        this.tenLoai = tenLoai;
+    }
+    
     public Loai(String IDLoai, String TenLoai, List<SanPham> sp) {
         this.IDLoai = IDLoai;
         this.tenLoai = TenLoai;

@@ -992,7 +992,7 @@ public class XuLyTrangChu {
             System.out.println("SoLuong: " + sl);
             System.out.println("Size: " + size);
             System.out.println("Gia: " + gia);
-            HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "Đặt hàng", tongtien);
+            HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "In progress", tongtien);
             savePayment(ct);
 
         } catch (Exception ex) {
