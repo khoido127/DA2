@@ -31,7 +31,7 @@
             var username = document.getElementById('user').value;
             var password = document.getElementById('pass').value;
             if (username.length == 0 || password.length == 0) {
-                document.getElementById('error').innerHTML = "Vui lòng nhập đầy đủ thông tin!";
+                document.getElementById('error').innerHTML = "Please, Enter a Username or Password!";
                 return false;
             }
             document.getElementById('formLogin').submit();

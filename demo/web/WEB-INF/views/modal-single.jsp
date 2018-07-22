@@ -35,7 +35,7 @@
                     <del style="font-size: 28px;">${sp.giaSPKM}</del>
                 </p>
                 <p style="color: #eb694b;font-size: 16px;font-weight: 600;">${sp.saveMoney}</p>
-                <div class="color-quality">
+<!--                <div class="color-quality">
                     <div class="color-quality-right">
                         <h5 style="font-weight: bold;">Size:</h5>
                         <select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
@@ -43,8 +43,8 @@
                             <option value="null">37</option> 						
                         </select>
                     </div>
-                </div>
-                <h5 style="margin-top: 20px;font-weight: bold;">QTY</h5>
+                </div>-->
+<!--                <h5 style="margin-top: 20px;font-weight: bold;">QTY</h5>
                 <div style="margin-top: 14px;margin-left: 0;" class="row">
                     <div class="product-quantity col-md-6">
                         <span onclick="minusFunction();" id="minus" class="product-minus"><i class="fa fa-minus"></i></span>
@@ -70,7 +70,7 @@
 
                     </div>
                     <span id="outofquantity" style="color: red;font-style: italic"></span>
-                </div>
+                </div>-->
                 <div class="description-cart">
                     <p>${sp.moTa}</p>
                 </div>

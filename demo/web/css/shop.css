@@ -345,7 +345,7 @@ p.sbmincart-empty-text {
     line-height: 2.3;
 }
 span.money {
-    font-size: 1em;
+    font-size: 24px;
     font-weight: 700;
 }
 .inner-men-cart-pro {
@@ -840,9 +840,8 @@ span.item_price {
     height: 245px;
 }
 .grid_meta {
-    float: left;
-    width: 80%;
-    text-align: left;
+    width: 100%;
+    text-align: center;
 }
 .info-product-price {
     margin: 12px 0;
@@ -866,7 +865,7 @@ button.shoe-cart:hover {
 /*-- single-page --*/
 .single-right-left h3 {
     text-transform: capitalize;
-    font-size: 23px;
+    font-size: 34px;
     color: #fb383b;
     margin: 0;
     letter-spacing: 1px;
@@ -1165,7 +1164,6 @@ input.button.add {
 .top_nav_right .top_shoe_cart .box-cart{
     padding: 15px 15px;
     width: 400px; 
-    height: 220px; 
     background-color: rgba(255,255,255,1); 
     visibility: visible;
     display: none;

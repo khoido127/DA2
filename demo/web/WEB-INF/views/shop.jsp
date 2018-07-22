@@ -172,7 +172,7 @@
                                                         <div class="product_price">
                                                             <div class="grid-price ">
                                                                 <span style="color: #eb694b;" class="money ">$${sp.giaSP}</span>
-                                                                <del style="font-size: 13px;margin-left: 4px;" class="money">${sp.giaSPKM}</del>
+                                                                <del style="font-size: 16px;margin-left: 5px;" class="money">${sp.giaSPKM}</del>
                                                             </div>
                                                         </div>
 
@@ -184,7 +184,7 @@
                                                             <input type="hidden" name="shoe_item" value="Bank Sneakers">
                                                             <input type="hidden" name="amount" value="635.00">
                                                         </form>
-                                                        <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+<!--                                                        <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>-->
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>

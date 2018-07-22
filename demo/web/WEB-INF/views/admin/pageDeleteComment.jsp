@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Confirm Page</title>
     </head>
     <body>
-        <h3>Bạn thật sự muốn xóa đánh giá này?</h3>
+        <h3>Do you want to delete this?</h3>
         <div style="border: 0;" class="modal-footer">
             <button onclick="deleteComment('${stt}', '${id}')" type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>

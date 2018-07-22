@@ -40,9 +40,6 @@
         -webkit-appearance: none;
 
     }
-    .top_nav_right .top_shoe_cart .box-cart{
-        height: 220px;
-    }
 </style>
 <!-- banner -->
 <div class="banner_top" id="home">
@@ -81,7 +78,7 @@
                 }
             %>
             <div class="top_nav_right">
-                <a style="position: relative;" class="top_shoe_cart" value="">
+                <a style="position: relative; margin-left: 55px" class="top_shoe_cart" value="">
                     <span style="position: absolute;width: 24px;height: 24px;border-radius: 100%;top: -12px;right: -10px;background-color: rgba(255,255,255,0.6);text-align: center;color: white;line-height: 24px;"><%=all%></span>
                     <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                     <span class="box-cart">
@@ -116,7 +113,7 @@
             </div>
             <!-- //cart details -->
             <!-- search -->
-            <div class="search_w3ls_agileinfo">
+<!--            <div class="search_w3ls_agileinfo">
                 <div class="cd-main-header">
                     <ul class="cd-header-buttons">
                         <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
@@ -127,7 +124,7 @@
                         <input name="Search" type="search" placeholder="Click enter after typing...">
                     </form>
                 </div>
-            </div>
+            </div>-->
             <!-- //search -->
 
             <div class="clearfix"></div>

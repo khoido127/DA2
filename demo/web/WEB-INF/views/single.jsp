@@ -23,7 +23,7 @@
         <div class="ads-grid_shop">
             <div class="shop_inner_inf">
                 <c:forEach var="sp" items="${listsp}">
-                    <div class="col-md-4 single-right-left ">
+                    <div class="col-md-3 single-right-left ">
                         <div class="grid images_3_of_2">
                             <div class="flexslider">
 
@@ -48,7 +48,10 @@
                         <div style="clear: both;"></div>
                         <div class="color-quality">
                             <div class="color-quality-right">
-                                <h5 style="float: left;">Size:<span style="display: inline-block;margin: 0 12px;" id="choose-size"></span><span id="status" style="color: red; font-size: 14px;display: inline-block;margin-left: 108px;font-style: italic;"></span></h5> 
+                                <h5 style="float: left;">Size:
+                                    <span style="display: inline-block;margin: 0 12px;" id="choose-size"></span>
+                                    <span id="status" style="color: red; font-size: 14px;display: inline-block;font-style: italic;"></span>
+                                </h5> 
                                 <input type="hidden" id="statusSize" value="F" />
                                 <div style="clear: both;"></div>
                                 <div id="size" class="row">
@@ -67,7 +70,7 @@
 
                         <h5 style="margin-top: 20px;">QTY</h5>
                         <div style="margin-top: 14px;margin-left: 0;" class="row">
-                            <div class="product-quantity col-md-4">
+                            <div class="product-quantity col-md-3">
                                 <span onclick="downFunction('${sp.IDSP}');" id="minus" class="product-minus"><i class="fa fa-minus"></i></span>
                                 <input type="number" min="1" size="2" class="quantity" name="quantity" id="sl" value="${soluong}" max="30">
                                 <span onclick="upFunction('${sp.IDSP}')" id="plus" class="product-plus"><i class="fa fa-plus"></i></span>
@@ -108,22 +111,21 @@
                                             <c:set var="p" value="${st.index}"></c:set>
                                             <c:choose>
                                                 <c:when test="${p%2==0}">
-                                                    <div class="row">
-
-                                                        <div class="col-md-6"><img style="width: 600px;height: 540px;" src="images/product/${sp.IDLoai}/${sp.IDSP}/${ctsp.hinhCTSP}" /></div>
+                                                    <div class="row mg-b-20">
+                                                        <div class="col-md-6"><img style="width: 540px" src="images/product/${sp.IDLoai}/${sp.IDSP}/${ctsp.hinhCTSP}" /></div>
                                                         <div class="col-md-6">
-                                                            <h3>${ctsp.tieudeCTSP}</h3>
+                                                            <h3 style="font-family: fantasy;font-size: 36px;">${ctsp.tieudeCTSP}</h3>
                                                             <p>${ctsp.motaCT}</p>
                                                         </div>
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div class="row">
+                                                    <div class="row mg-b-20">
                                                         <div class="col-md-6">
-                                                            <h3>${ctsp.tieudeCTSP}</h3>
+                                                            <h3 style="font-family: fantasy;font-size: 36px;">${ctsp.tieudeCTSP}</h3>
                                                             <p>${ctsp.motaCT}</p>
                                                         </div>
-                                                        <div class="col-md-6"><img style="width: 100%" src="images/product/${sp.IDLoai}/${sp.IDSP}/${ctsp.hinhCTSP}" /></div>
+                                                        <div class="col-md-6"><img style="width:540px" src="images/product/${sp.IDLoai}/${sp.IDSP}/${ctsp.hinhCTSP}" /></div>
                                                     </div>
                                                 </c:otherwise>
                                             </c:choose>
@@ -225,7 +227,6 @@
                                                     <input type="hidden" name="add" value="1">
                                                     <input type="hidden" name="shoe_item" value="Shuberry Heels">
                                                     <input type="hidden" name="amount" value="575.00">
-                                                    <button type="submit" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
                                                     <a href="#" data-toggle="modal" data-target="#myModal1"></a>
                                                 </form>
 

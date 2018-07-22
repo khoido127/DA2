@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h3>Bạn thật sự muốn xóa mô tả của sản phẩm này?</h3>
+        <h3>Do you want to delete this?</h3>
         <form id="formDeleteDescription" action="admin/deleteDescription.htm" method="post">
             <div style="border: 0;" class="modal-footer">
                 <input type="hidden" name="hinh" value="${hinh}" />

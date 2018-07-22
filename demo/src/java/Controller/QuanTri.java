@@ -10,6 +10,7 @@ import Bean.CommentBean;
 import Bean.LoaiSPBean;
 import Bean.SanPhamBean;
 import Bean.SlideBean;
+import Bean.isAdmin;
 import Model.CTSP;
 import Model.Comment;
 import Model.Loai;
@@ -674,7 +675,7 @@ public class QuanTri {
         String tieude = request.getParameter("tieude");
         String mota = request.getParameter("mota");
         String id = request.getParameter("id");
-        
+
         model.addAttribute("hinh", hinh);
         model.addAttribute("tieude", tieude);
         model.addAttribute("mota", mota);
@@ -807,4 +808,259 @@ public class QuanTri {
         }
         return "redirect:showComment.htm?id=" + id;
     }
+
+    // user page //
+    @RequestMapping("showuser") // do du lieu ra table //
+    public String showuser(ModelMap model) {
+        getalluser(model);
+        List<isAdmin> roles = new ArrayList<>();
+        boolean[] ch = {true, false};
+        String s = "Staff";
+        String checked = "";
+        for (int i = 0; i < ch.length; i++) {
+            if (ch[i] == true) {
+                s = "Admin";
+                checked = "checked";
+            } else {
+                s = "Staff";
+            }
+            isAdmin role = new isAdmin(ch[i], checked, s);
+            roles.add(role);
+        }
+        List<NhanVien> list = new ArrayList<>();
+        NhanVien nv = new NhanVien(" ", "", Boolean.TRUE, " ", "images/product/no-image.jpg");
+        list.add(nv);
+        model.addAttribute("src", "images/product/no-image.jpg");
+        model.addAttribute("listRole", roles);
+        model.addAttribute("list1nv", list);
+        model.addAttribute("page", "/inc/admin/" + "4" + ".jsp");
+        return "admin/admin";
+    }
+
+    public void getalluser(ModelMap model) {
+        Session s = factory.getCurrentSession();
+        try {
+            String sql = "From NhanVien";
+            Query q = s.createQuery(sql);
+            List<NhanVien> list = q.list();
+            model.addAttribute("listnv", list);
+            model.addAttribute("page", "/inc/admin/" + "4" + ".jsp");
+        } catch (Exception e) {
+        }
+    }
+
+    public List<NhanVien> get1user(String username) {
+        Session s = factory.getCurrentSession();
+        List<NhanVien> nv = new ArrayList<>();
+        try {
+            String sql = "From NhanVien nv where nv.username=:username";
+            Query q = s.createQuery(sql);
+            q.setParameter("username", username);
+            nv = q.list();
+        } catch (Exception e) {
+        }
+        return nv;
+    }
+
+    @RequestMapping("editnv")
+    public String edit1nv(@RequestParam("username") String username, ModelMap model) {
+        List<NhanVien> nv = get1user(username);
+        boolean isadmin = nv.get(0).getIsAdmin();
+        getalluser(model);
+        List<isAdmin> roles = new ArrayList<>();
+        boolean[] ch = {true, false};
+        String s = "";
+
+        String checked = "";
+        for (int i = 0; i < ch.length; i++) {
+            if (ch[i] == true) {
+                s = "Admin";
+            } else {
+                s = "Staff";
+            }
+            if (ch[i] == isadmin) {
+                checked = "checked";
+            } else {
+                checked = "";
+            }
+            isAdmin role = new isAdmin(ch[i], checked, s);
+            roles.add(role);
+        }
+        model.addAttribute("src", "images/"+ nv.get(0).getImg());
+        model.addAttribute("readonly", "readonly");
+        model.addAttribute("listRole", roles);
+        model.addAttribute("list1nv", nv);
+        model.addAttribute("page", "/inc/admin/" + "4" + ".jsp");
+        return "admin/admin";
+    }
+
+    @RequestMapping("saveToEditUser")
+    public String saveToEditUser(@RequestParam("fileupload") CommonsMultipartFile[] fileUpload, HttpServletRequest request, ModelMap model) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Boolean isAdmin = Boolean.parseBoolean(String.valueOf(request.getParameter("isAdmin")));
+        String info = request.getParameter("info");
+        String nameImage="";
+        context = request.getServletContext();
+        System.out.println("User: " + username);
+        String[] ch = context.getRealPath("/images/").split("build");
+        String destPath = ch[0] + ch[1];
+        String urlBuild = context.getRealPath("/images/");
+        System.out.println("URLPath: " + destPath);
+        try {
+            if (fileUpload != null && fileUpload.length > 0) {
+                for (CommonsMultipartFile aFile : fileUpload) {
+
+                    System.out.println("Saving file: " + aFile.getOriginalFilename());
+//                    String[] c = aFile.getOriginalFilename().split(".");
+                    //Lay dinh dang file
+                    nameImage = aFile.getOriginalFilename();
+                    System.out.println("NameImage: " + nameImage);
+                    String typeImage = "jpg";
+//                    System.out.println("TypeImage: " + c.length);
+                    if (!aFile.getOriginalFilename().equals("")) {
+                        aFile.transferTo(new File(urlBuild + nameImage));
+                        aFile.transferTo(new File(destPath + nameImage));
+                    }
+                }
+            }
+            if(nameImage == ""){
+                nameImage = request.getParameter("srcimg");
+            }
+            System.out.println(nameImage);
+            NhanVien nv = new NhanVien(username, password, isAdmin, info, nameImage);
+            saveupdateuser(nv);
+        } catch (Exception ex) {
+        }
+        return "redirect:showuser.htm";
+    }
+    public void saveupdateuser(NhanVien nv){
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try{
+        s.saveOrUpdate(nv);
+        t.commit();
+        }catch(Exception e){
+        t.rollback();
+        }
+    }
+    @RequestMapping("deleteuser")
+    public String deleteuser (@RequestParam ("username") String username){
+        String[] ch = username.split(";");
+        for(int i =0 ; i<ch.length;i++){
+            deluser(ch[i]);
+        }
+        return "redirect:showuser.htm";
+    }
+    public void deluser(String username){
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try{
+        NhanVien nv = new NhanVien();
+        nv.setUsername(username);
+        s.delete(nv);
+        t.commit();
+        }catch(Exception e){
+        t.rollback();
+        }
+    }
+    @RequestMapping("pageconfirmuser")
+    public String pageconfirmuser(ModelMap model, @RequestParam("username") String username){
+        System.out.println(username);
+        model.addAttribute("username", username);
+        return "admin/pageDeleteUser";
+    }
 }
+// public String saveToEdit(@RequestParam("idImage") String nameImage, @RequestParam("fileUpload") CommonsMultipartFile[] fileUpload, HttpServletRequest request, ModelMap model) {
+//        String id = request.getParameter("IDSP");
+//        System.out.println("Size: " + id.length());
+//
+//        String idloai = request.getParameter("IDLoai");
+//        System.out.println("IDLoai: " + idloai);
+//        String tensp = request.getParameter("TenSP");
+//        String moTa = request.getParameter("moTa");
+//        String hinhsp = request.getParameter("nameImage");
+//        double giaspkm = Double.parseDouble(request.getParameter("GiaSPKM"));
+//        double giasp = Double.parseDouble(request.getParameter("GiaSP"));
+//        System.out.println("NameImage: " + hinhsp);
+//        context = request.getServletContext();
+//        String[] ch = context.getRealPath("/images/product/" + idloai + "/" + id + "/").split("build");
+//        String destPath = ch[0] + ch[1];
+//        String urlBuild = "";
+//        System.out.println("Path: " + destPath);
+//        System.out.println(checkSP(id));
+//        try {
+//            if (!checkSP(id)) {
+//
+////                String[] s = context.getRealPath("/images/product/" + idloai + "/" + idNew + "/").split("build");
+//                urlBuild = context.getRealPath("/images/product/" + idloai + "/" + id + "/");
+////                destPath = s[0] + s[1];
+//                System.out.println("IDSP-New: " + id);
+//                File f = new File(destPath);
+//                File fBuild = new File(urlBuild);
+//                if (!f.exists() && !fBuild.exists()) {
+//                    if (f.mkdir() && fBuild.mkdir()) {
+//                        System.out.println("Success");
+//                    } else {
+//                        System.out.println("Fail");
+//                    }
+//                }
+//            }
+//            if (fileUpload != null && fileUpload.length > 0) {
+//                for (CommonsMultipartFile aFile : fileUpload) {
+//
+//                    System.out.println("Saving file: " + aFile.getOriginalFilename());
+////                    String[] c = aFile.getOriginalFilename().split(".");
+//                    //Lay dinh dang file
+//                    String typeImage = "jpg";
+////                    System.out.println("TypeImage: " + c.length);
+//                    if (!aFile.getOriginalFilename().equals("")) {
+//
+//                        if (!checkSP(id)) {
+//                            hinhsp = "";
+//                            int indexImage = Integer.parseInt(nameImage);
+//                            for (int i = 1; i <= 3; i++) {
+//                                if (i == indexImage) {
+//                                    hinhsp = hinhsp + i + "." + typeImage + ";";
+//                                    aFile.transferTo(new File(destPath + nameImage + "." + typeImage));
+//                                    aFile.transferTo(new File(urlBuild + nameImage + "." + typeImage));
+//                                } else {
+//                                    hinhsp = hinhsp + i + ".jpg" + ";";
+//                                    String[] src = context.getRealPath("/images/product/no-image.jpg").split("build");
+//                                    String source = src[0] + src[1];
+//                                    File pathSource = new File(source);
+//                                    File renameFile = new File(destPath + i + ".jpg");
+//                                    File renameFileBuild = new File(urlBuild + i + ".jpg");
+//                                    File renameFileDest = new File(destPath + "no-image.jpg");
+//                                    File renameFileDestBuild = new File(urlBuild + "no-image.jpg");
+//                                    File pathDest = new File(destPath);
+//                                    File pathDestBuild = new File(urlBuild);
+//                                    FileUtils.copyFileToDirectory(pathSource, pathDest);
+//                                    FileUtils.copyFileToDirectory(pathSource, pathDestBuild);
+//                                    boolean result = renameFileDest.renameTo(renameFile);
+//                                    boolean resultBuild = renameFileDestBuild.renameTo(renameFileBuild);
+//                                    System.out.println("Result: " + result);
+//                                }
+//                            }
+//                            System.out.println("HinhSP: " + hinhsp);
+//                        } else {
+//                            aFile.transferTo(new File(urlBuild + nameImage + ".jpg"));
+//                            aFile.transferTo(new File(destPath + nameImage + ".jpg"));
+//                        }
+//                    }
+//                }
+//            }
+//            Loai loai = new Loai();
+//            loai.setIDLoai(idloai);
+//            SanPham sp = new SanPham(id, tensp, giaspkm, giasp, moTa, hinhsp, loai);
+//            System.out.println("ID-Edit: " + id);
+//            if (checkSP(id)) {
+//                editSave(sp);
+//            } else {
+//                insertSave(sp);
+//            }
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
+//        return "redirect:getDataEdit.htm?id=" + id;
+//    }

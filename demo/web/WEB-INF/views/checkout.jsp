@@ -135,10 +135,7 @@
                                 </section>
 
                                 <div class="checkout-right-basket">
-                                    <input type="submit" value="Order" />
-                                </div>
-                                <div class="checkout-right-basket">
-                                    <a href="#">COD </a>
+                                    <input type="submit" class="btn btn-order" value="Order" />
                                 </div>
                             </form>
                         </div>

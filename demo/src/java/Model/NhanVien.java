@@ -19,13 +19,18 @@ public class NhanVien implements Serializable {
     @Id
     private String username;
     private String password;
-
+    private Boolean isAdmin;
+    private String info;
+    private String img;
     public NhanVien() {
     }
 
-    public NhanVien(String username, String password) {
+    public NhanVien(String username, String password, Boolean isAdmin, String info, String img) {
         this.username = username;
         this.password = password;
+        this.isAdmin = isAdmin;
+        this.info = info;
+        this.img = img;
     }
 
     public String getUsername() {
@@ -43,5 +48,31 @@ public class NhanVien implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+   
 
 }
