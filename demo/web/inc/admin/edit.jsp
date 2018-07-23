@@ -118,7 +118,7 @@
                         </div>
                         <div class="col-md-8 button-content-right">
                             <div class="tx-al-r">
-                                <button onclick="addNew()" type="button" class="btn" >AddNew</button>
+                                <button onclick="addNew()" type="button" class="btn" >New</button>
                                 <!--<button onclick="getDataToSave('${sp.IDSP}')" id="save" type="button" class="btn" value="Save" >Save</button>-->
                                 <input onclick="getDataToSave()" type="submit" class="btn" value="Save" />
                                 <button id="deleteSP" disabled onclick="pageDeleteSP()" data-toggle="modal" data-target="#modal-delete" type="button" class="btn btn-trash" >Delete</button>

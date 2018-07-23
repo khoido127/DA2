@@ -187,6 +187,7 @@ public class XuLyTrangChu {
             }
             t++;
         }
+        System.out.println("IDSP: " + idsp);
         Session s = factory.getCurrentSession();
         String hql = "From SanPham sp where sp.IDSP=:id";
         Query query = s.createQuery(hql);
@@ -795,10 +796,8 @@ public class XuLyTrangChu {
                     int size = dsgh.size();
                     for (int i = 0; i < dsgh.size(); i++) {
                         sl = dsgh.get(i).getSoluong();
-                        
 
                         if (dsgh.get(i).getIDSP().equals(id) && dsgh.get(i).getSize().equals(sz) && st == null) {
-
                             if (soluong > 0) {
                                 System.out.println("ID: " + i);
                                 sl = soluong;
@@ -992,7 +991,7 @@ public class XuLyTrangChu {
             System.out.println("SoLuong: " + sl);
             System.out.println("Size: " + size);
             System.out.println("Gia: " + gia);
-            HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "In progress", tongtien);
+            HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "In Process", tongtien);
             savePayment(ct);
 
         } catch (Exception ex) {

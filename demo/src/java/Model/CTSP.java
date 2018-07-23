@@ -38,6 +38,13 @@ public class CTSP implements Serializable{
         this.tieudeCTSP = tieudeCTSP;
         this.sp = sp;
     }
+
+    public CTSP(String motaCT, String HinhCTSP, String tieudeCTSP, SanPham sp) {
+        this.motaCT = motaCT;
+        this.HinhCTSP = HinhCTSP;
+        this.tieudeCTSP = tieudeCTSP;
+        this.sp = sp;
+    }
     
     public CTSP(String motaCT, String HinhCTSP, SanPham sp) {
         this.motaCT = motaCT;

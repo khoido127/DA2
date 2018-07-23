@@ -12,9 +12,6 @@
         <base href="${pageContext.servletContext.contextPath}/">
         <link href="css/checkbox.css" rel="stylesheet" >
 
-        <style>
-
-        </style>
     </head>
     <body>
         <table id="tableProduct" class="table display">
@@ -33,10 +30,10 @@
             </thead>
             <tbody>
                 <c:forEach var="sp" items="${list}" varStatus="st">
-                    <tr id="" style="cursor: pointer;">
+                    <tr id="" style="">
                         <td>${st.index+1}</td>
                         <td style="width: 80px; height: 80px;"><img style="width: 80px; height: 80px;" src="images/product/${sp.IDLoai}/${sp.IDSP}/${sp.hinhSP}" /></td>
-                        <td class="txt-oflo">${sp.tenSP}</td>
+                        <td class="txt-oflo"><a style="text-decoration: none;color: black;" target="_blank" href="Home/pageSingle.htm?code=${sp.IDSP}">${sp.tenSP}</a></td>
                         <td>${sp.tenLoai}</td>
                         <td>$ ${sp.giaSP}</td>
                         <td>

@@ -322,16 +322,32 @@ public class QuanTri {
             Loai loai = new Loai();
             loai.setIDLoai(idloai);
             SanPham sp = new SanPham(id, tensp, giaspkm, giasp, moTa, hinhsp, loai);
+            sp.setIDSP(id);
+            CTSP ctsp = new CTSP("", "", tensp, sp);
             System.out.println("ID-Edit: " + id);
             if (checkSP(id)) {
                 editSave(sp);
             } else {
                 insertSave(sp);
+                insertCTSP(ctsp);
             }
         } catch (Exception ex) {
             System.out.println(ex);
         }
         return "redirect:getDataEdit.htm?id=" + id;
+    }
+//    Tạo function insert sản phẩm ào table IDSP
+
+    public void insertCTSP(CTSP ctsp) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.saveOrUpdate(ctsp);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
     }
     //Xu ly phan Save sau khi Edit
 
@@ -397,7 +413,6 @@ public class QuanTri {
                 File fDest = new File(pathDest);
                 SanPham sp = new SanPham();
                 sp.setIDSP(ids[i]);
-
                 System.out.println("Length: " + ids.length);
                 if (deleteDir(fBuild, fDest)) {
                     System.out.println("SuccessDelete");
@@ -551,7 +566,11 @@ public class QuanTri {
                     if (func != null && size - i == 1) {
                         ctbean = new CTSPBean(id, idLoai, "", "images/product/no-image.jpg", "", "");
                     } else {
-                        ctbean = new CTSPBean(id, idLoai, mt.get(i), "images/product/" + idLoai + "/" + id + "/" + anh.get(i), td.get(i), anh.get(i));
+                        if (hinh[i].length() == 0) {
+                            ctbean = new CTSPBean(id, idLoai, mt.get(i), "images/product/no-image.jpg", td.get(i), anh.get(i));
+                        } else {
+                            ctbean = new CTSPBean(id, idLoai, mt.get(i), "images/product/" + idLoai + "/" + id + "/" + anh.get(i), td.get(i), anh.get(i));
+                        }
                     }
 //                    ctbean = new CTSPBean(id, idLoai, mt.get(i), anh.get(i), td.get(i));
                     list.add(ctbean);
@@ -560,6 +579,7 @@ public class QuanTri {
             }
             System.out.println("Success");
             CTSPBean ctbean = new CTSPBean();
+            model.addAttribute("idsp", id);
             model.addAttribute("sumIndex", size);
             model.addAttribute("formEdit", ctbean);
             model.addAttribute("listCTSP", list);
@@ -738,6 +758,7 @@ public class QuanTri {
                 CommentBean cmbean = new CommentBean(cm.getSTT(), cm.getTenKH(), cm.getEmail(), cm.getMoTa(), cm.getSp().getIDSP(), ngaycm, cm.getURL(), cm.getReply(), "");
                 dsbean.add(cmbean);
             }
+            model.addAttribute("idsp", id);
             System.out.println("ListCM: " + ds.size());
             model.addAttribute("listcm", dsbean);
             model.addAttribute("page", "/inc/admin/" + "3" + ".jsp");
@@ -1303,7 +1324,38 @@ public class QuanTri {
         }
         return "redirect:showHoaDon.htm";
     }
-	// user page //
+
+    //Delete Describe HD
+    @RequestMapping("pageDeleteDescribeHD")
+    public String pageDeleteDescribeHD(@RequestParam("id") String id, ModelMap model) {
+        model.addAttribute("id", id);
+        return "admin/pageDeleteDescribeHD";
+    }
+
+    @RequestMapping("deleteDescribeHD")
+    public String deleteDescribeHD(ModelMap model, @RequestParam("id") String id) {
+        String[] idhd = id.split(";");
+        for (int i = 0; i < idhd.length; i++) {
+            deleteDescribe(idhd[i]);
+        }
+        return "redirect:showHoaDon.htm";
+    }
+
+    public void deleteDescribe(String idhd) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            HoaDon hd = new HoaDon();
+            hd.setIDHD(idhd);
+            s.delete(hd);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+    }
+    // user page //
+
     @RequestMapping("showuser") // do du lieu ra table //
     public String showuser(ModelMap model) {
         getalluser(model);
@@ -1380,7 +1432,7 @@ public class QuanTri {
             isAdmin role = new isAdmin(ch[i], checked, s);
             roles.add(role);
         }
-        model.addAttribute("src", "images/"+ nv.get(0).getImg());
+        model.addAttribute("src", "images/" + nv.get(0).getImg());
         model.addAttribute("readonly", "readonly");
         model.addAttribute("listRole", roles);
         model.addAttribute("list1nv", nv);
@@ -1394,7 +1446,7 @@ public class QuanTri {
         String password = request.getParameter("password");
         Boolean isAdmin = Boolean.parseBoolean(String.valueOf(request.getParameter("isAdmin")));
         String info = request.getParameter("info");
-        String nameImage="";
+        String nameImage = "";
         context = request.getServletContext();
         System.out.println("User: " + username);
         String[] ch = context.getRealPath("/images/").split("build");
@@ -1418,7 +1470,7 @@ public class QuanTri {
                     }
                 }
             }
-            if(nameImage == ""){
+            if (nameImage == "") {
                 nameImage = request.getParameter("srcimg");
             }
             System.out.println(nameImage);
@@ -1428,38 +1480,42 @@ public class QuanTri {
         }
         return "redirect:showuser.htm";
     }
-    public void saveupdateuser(NhanVien nv){
+
+    public void saveupdateuser(NhanVien nv) {
         Session s = factory.openSession();
         Transaction t = s.beginTransaction();
-        try{
-        s.saveOrUpdate(nv);
-        t.commit();
-        }catch(Exception e){
-        t.rollback();
+        try {
+            s.saveOrUpdate(nv);
+            t.commit();
+        } catch (Exception e) {
+            t.rollback();
         }
     }
+
     @RequestMapping("deleteuser")
-    public String deleteuser (@RequestParam ("username") String username){
+    public String deleteuser(@RequestParam("username") String username) {
         String[] ch = username.split(";");
-        for(int i =0 ; i<ch.length;i++){
+        for (int i = 0; i < ch.length; i++) {
             deluser(ch[i]);
         }
         return "redirect:showuser.htm";
     }
-    public void deluser(String username){
+
+    public void deluser(String username) {
         Session s = factory.openSession();
         Transaction t = s.beginTransaction();
-        try{
-        NhanVien nv = new NhanVien();
-        nv.setUsername(username);
-        s.delete(nv);
-        t.commit();
-        }catch(Exception e){
-        t.rollback();
+        try {
+            NhanVien nv = new NhanVien();
+            nv.setUsername(username);
+            s.delete(nv);
+            t.commit();
+        } catch (Exception e) {
+            t.rollback();
         }
     }
+
     @RequestMapping("pageconfirmuser")
-    public String pageconfirmuser(ModelMap model, @RequestParam("username") String username){
+    public String pageconfirmuser(ModelMap model, @RequestParam("username") String username) {
         System.out.println(username);
         model.addAttribute("username", username);
         return "admin/pageDeleteUser";

@@ -16,7 +16,7 @@
         <!--content product description-->
 
         <div class="row mg-t-10">
-            <h1>Product Description</h1>
+            <h1>Product Description: <a target="_blank" href="Home/pageSingle.htm?code=${idsp}">${idsp}</a></h1>
 
             <div class="col-md-12">
                 <div class="white-box">
@@ -96,7 +96,6 @@
     <script>
                         function getImage(s, id) {
 //                    alert(nameImage);
-
                             var src = document.getElementById('thumbImage-' + id).src;
                             document.getElementById('anhDaiDien').src = src;
                             document.getElementById('idImage').value = id;
@@ -198,8 +197,7 @@
     <script>
         function addNewDescription() {
             var id = document.getElementById('id').value;
-
-            alert(id);
+//            alert(id);
             $.post("admin/showDescription.htm", {'function': 'add', 'id': id}, function (data) {
                 $('body').html(data);
             });

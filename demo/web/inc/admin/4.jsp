@@ -140,7 +140,7 @@
                     }
                 }
                 document.getElementById('listusername').value = count;
-                alert(count);
+//                alert(count);
                 if (count.length > 0) {
                     document.getElementById('btndeleteuser').disabled = false;
                 } else {
@@ -149,7 +149,7 @@
             }
             function confirm(){
                 var username = document.getElementById('listusername').value;
-                alert(username);
+//                alert(username);
                 $.post("admin/pageconfirmuser.htm",{'username':username}, function(data) {
                     $('.modal-body').html(data);
 } );
@@ -160,13 +160,7 @@
             var getFileUploadUser = function (event) {
                 var input = event.target;
                 var reader = new FileReader();
-
                 reader.onload = function () {
-//                        var id = document.getElementById('idImage').value;
-//                        var nameFileUpload = document.getElementById('uploadImage').files[0].name;
-//                        console.log(document.getElementById('uploadImage').value);
-//                        alert("hello" + id);
-//                        document.getElementById('fileName-' + id).value = nameFileUpload;
                     var dataURL = reader.result;
                     var image = document.getElementById('anhdaidien');
 //                        console.log(image.src);

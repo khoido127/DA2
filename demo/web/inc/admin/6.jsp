@@ -58,9 +58,10 @@
                         </div>
                     </div>
                     <div class="button-group col-md-12 tx-al-r">
-                        <button onclick="" type="button" class="mg-r-5 btn btn-add">Add New</button>
+                        <input type="hidden" id="IDHD" value="" />
+                        <!--<button onclick="" type="button" class="mg-r-5 btn btn-add">Add New</button>-->
                         <button onclick="saveDescribeHD()" type="button" class="mg-r-5 btn btn-save">Save</button>
-                        <button onclick="" type="button" class="btn btn-delete">Delete</button>
+                        <button data-toggle="modal" data-target="#modal-delete" id="deleteDescribe" disabled onclick="pageDeleteDescribeHD()" type="button" class="btn btn-delete">Delete</button>
                     </div>
                 </c:forEach>
             </form>
@@ -84,7 +85,6 @@
                                                 <th>Edit</th>
                                                 <th>Detail</th>
                                                 <th>Delete</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -107,7 +107,7 @@
                                                         <div class="checkbox">
                                                             <label style="font-size: 1.5em; padding-left: 8px;">
                                                                 <input type="hidden" id="count" value="">
-                                                                <input onclick="" type="checkbox" value="" id="checkBox">
+                                                                <input onclick="getIDHDToDelete()" type="checkbox" value="${hd.IDHD}" id="checkBox">
                                                                 <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                                             </label>
                                                         </div>
@@ -124,9 +124,10 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
         <script>
             function showDetailHD(id) {
-                alert(id);
+//                alert(id);
                 $.post("admin/showDetailHD.htm", {'id': id}, function (data) {
                     $('body').html(data);
                 });
@@ -134,7 +135,7 @@
         </script>
         <script>
             function getDataShowEditDescribe(id) {
-                alert(id);
+//                alert(id);
                 $.post("admin/getDataShowEditDescribe.htm", {'id': id}, function (data) {
                     $('body').html(data);
                 });
@@ -142,6 +143,29 @@
             function saveDescribeHD() {
                 $.post("admin/saveDescribeHD.htm", $('#formDescribeHD').serialize(), function (data) {
                     $('body').html(data);
+                });
+            }
+            function getIDHDToDelete() {
+                var inputs = document.getElementsByTagName("input");
+                var count = "";
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == "checkbox" && inputs[i].checked) {
+                        count = count + inputs[i].value + ";";
+                    }
+                }
+//                alert(count);
+                document.getElementById('IDHD').value = count;
+                if (count.length > 0) {
+                    document.getElementById('deleteDescribe').disabled = false;
+                } else {
+                    document.getElementById('deleteDescribe').disabled = true;
+                }
+            }
+            function pageDeleteDescribeHD() {
+                var idhd = document.getElementById('IDHD').value;
+//                alert(idhd);
+                $.post("admin/pageDeleteDescribeHD.htm", {'id': idhd}, function (data) {
+                    $('.modal-body').html(data);
                 });
             }
         </script>

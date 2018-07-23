@@ -23,7 +23,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-html5-1.5.2/b-print-1.5.2/sl-1.2.6/datatables.min.js"></script>
-        <script src="c2runtime.js?version=1.1"></script>
+        
         <title>Z4 Shop</title>
         <%@include file="/inc/lib.jsp" %>
     </head>
@@ -32,7 +32,9 @@
             response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
             response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
             response.setDateHeader("Expires", 0); // Proxies.
-%>
+        %>
+        <c:set var="user" value="${username}"></c:set>
+        <c:if test="${user==null}"><c:redirect url="login.htm"></c:redirect></c:if>
         <div class="content-manage-page" id="home">
             <nav class="navbar row no-padding">
                 <div class="top-left-part col-md-2">

@@ -261,7 +261,7 @@
             function upFunction(id, sz) {
                 var quantity = document.getElementById('' + id + '-' + sz).value;
                 var size = sz;
-                alert(size + quantity);
+//                alert(size + quantity);
                 quantity++;
                 console.log(quantity);
                 document.getElementById('' + id + '-' + sz).value = quantity;
@@ -271,9 +271,7 @@
 
                 });
 
-
             }
-
 
         </script>
 

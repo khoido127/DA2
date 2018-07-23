@@ -150,12 +150,12 @@
                                             </div>
                                             <div class="add-review">
                                                 <h4>add a review</h4>
-                                                <form action="Home/insertComment.htm" method="get">
+                                                <form id="formComment" action="" method="post">
                                                     <input value="${sp.IDSP}" type="hidden" name="IDSP" />
                                                     <input type="text" name="Name" placeholder="Name" required="Name">
                                                     <input type="email" name="Email" placeholder="Email" required="Email">
                                                     <textarea name="Message" placeholder="Message" required=""></textarea>
-                                                    <input type="submit" value="SEND">
+                                                    <button class="btn" onclick="getComment()">SEND</button>
                                                 </form>
                                                 <c:forEach var="c" items="${listcm}">
                                                     <div style="height: 90px;border-bottom: 1px solid #E8E8E8;min-height: 50px;min-width: 100px;margin-top: 20px;margin-bottom: 20px;" class="comment">
@@ -490,11 +490,21 @@
                 if (size == null) {
                     size = "35";
                 }
-                alert(size + sl);
+//                alert(size + sl);
                 $.post('Home/getGioHang.htm', {'id': id, 'ck': "all", 'size': size, 'sl': sl}, function (data) {
                     $('body').html(data);
                 });
 //                window.location = ("Home/getGioHang.htm?ck=all");
+            }
+        </script>
+        <!--Xử lý comment-->
+        <script>
+            function getComment(){
+                alert("hello");
+                $.post("Home/insertComment.htm",$('#formComment').serialize(),function(data){
+                   $('body').html(data); 
+                });
+                
             }
         </script>
     </body>

@@ -15,7 +15,7 @@
     <body>
         <h3>${notShow}</h3>
         <div class="row mg-t-10">
-            <h1> Product Review</h1>
+            <h1> Product Review: <a target="_blank" href="Home/pageSingle.htm?code=${idsp}">${idsp}</a></h1>
             <div class="col-md-12">
                 <div class="white-box">
                     <h3 class="box-title">Review table</h3>

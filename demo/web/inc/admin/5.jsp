@@ -82,7 +82,7 @@
             function saveBrand() {
                                                     var idLoai = document.getElementById('idLoai').value;
                                                     
-                                                    alert(idLoai);
+//                                                    alert(idLoai);
 //                                                    document.getElementById('formBrand').submit();
                                                     $.post("admin/saveEditBrand.htm",$('#formBrand').serialize(), function (data) {
                                                         $('body').html(data);
@@ -90,7 +90,7 @@
                                                 }
                                                 
                                                 function pageDeleteBrand(idLoai) {
-                                                    alert(idLoai);
+//                                                    alert(idLoai);
                                                     $.post("admin/pageDeleteBrand.htm",{'idLoai': idLoai}, function (data) {
                                                         $('.modal-body').html(data);
                                                     });

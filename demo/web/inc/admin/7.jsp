@@ -53,7 +53,7 @@
                         <input id="idhd" type="hidden" name="idhd" value="${hd.IDHD}" />
                         <input id="idsp" type="hidden" name="idsp" value="${hd.IDSP}"/>
                         <input type="hidden" id="countDetail" />
-                        <button onclick="" type="button" class="mg-r-5 btn btn-add">Add New</button>
+                        <!--<button onclick="" type="button" class="mg-r-5 btn btn-add">Add New</button>-->
                         <button onclick="getDataToSaveDetailHD()" type="button" class="mg-r-5 btn btn-save">Save</button>
                         <button data-toggle="modal" data-target="#modal-delete" disabled onclick="pageDeleteDetailHD('${hd.IDHD}')" type="button" class="btn btn-delete" id="deleteDetailHD" >Delete</button>
                     </div>
@@ -117,7 +117,7 @@
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
         <script>
             function getDataShowEditDetailHD(id, index, idsp) {
-                alert(id + index + idsp);
+//                alert(id + index + idsp);
                 $.post("admin/getDataShowEditDetailHD.htm", {'id': id, 'index': index, 'idsp': idsp}, function (data) {
                     $('body').html(data);
                 });
@@ -128,7 +128,7 @@
             function getDataToSaveDetailHD() {
                 var id = document.getElementById('idhd').value;
                 var index = document.getElementById('indexHD').value;
-                alert(id + index);
+//                alert(id + index);
                 $.post("admin/getDataToSaveDetailHD.htm", $('#formEditDetailHD').serialize(), function (data) {
                     $('body').html(data);
                 });
@@ -154,11 +154,11 @@
                 } else {
                     document.getElementById('deleteDetailHD').disabled = true;
                 }
-                alert(count);
+//                alert(count);
             }
             function pageDeleteDetailHD(id) {
                 var count = document.getElementById('countDetail').value;
-                alert(count);
+//                alert(count);
                 $.post("admin/pageDeleteDetailHD.htm", {'count': count, 'id': id}, function (data) {
                     $('.modal-body').html(data);
                 });
