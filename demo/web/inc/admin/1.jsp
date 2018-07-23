@@ -26,6 +26,7 @@
                     <th>EDIT</th>
                     <th>DESCRIPTION</th>
                     <th>COMMENT</th>
+                    <th>STORAGE</th>
                 </tr>
             </thead>
             <tbody>
@@ -55,6 +56,9 @@
                         </td>
                         <td>
                             <button onclick="getShowComment('${sp.IDSP}')" type="button" class="btn btn-detail">Show</button>
+                        </td>
+                        <td>
+                            <button onclick="" type="button" class="btn btn-detail">Show</button>
                         </td>
                     </tr>
                 </c:forEach>
