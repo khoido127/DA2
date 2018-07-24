@@ -232,7 +232,7 @@
                         }
                     }
                     document.getElementById('count').value = count;
-//                    alert(document.getElementById('count').value);
+                    alert(document.getElementById('count').value);
                     if (count.length > 0) {
                         document.getElementById('deleteSP').disabled = false;
                     } else {

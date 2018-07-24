@@ -413,10 +413,15 @@ public class QuanTri {
                 File fDest = new File(pathDest);
                 SanPham sp = new SanPham();
                 sp.setIDSP(ids[i]);
+                int stt = getSTTInCTSP(ids[i]);
+                CTSP ctsp = new CTSP();
+                ctsp.setSTT(stt);
+                System.out.println("STT: " + stt);
                 System.out.println("Length: " + ids.length);
                 if (deleteDir(fBuild, fDest)) {
                     System.out.println("SuccessDelete");
                 }
+                deleteProductInCTSP(ctsp);
                 deleteProduct(sp);
 
             }
@@ -426,6 +431,22 @@ public class QuanTri {
             System.out.println(ex);
         }
         return "redirect:contentDetailProduct.htm?page=1";
+    }
+
+    //Get STT in CTSP
+    public int getSTTInCTSP(String id) {
+        Session s = factory.getCurrentSession();
+        int stt = 0;
+        try {
+            String hql = "From CTSP ct where ct.sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            List<CTSP> ds = query.list();
+            stt = ds.get(0).getSTT();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return stt;
     }
 
     //Hàm xóa thư mục sản phẩm sau khi delete
@@ -445,6 +466,19 @@ public class QuanTri {
         Transaction t = s.beginTransaction();
         try {
             s.delete(sp);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+    }
+
+    //Xử lý Delete SP trong CTSP
+    public void deleteProductInCTSP(CTSP ctsp) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.delete(ctsp);
             t.commit();
         } catch (Exception ex) {
             t.rollback();
