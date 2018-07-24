@@ -25,13 +25,11 @@ public class KhoBean {
         this.trangthai = trangthai;
     }
 
-    public KhoBean(String size, String soluong, String trangthai) {
+    public KhoBean(String IDSP, String size, String soluong) {
+        this.IDSP = IDSP;
         this.size = size;
         this.soluong = soluong;
-        this.trangthai=trangthai;
     }
-    
-    
     public String getIDSP() {
         return IDSP;
     }

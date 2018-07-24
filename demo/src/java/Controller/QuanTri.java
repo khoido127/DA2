@@ -9,6 +9,7 @@ import Bean.CTHDBean;
 import Bean.CTSPBean;
 import Bean.CommentBean;
 import Bean.HinhThucTTBean;
+import Bean.KhoBean;
 import Bean.LoaiSPBean;
 import Bean.SanPhamBean;
 import Bean.SizeBean;
@@ -1553,5 +1554,90 @@ public class QuanTri {
         System.out.println(username);
         model.addAttribute("username", username);
         return "admin/pageDeleteUser";
+    }
+
+    //Xử lý bảng Kho
+    //Show dữ liệu Kho ra
+    @RequestMapping("showDataKho")
+    public String showDataKho(ModelMap model, @RequestParam("id") String id) {
+        List<Kho> ds = getDataKho(id);
+        List<KhoBean> dsBean = new ArrayList<>();
+        for (Kho kho : ds) {
+            String[] chSize = kho.getSize().split(";");
+            String[] chSl = kho.getSL().split(";");
+            String[] chImg = kho.getSp().getHinhSP().split(";");
+            String img = "images/product/" + kho.getSp().getLoai().getIDLoai() + "/" + kho.getSp().getIDSP() + "/" + chImg[0];
+            model.addAttribute("stt", kho.getSTT());
+            model.addAttribute("idsp", kho.getSp().getIDSP());
+            model.addAttribute("img", img);
+            model.addAttribute("chSize", kho.getSize());
+            model.addAttribute("chSL", kho.getSL());
+            for (int i = 0; i < chSize.length; i++) {
+                String size = chSize[i];
+                String sl = chSl[i];
+                KhoBean k = new KhoBean(id, size, sl);
+                dsBean.add(k);
+            }
+        }
+        String soluong = dsBean.get(0).getSoluong();
+        System.out.println("DSKho: " + dsBean.size());
+        model.addAttribute("sl1", soluong);
+        model.addAttribute("listKho", dsBean);
+        model.addAttribute("page", "/inc/admin/" + "9" + ".jsp");
+        return "admin/admin";
+    }
+
+    //Xử lý phần Edit Kho
+    //Tạo funtion update
+    public void updateKho(Kho kho) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.update(kho);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+    }
+
+    //Update số lượng theo Size
+    @RequestMapping("getDataToEdit")
+    public String getDataToEdit(@RequestParam("stt") int stt, @RequestParam("id") String id, HttpServletRequest request, ModelMap model) {
+        List<Kho> ds = getDataKho(id);
+        String size = request.getParameter("size");
+        String sl = request.getParameter("sl");
+        String sz = "";
+        String soluong = "";
+        for (Kho kho : ds) {
+            String[] chSize = kho.getSize().split(";");
+            String[] chSL = kho.getSL().split(";");
+            for (int i = 0; i < chSize.length; i++) {
+                if (chSize[i].equals(size)) {
+                    chSL[i] = sl;
+                }
+                soluong = soluong + chSL[i] + ";";
+            }
+            SanPham sp = new SanPham();
+            sp.setIDSP(id);
+            Kho k = new Kho(stt, soluong, kho.getSize(), sp);
+            updateKho(k);
+        }
+        return "redirect:showDataKho.htm?id=" + id;
+    }
+
+    // Thêm mới 1 size
+    @RequestMapping("getDataToInsert")
+    public String getDataToInsert(@RequestParam("stt") int stt, @RequestParam("id") String id, HttpServletRequest request, ModelMap model) {
+        String sizeNew = request.getParameter("sizeNew");
+        String slNew = request.getParameter("slNew");
+        List<Kho> ds = getDataKho(id);
+        for (Kho kho : ds) {
+            SanPham sp = new SanPham();
+            sp.setIDSP(id);
+            Kho k = new Kho(stt, slNew, sizeNew, sp);
+            updateKho(k);
+        }
+        return "redirect:showDataKho.htm?id=" + id;
     }
 }

@@ -58,7 +58,7 @@
                             <button onclick="getShowComment('${sp.IDSP}')" type="button" class="btn btn-detail">Show</button>
                         </td>
                         <td>
-                            <button onclick="" type="button" class="btn btn-detail">Show</button>
+                            <button onclick="getShowKho('${sp.IDSP}')" type="button" class="btn btn-detail">Show</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -76,6 +76,15 @@
         <script>
             function getShowComment(id) {
                 $.post("admin/showComment.htm", {'id': id}, function (data) {
+                    $('body').html(data);
+                });
+            }
+        </script>
+        <!--Show Kho-->
+        <script>
+            function getShowKho(id){
+                alert(id);
+                $.post("admin/showDataKho.htm", {'id': id}, function (data) {
                     $('body').html(data);
                 });
             }
