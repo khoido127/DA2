@@ -18,7 +18,7 @@
             <form action="admin/saveToEditUser.htm" method="post" id="formuser" enctype="multipart/form-data">
                 <c:forEach var="nv" items="${list1nv}">
                     <div class="col-md-3 content-image tx-al-c mg-t-10">
-                        <img id="anhdaidien" class="mg-b-10" src="${src}" width="200"/>
+                        <img id="anhdaidien" class="mg-b-10" src="${src}" width="200" style="border-radius: 5px"/>
                         <input multiple="false" accept="image/*" onchange="getFileUploadUser(event)" id="uploadImage" type="file" class="btn" name="fileupload" value=""/>
                     </div>
                     <div class="col-md-9 content-edit">
@@ -47,9 +47,9 @@
                         </div>
                         <div class="button-group col-md-12 tx-al-r">
                             <input type="hidden" name="srcimg" value="${nv.img}"/>
-                            <button onclick="resetuser()" type="button" class="mg-r-5 btn btn-add">Clear</button>
-                            <button onclick="getdatatosave()" type="button" class="mg-r-5 btn btn-save">Save</button>
-                            <button data-toggle="modal" data-target="#modal-delete" onclick="confirm()" id="btndeleteuser" disabled type="button" class="btn btn-delete">Delete</button>
+                            <button onclick="resetuser()" type="button" class="mg-r-5 btn btn-icon btn-new">Clear</button>
+                            <button onclick="getdatatosave()" type="button" class="mg-r-5 btn btn-icon btn-save">Save</button>
+                            <button data-toggle="modal" data-target="#modal-delete" onclick="confirm()" id="btndeleteuser" disabled type="button" class="btn btn-icon btn-delete">Delete</button>
                         </div>
                     </div>
                 </c:forEach>
@@ -87,7 +87,7 @@
                                                     </td>
                                                     <td>${nv.info}</td>
                                                     <td>
-                                                        <button onclick="edit1user('${nv.username}')" type="button" class="btn btn-edit">edit</button>
+                                                        <button onclick="edit1user('${nv.username}')" type="button" class="icon icon-detail"></button>
                                                     </td>
                                                     <td>
                                                         <div class="checkbox">

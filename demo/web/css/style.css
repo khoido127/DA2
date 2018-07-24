@@ -1223,9 +1223,7 @@ p.copy-right-w3ls-agileits a:hover{
     -moz-background-size: cover;
     min-height: 225px;
 }
-.ads-grid_shop {
-    padding: 6em 0;
-}
+
 ul.short {
     text-align: left;
     padding:12em 0em 0 8em;
@@ -1244,9 +1242,6 @@ ul.short li {
 ul.short li a {
     color: #fb383b;
     text-decoration: none;
-}
-.inner_section_w3ls {
-    margin-top: 4em;
 }
 h3.head {
     text-align: center;
@@ -1397,12 +1392,6 @@ button.btn1 {
     }
 }
 @media(max-width:1440px){
-    .ads-grid_shop {
-        padding: 4em 0;
-    }
-    .inner_section_w3ls {
-        margin-top: 3em;
-    }
     .style-image-1_info {
         padding: 7em 5em;
         height: 440px;
@@ -2266,6 +2255,59 @@ button.btn1 {
 .cl-gray{color: #a3a3a3}
 /*end color*/
 /*icon & button*/
+.btn-icon{
+    padding-left: 35px;
+}
+.btn-save{
+    background-image: url(../images/save.png);
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-save:hover{
+    background-image: url(../images/save-hover.png) ;
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-delete{
+    background-image: url(../images/trash.png);
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-delete:hover{
+    background-image: url(../images/trash-hover.png) ;
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-search{
+    background-image: url(../images/search.png);
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-search:hover{
+    background-image: url(../images/search-hover.png) ;
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-new{
+    background-image: url(../images/broom.png);
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-new:hover{
+    background-image: url(../images/broom-hover.png) ;
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-addnew{
+    background-image: url(../images/addnew.png);
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
+.btn-addnew:hover{
+    background-image: url(../images/addnew-hover.png) ;
+    background-repeat: no-repeat;
+    background-position: 5px 4px;
+}
 .btn-plus{
     background: url(../images/plus.png) no-repeat;
     width: 25px;
@@ -2284,6 +2326,80 @@ button.btn1 {
     background-color: #FFC226;
     color: white;
 }
+.icon{
+    height: 34px;
+    width: 50px;
+    border: transparent;
+    border-radius: 4px;
+    background-color: transparent;
+}
+.icon:hover{
+    height: 34px;
+    width: 50px;
+    border: transparent;
+    border-radius: 4px;
+    background-color: #FFC226;
+}
+.icon-detail{
+    background-image: url(../images/writing.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-detail:hover{
+    background-image: url(../images/writing-hover.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-show{
+    background-image: url(../images/eye.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-show:hover{
+    background-image: url(../images/eye-hover.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-comment{
+    background-image: url(../images/comment.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-comment:hover{
+    background-image: url(../images/comment-hover.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-storage{
+    background-image: url(../images/box.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-storage:hover{
+    background-image: url(../images/box-hover.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-save{
+    background-image: url(../images/save.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-save:hover{
+    background-image: url(../images/save-hover.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-delete{
+    background-image: url(../images/trash.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
+.icon-delete:hover{
+    background-image: url(../images/trash-hover.png);
+    background-repeat: no-repeat;
+    background-position: 14px 5px;
+}
 input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
     outline-color: #FFC226;
 }
@@ -2297,6 +2413,32 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
 .dp-flex-jt-ct{display: flex; justify-content: center;}
 
 .ip-text:focus{outline-color:#FFC226}
+table thead {background-color: #dddddd;}
+table thead th{text-align: center}
+table tbody td {
+    text-align: center;
+    border: 1px solid #dddddd!important;
+    border-top: none!important;
+    border-right: none!important;
+}
+table tbody td textArea,table tbody td input,table tbody td select{
+    width: 98%;
+    resize: none;
+    border: none;
+}
+table tbody td input[type="number"]{
+    text-align: center
+}
+table tbody td textArea:focus,table tbody td input:focus,table tbody td select:focus,input:focus,textarea:focus,select:focus{
+    outline-color:#FFC226;
+}
+table tbody td:last-child {
+    border-right: 1px solid #dddddd!important;
+}
+input{padding-left: 4px}
+textarea{ resize: none;}
+button:focus{ outline-color:#dddddd;}
+
 /*cart box*/
 .big-cart .btn-plus{
     position: absolute;
@@ -2355,6 +2497,10 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
 /*end single page*/
 
 /*manage page*/
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background-color: #FFC226!important;
+    border-color: #FFC226!important;
+} 
 .content-manage-page .navbar{
     background-color: black;
 }
@@ -2398,6 +2544,7 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
     background: red;
 }
 /*end admin css*/
+
 
 
 

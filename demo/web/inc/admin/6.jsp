@@ -49,7 +49,7 @@
                         <div class="row">
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Address</label>
-                                <input type="text" class="edit-field" name="diaChi" value="${hd.diaChi}"/>
+                                <textarea class="edit-field" name="diaChi" col="30" row="3" maxlength="200" value="${hd.diaChi}"></textarea>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Total:</label>
@@ -60,8 +60,8 @@
                     <div class="button-group col-md-12 tx-al-r">
                         <input type="hidden" id="IDHD" value="" />
                         <!--<button onclick="" type="button" class="mg-r-5 btn btn-add">Add New</button>-->
-                        <button onclick="saveDescribeHD()" type="button" class="mg-r-5 btn btn-save">Save</button>
-                        <button data-toggle="modal" data-target="#modal-delete" id="deleteDescribe" disabled onclick="pageDeleteDescribeHD()" type="button" class="btn btn-delete">Delete</button>
+                        <button onclick="saveDescribeHD()" type="button" class="mg-r-5 btn btn-icon btn-save">Save</button>
+                        <button data-toggle="modal" data-target="#modal-delete" id="deleteDescribe" disabled onclick="pageDeleteDescribeHD()" type="button" class="btn btn-icon btn-delete">Delete</button>
                     </div>
                 </c:forEach>
             </form>
@@ -98,10 +98,10 @@
                                                     <td>${hd.tenKH}</td>
                                                     <td>${hd.SDT}</td>
                                                     <td>
-                                                        <button onclick="getDataShowEditDescribe('${hd.IDHD}')" type="button" class="btn btn-edit">Edit</button>
+                                                        <button onclick="getDataShowEditDescribe('${hd.IDHD}')" type="button" class="icon icon-detail"></button>
                                                     </td>
                                                     <td>
-                                                        <button onclick="showDetailHD('${hd.IDHD}')" type="button" class="btn btn-edit">Detail</button>
+                                                        <button onclick="showDetailHD('${hd.IDHD}')" type="button" class="icon icon-show"></button>
                                                     </td>
                                                     <td>
                                                         <div class="checkbox">

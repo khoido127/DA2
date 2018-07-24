@@ -51,10 +51,10 @@
                                                 <input type="hidden" name="stt" id="stt" value="${cm.stt}" />
                                                 <input type="hidden" name="messageReply" id="messageReply" value="" />
                                                 <input type="hidden" name="idsp" value="${cm.IDSP}" />
-                                                <button onclick="getDataToSaveComment('${st.index+1}', '${cm.stt}')" type="button" class="btn btn-edit">Save</button>
+                                                <button onclick="getDataToSaveComment('${st.index+1}', '${cm.stt}')" type="button" class="icon icon-save"></button>
                                             </td>
                                             <td>
-                                                <button data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteComment('${cm.stt}', '${cm.IDSP}')" type="button" class="btn btn-trash">Delete</button>
+                                                <button data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteComment('${cm.stt}', '${cm.IDSP}')" type="button" class="icon icon-delete"></button>
                                             </td>
                                         </tr>
                                     </c:forEach>

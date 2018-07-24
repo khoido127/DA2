@@ -39,18 +39,18 @@
 
                                     <c:forEach var="sp" items="${listCTSP}" varStatus="st">
                                         <tr>
-                                            <td>${st.index+1}</td>
+                                            <td class="tx-al-c">${st.index+1}</td>
                                             <td>
-                                                <img id="anhDaiDien-${st.index+1}" src="${sp.hinhCTSP}"  style="width: 200px; height: 160px">
+                                                <img id="anhDaiDien-${st.index+1}" src="${sp.hinhCTSP}"  style="width: 200px; height: 160px; border-radius: 5px">
                                                 <input name="fileUpload" multiple accept="image/*" id="uploadImage-${st.index+1}" onchange="getFileUploadDescription(event,${st.index+1})" type="file" class="btn" value="Choose Image"/>
                                             </td>
-                                            <td>
-                                                <textarea id="tieude-${st.index+1}" class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="100" >${sp.tieudeCTSP}</textarea>
+                                            <td class="tx-al-c">
+                                                <textarea id="tieude-${st.index+1}" class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="4" maxlength="100" >${sp.tieudeCTSP}</textarea>
                                             </td>
-                                            <td>
-                                                <textarea id="mota-${st.index+1}" class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500">${sp.motaCT}</textarea>
+                                            <td class="tx-al-c">
+                                                <textarea id="mota-${st.index+1}" class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="8" maxlength="500">${sp.motaCT}</textarea>
                                             </td>
-                                            <td>
+                                            <td class="tx-al-c">
                                                 <input id="sumIndex" type="hidden" name="sumIndex" value="${sumIndex}" />
                                                 <input type="hidden" name="idloai" value="${sp.idLoai}" />
                                                 <input type="hidden" id="tieude" name="tieude" value="" />
@@ -61,10 +61,10 @@
                                                 <input id="id" type="hidden" name="IDSP" value="${sp.IDSP}" />
                                                 <input id="vitri" name="vitri" value="${st.index+1}" type="hidden" />
                                                 <!--<input id="mota-${st.index+1}" type="hidden" name="mota" value="${sp.motaCT}" />-->
-                                                <button onclick='saveToEditDescription("${st.index+1}")' type="button" class="btn">Save</button>
+                                                <button onclick='saveToEditDescription("${st.index+1}")' type="button" class="icon icon-save"></button>
                                                 <!--<input type="submit" value="Save" />-->
                                             </td>
-                                            <td>
+                                            <td  class="tx-al-c">
                                                 <div class="checkbox">
                                                     <label style="font-size: 1.5em; padding-left: 8px;">
                                                         <input type="hidden" id="count" value="" />
@@ -82,8 +82,8 @@
                     </div>
                 </div>
                 <div class="button-bottom tx-al-r mg-r-20">
-                    <input onclick="addNewDescription()" type="button" class="btn" value="Add New"/>
-                    <button data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteDescription()" type="button" class="btn btn-trash">Delete</button>
+                    <input onclick="addNewDescription()" type="button" class="btn btn-icon btn-addnew" value="Add New"/>
+                    <button data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteDescription()" type="button" class="btn btn-icon btn-delete">Delete</button>
                 </div>
             </div>
         </div>

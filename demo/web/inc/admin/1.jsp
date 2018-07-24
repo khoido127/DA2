@@ -14,6 +14,8 @@
 
     </head>
     <body>
+        <div class="row no-margin">
+            <div class="col-md-12">
         <table id="tableProduct" class="table display">
             <thead>
                 <tr>
@@ -32,12 +34,12 @@
             <tbody>
                 <c:forEach var="sp" items="${list}" varStatus="st">
                     <tr id="" style="">
-                        <td>${st.index+1}</td>
-                        <td style="width: 80px; height: 80px;"><img style="width: 80px; height: 80px;" src="images/product/${sp.IDLoai}/${sp.IDSP}/${sp.hinhSP}" /></td>
+                        <td class="tx-al-c">${st.index+1}</td>
+                        <td style="width: 80px; height: 80px;"><img style="width: 80px; height: 80px;border-radius: 4px" src="images/product/${sp.IDLoai}/${sp.IDSP}/${sp.hinhSP}" /></td>
                         <td class="txt-oflo"><a style="text-decoration: none;color: black;" target="_blank" href="Home/pageSingle.htm?code=${sp.IDSP}">${sp.tenSP}</a></td>
-                        <td>${sp.tenLoai}</td>
-                        <td>$ ${sp.giaSP}</td>
-                        <td>
+                        <td class="tx-al-c">${sp.tenLoai}</td>
+                        <td class="tx-al-c">$ ${sp.giaSP}</td>
+                        <td class="tx-al-c">
                             <div class="checkbox">
                                 <label style="font-size: 1.5em; padding-left: 8px;">
                                     <input type="hidden" id="count" value="" />
@@ -47,24 +49,25 @@
                             </div>
                             <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-delete">Open Modal</button>-->
                         </td>
-                        <td>
-                            <button onclick="getDataEdit('${sp.IDSP}')" type="button" class="btn btn-detail">Edit</button>
+                        <td class="tx-al-c">
+                            <button onclick="getDataEdit('${sp.IDSP}')" type="button" class=" icon icon-detail"></button>
                         </td>
 
-                        <td>
-                            <button onclick="getShowDetail('${sp.IDSP}')" type="button" class="btn btn-detail">Show</button>
+                        <td class="tx-al-c">
+                            <button onclick="getShowDetail('${sp.IDSP}')" type="button" class="icon icon-show"></button>
                         </td>
-                        <td>
-                            <button onclick="getShowComment('${sp.IDSP}')" type="button" class="btn btn-detail">Show</button>
+                        <td class="tx-al-c">
+                            <button onclick="getShowComment('${sp.IDSP}')" type="button" class="icon icon-comment"></button>
                         </td>
-                        <td>
-                            <button onclick="getShowKho('${sp.IDSP}')" type="button" class="btn btn-detail">Show</button>
+                        <td class="tx-al-c">
+                            <button onclick="getShowKho('${sp.IDSP}')" type="button" class="icon icon-storage"></button>
                         </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-
+            </div>
+</div>
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
         <script>
                                 function getShowDetail(id) {

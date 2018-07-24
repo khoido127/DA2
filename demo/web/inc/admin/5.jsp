@@ -28,8 +28,8 @@
                     </div>
                 </div>
                 <div class="button-content tx-al-r col-md-12">
-                    <button onclick="saveBrand()" type="button" class="btn">Save</button>
-                    <button onclick="resetBrand()" type="button" class="btn">Reset</button>
+                    <button onclick="saveBrand()" type="button" class="btn btn-icon btn-save">Save</button>
+                    <button onclick="resetBrand()" type="button" class="btn btn-icon btn-new">Reset</button>
                 </div>
                 </form>
 
@@ -55,11 +55,11 @@
                                         <td class="txt-oflo">${loai.IDLoai}</td>
                                         <td>${loai.tenLoai}</td>
                                         <td>
-                                            <button onclick="getDataEditBrand('${loai.IDLoai}', '${loai.tenLoai}')" type="button" class="btn btn-edit">Edit</button>
+                                            <button onclick="getDataEditBrand('${loai.IDLoai}', '${loai.tenLoai}')" type="button" class="icon icon-detail"></button>
                                         </td>
                                         <td>
                                             <input style="display: none" type="checkbox" class="custom-checkbox"/>
-                                            <button data-toggle="modal" data-target="#modal-delete"data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteBrand('${loai.IDLoai}')" type="button" class="btn btn-trash">Delete</button>
+                                            <button data-toggle="modal" data-target="#modal-delete"data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteBrand('${loai.IDLoai}')" type="button" class="icon icon-delete"></button>
                                         </td>
                                     </tr>
                                 </c:forEach>

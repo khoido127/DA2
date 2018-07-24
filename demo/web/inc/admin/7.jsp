@@ -54,8 +54,8 @@
                         <input id="idsp" type="hidden" name="idsp" value="${hd.IDSP}"/>
                         <input type="hidden" id="countDetail" />
                         <!--<button onclick="" type="button" class="mg-r-5 btn btn-add">Add New</button>-->
-                        <button onclick="getDataToSaveDetailHD()" type="button" class="mg-r-5 btn btn-save">Save</button>
-                        <button data-toggle="modal" data-target="#modal-delete" disabled onclick="pageDeleteDetailHD('${hd.IDHD}')" type="button" class="btn btn-delete" id="deleteDetailHD" >Delete</button>
+                        <button onclick="getDataToSaveDetailHD()" type="button" class="mg-r-5 btn btn-icon btn-save">Save</button>
+                        <button data-toggle="modal" data-target="#modal-delete" disabled onclick="pageDeleteDetailHD('${hd.IDHD}')" type="button" class="btn btn-icon btn-delete" id="deleteDetailHD" >Delete</button>
                     </div>
                 </c:forEach>
             </form>
@@ -91,7 +91,7 @@
                                                     <td>${hd.SL}</td>
                                                     <td>${hd.gia}$</td>
                                                     <td>
-                                                        <button onclick="getDataShowEditDetailHD('${hd.IDHD}', '${st.index}', '${hd.IDSP}')" type="button" class="btn btn-edit">Edit</button>
+                                                        <button onclick="getDataShowEditDetailHD('${hd.IDHD}', '${st.index}', '${hd.IDSP}')" type="button" class="icon icon-detail"></button>
                                                     </td>
                                                     <td>
                                                         <div class="checkbox">

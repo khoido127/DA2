@@ -54,7 +54,7 @@
 
                             <div class="addnew-product">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">Product ID:</label>
                                             <input id="nameImage" name="nameImage" type="hidden" value="" />
@@ -62,38 +62,13 @@
                                             <input ${status} name="IDSP" type="text" class="edit-field" value="${sp.IDSP}"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-10 col-sm-10">
                                         <div class=" edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">Product Name:</label>
                                             <input name="TenSP" type="text" class="edit-field" value="${sp.tenSP}"/>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="edit-control mg-b-10 mg-t-10">
-                                            <label class="edit-label">Price:</label>
-                                            <input name="GiaSP" type="text" class="edit-field" value="${sp.giaSP}"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="edit-control mg-b-10 mg-t-10">
-                                            <label class="edit-label">PriceSale:</label>
-                                            <input name="GiaSPKM" type="text" class="edit-field" value="${sp.giaSPKM}"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-                                        <div class="edit-control mg-b-10 mg-t-10">
-                                            <label style="position: relative;top: -52px;" class="edit-label">Description:</label>
-                                            <textarea maxlength="350" placeholder="Description" cols="20" rows="5" name="moTa" class="edit-field" >${sp.moTa}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                         <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">Brand:</label>
                                             <select name="IDLoai" id="loaiSP">
@@ -104,6 +79,32 @@
 
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-10 col-sm-10">
+                                        <div class="edit-control mg-b-10 mg-t-10">
+                                            <label class="edit-label">Price:</label>
+                                            <input name="GiaSP" type="text" class="edit-field" value="${sp.giaSP}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-sm-10">
+                                        <div class="edit-control mg-b-10 mg-t-10">
+                                            <label class="edit-label">PriceSale:</label>
+                                            <input name="GiaSPKM" type="text" class="edit-field" value="${sp.giaSPKM}"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-10 col-sm-10">
+                                        <div class="edit-control mg-b-10 mg-t-10">
+                                            <label style="position: relative;top: -52px;" class="edit-label">Description:</label>
+                                            <textarea maxlength="350" placeholder="Description" cols="20" rows="5" name="moTa" class="edit-field" >${sp.moTa}</textarea>
+                                        </div>
+                                    </div>
+                                   
                                 </div>
 
                             </div>
@@ -118,10 +119,10 @@
                         </div>
                         <div class="col-md-8 button-content-right">
                             <div class="tx-al-r">
-                                <button onclick="addNew()" type="button" class="btn" >New</button>
+                                <button onclick="addNew()" type="button" class="btn btn-icon btn-new" >New</button>
                                 <!--<button onclick="getDataToSave('${sp.IDSP}')" id="save" type="button" class="btn" value="Save" >Save</button>-->
-                                <input onclick="getDataToSave()" type="submit" class="btn" value="Save" />
-                                <button id="deleteSP" disabled onclick="pageDeleteSP()" data-toggle="modal" data-target="#modal-delete" type="button" class="btn btn-trash" >Delete</button>
+                                <input onclick="getDataToSave()" type="submit" class="btn btn-icon btn-save" value="Save" />
+                                <button id="deleteSP" disabled onclick="pageDeleteSP()" data-toggle="modal" data-target="#modal-delete" type="button" class="btn btn-icon btn-delete" >Delete</button>
                             </div>
                         </div>
                     </div>
