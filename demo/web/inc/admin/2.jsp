@@ -65,7 +65,7 @@
                                                 <!--<input type="submit" value="Save" />-->
                                             </td>
                                             <td  class="tx-al-c">
-                                                <div class="checkbox">
+                                                <div onclick="deleteDescription()" class="checkbox">
                                                     <label style="font-size: 1.5em; padding-left: 8px;">
                                                         <input type="hidden" id="count" value="" />
                                                         <input type="checkbox" value="${st.index+1}" id="checkBox">
@@ -83,7 +83,7 @@
                 </div>
                 <div class="button-bottom tx-al-r mg-r-20">
                     <input onclick="addNewDescription()" type="button" class="btn btn-icon btn-addnew" value="Add New"/>
-                    <button data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteDescription()" type="button" class="btn btn-icon btn-delete">Delete</button>
+                    <button id="checkDeleteDescription" data-toggle="modal" data-target="#modal-delete" onclick="pageDeleteDescription()" type="button" class="btn btn-icon btn-delete" disabled>Delete</button>
                 </div>
             </div>
         </div>
@@ -203,5 +203,23 @@
             });
         }
     </script>
-
+    <script>
+        function deleteDescription() {
+            var inputs = document.getElementsByTagName("input");
+            var count = "";
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                if (inputs[i].type == "checkbox" && inputs[i].checked) {
+                    count = count + inputs[i].value + ";";
+                }
+            }
+            document.getElementById('count').value = count;
+            alert(document.getElementById('count').value);
+            if (count.length > 0) {
+                document.getElementById('checkDeleteDescription').disabled = false;
+            } else {
+                document.getElementById('checkDeleteDescription').disabled = true;
+            }
+        }
+    </script>
 </html>

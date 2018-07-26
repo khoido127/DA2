@@ -1700,4 +1700,74 @@ public class QuanTri {
         }
         return "redirect:showDataKho.htm?id=" + id;
     }
+
+    //Tạo function get HoaDon theo SDT
+    public List<HoaDon> getHDofSDT(String sdt) {
+        Session s = factory.getCurrentSession();
+        List<HoaDon> ds = new ArrayList<>();
+        try {
+            String hql = "From HoaDon hd where hd.SDT=:sdt";
+            Query query = s.createQuery(hql);
+            query.setParameter("sdt", sdt);
+            ds = query.list();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return ds;
+    }
+
+    //Get giá của từng sản phẩm
+    public String getGiaofSP(String id) {
+        Session s = factory.getCurrentSession();
+        String price = "";
+        try {
+            String hql = "From SanPham sp where sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            List<SanPham> ds = query.list();
+            for (SanPham sp : ds) {
+                if (sp.getGiaSPKM() != 0) {
+                    price = String.valueOf(ds.get(0).getGiaSPKM());
+                } else {
+                    price = String.valueOf(ds.get(0).getGiaSP());
+                }
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return price;
+    }
+
+    // Show thông tin hóa đơn theo SDT của khách hàng
+    @RequestMapping("showOrderofCustomer")
+    public String showOrderofCustomer(@RequestParam("sdt") String sdt, ModelMap model) {
+        List<HoaDon> ds = getHDofSDT(sdt);
+        List<CTHDBean> dsBean = new ArrayList<>();
+        double sumTotal = 0;
+        for (HoaDon hd : ds) {
+            String[] chTen = hd.getTenSP().split("\\^");
+            String[] chID = hd.getIdSP().split("\\^");
+            String[] chSZ = hd.getSize().split("\\^");
+            String[] chSL = hd.getSL().split("\\^");
+            String[] chGia = hd.getGia().split("\\^");
+            sumTotal += hd.getTongTien();
+            model.addAttribute("status", hd.getTrangThai());
+            model.addAttribute("date", hd.getNgay());
+            model.addAttribute("address", hd.getDiaChi());
+            model.addAttribute("tenKH", hd.getTenKH());
+            model.addAttribute("control", "showOrder");
+            for (int i = 0; i < chID.length; i++) {
+                String img = getImgSP(chID[i]);
+                String price = getGiaofSP(chID[i]);
+                System.out.println("IMG: " + img);
+                CTHDBean ctbean = new CTHDBean(hd.getIDHD(), chTen[i], chSL[i], chSZ[i], price, chID[i], img, Double.parseDouble(chGia[i]));
+                dsBean.add(ctbean);
+            }
+        }
+        model.addAttribute("total", sumTotal);
+        System.out.println("ListHoaDon: " + dsBean.size());
+        model.addAttribute("listHD", dsBean);
+        return "contact";
+    }
 }

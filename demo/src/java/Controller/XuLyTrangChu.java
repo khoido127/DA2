@@ -259,6 +259,7 @@ public class XuLyTrangChu {
                 }
             }
         }
+//        System.out.println("SoLuong: "+soluong);
         for (SanPham sp : list) {
             String[] url = sp.getHinhSP().split(";");
             String giakm = "";
@@ -784,7 +785,7 @@ public class XuLyTrangChu {
                     if (ch != null) {
                         soluong = Integer.parseInt(ch);
                     } else {
-                        soluong = 0;
+                        soluong = 1;
                     }
                     System.out.println("SoLuong: " + soluong);
                     int dem = 0;

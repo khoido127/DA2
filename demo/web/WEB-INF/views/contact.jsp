@@ -1,3 +1,7 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -37,9 +41,9 @@
         <!-- top Products -->
         <div class="ads-grid_shop">
             <div class="shop_inner_inf mg-t-10 mg-b-10">
-                    <div class="col-md-5 contact-left">
-                        <h3 class="head mg-b-20">Contact Us</h3>
-                        <div class="content-contact" style="border-right: 1px solid #dddddd;">
+                <div class="col-md-5 contact-left">
+                    <h3 class="head mg-b-20">Contact Us</h3>
+                    <div class="content-contact" style="border-right: 1px solid #dddddd;">
                         <div class="visit">
                             <div class="col-md-2 col-sm-2 col-xs-2 contact-icon">
                                 <span class="fa fa-home" aria-hidden="true"></span>
@@ -80,27 +84,66 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                            </div>
                     </div>
-                    <div class="col-md-7 contact_grid_right">
-                        <h3 class="head mg-b-20">Check Order</h3>
-                        <div class="checkOrder-content">
+                </div>
+                <div class="col-md-7 contact_grid_right">
+                    <h3 class="head mg-b-20">Check Order</h3>
+                    <div class="checkOrder-content">
                         <form action="#" method="post">
                             <div class="col-md-12 contact_left_grid">
-                                <input type="text" name="checkOrder" placeholder="Enter your Order Number or Phone" required="">
+                                <input id="valueSDT" type="text" name="checkOrder" placeholder="Enter your Order Number or Phone" required="" value="">
                             </div>
                             <div class="col-md-12 mg-t-10 tx-al-r">
                                 <button type="reset" value="Reset" class="btn">Clear</button>
-                                <button type="submit" value="Submit" class="btn btn-search">Search</button>
+                                <button onclick="showOrder()" type="button" class="btn btn-search">Search</button>
                             </div>
                         </form>
+
+                        <c:if test="${control=='showOrder'}">
                             <div class="col-md-12 orderInfo mg-t-10">
                                 <hr>
-                                <h3 class="tx-al-c">Your Order</h3>
-                            </div>
-                        </div>
+                                <h3 class="tx-al-c">Your Invoice</h3>
+                                <p style="margin-bottom: 20px;"><img src="images/logo.PNG" /></p>
+
+                                <div style="margin-bottom: 20px;">
+                                    <p>Order by: <span style="color:red;">${tenKH}</span></p>
+                                    <p>Address: <span style="color: red;">${address}</span></p>
+                                    <p>Status: <span style="color:red;">${status}</span></p>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Index</th>
+                                            <th>Image</th>
+                                            <th>Product</th>
+                                            <th>Size</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="hd" items="${listHD}" varStatus="st">
+                                            <tr>
+                                                <td>${st.index+1}</td>
+                                                <td><img style="width:60px; height: 60px;" src="${hd.img}" /></td>
+                                                <td>${hd.tenSP}</td>
+                                                <td>${hd.size}</td>
+                                                <td>${hd.SL}</td>
+                                                <td>$ ${hd.gia}</td>
+                                                <td>$ ${hd.total}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <p>PaymentTotal: <span style="color:red;">$ ${total}</span></p>
+                                    <p>Invoice Date: <fmt:formatDate value="${date}" pattern="dd-MM-yyyy"></fmt:formatDate></p></div>
+                                </div>
+                        </c:if>
                     </div>
-                    <div class="clearfix"> </div>
+                </div>
+                <div class="clearfix"> </div>
             </div>
         </div>
         <div class="contact-map">
@@ -118,18 +161,18 @@
         <!-- cart-js -->
         <script src="js/minicart.js"></script>
         <script>
-shoe.render();
+                                    shoe.render();
 
-shoe.cart.on('shoe_checkout', function (evt) {
-    var items, len, i;
+                                    shoe.cart.on('shoe_checkout', function (evt) {
+                                        var items, len, i;
 
-    if (this.subtotal() > 0) {
-        items = this.items();
+                                        if (this.subtotal() > 0) {
+                                            items = this.items();
 
-        for (i = 0, len = items.length; i < len; i++) {
-        }
-    }
-});
+                                            for (i = 0, len = items.length; i < len; i++) {
+                                            }
+                                        }
+                                    });
         </script>
         <!-- //cart-js -->
         <!-- /nav -->
@@ -140,26 +183,26 @@ shoe.cart.on('shoe_checkout', function (evt) {
         <!-- script for responsive tabs -->
         <script src="js/easy-responsive-tabs.js"></script>
         <script>
-$(document).ready(function () {
-    $('#horizontalTab').easyResponsiveTabs({
-        type: 'default', //Types: default, vertical, accordion           
-        width: 'auto', //auto or any width like 600px
-        fit: true, // 100% fit in a container
-        closed: 'accordion', // Start closed if in accordion view
-        activate: function (event) { // Callback function if tab is switched
-            var $tab = $(this);
-            var $info = $('#tabInfo');
-            var $name = $('span', $info);
-            $name.text($tab.text());
-            $info.show();
-        }
-    });
-    $('#verticalTab').easyResponsiveTabs({
-        type: 'vertical',
-        width: 'auto',
-        fit: true
-    });
-});
+                                    $(document).ready(function () {
+                                        $('#horizontalTab').easyResponsiveTabs({
+                                            type: 'default', //Types: default, vertical, accordion           
+                                            width: 'auto', //auto or any width like 600px
+                                            fit: true, // 100% fit in a container
+                                            closed: 'accordion', // Start closed if in accordion view
+                                            activate: function (event) { // Callback function if tab is switched
+                                                var $tab = $(this);
+                                                var $info = $('#tabInfo');
+                                                var $name = $('span', $info);
+                                                $name.text($tab.text());
+                                                $info.show();
+                                            }
+                                        });
+                                        $('#verticalTab').easyResponsiveTabs({
+                                            type: 'vertical',
+                                            width: 'auto',
+                                            fit: true
+                                        });
+                                    });
         </script>
         <!--search-bar-->
         <script src="js/search.js"></script>
@@ -168,19 +211,26 @@ $(document).ready(function () {
         <script type="text/javascript" src="js/move-top.js"></script>
         <script type="text/javascript" src="js/easing.js"></script>
         <script type="text/javascript">
-jQuery(document).ready(function ($) {
-    $(".scroll").click(function (event) {
-        event.preventDefault();
-        $('html,body').animate({
-            scrollTop: $(this.hash).offset().top
-        }, 1000);
-    });
-});
+                                    jQuery(document).ready(function ($) {
+                                        $(".scroll").click(function (event) {
+                                            event.preventDefault();
+                                            $('html,body').animate({
+                                                scrollTop: $(this.hash).offset().top
+                                            }, 1000);
+                                        });
+                                    });
         </script>
         <!-- //end-smoth-scrolling -->
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-
-
+        <script>
+                                    function showOrder() {
+                                        var sdt = document.getElementById('valueSDT').value;
+                                        alert(sdt);
+                                        $.post("admin/showOrderofCustomer.htm", {'sdt': sdt}, function (data) {
+                                            $('body').html(data);
+                                        });
+                                    }
+        </script>
     </body>
 
 </html>

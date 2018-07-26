@@ -71,6 +71,17 @@ public class CTHDBean {
         this.img = img;
     }
 
+    public CTHDBean(String IDHD, String TenSP, String SL, String Size, String Gia, String IDSP, String img, Double total) {
+        this.IDHD = IDHD;
+        this.TenSP = TenSP;
+        this.SL = SL;
+        this.Size = Size;
+        this.Gia = Gia;
+        this.IDSP = IDSP;
+        this.img = img;
+        this.total = total;
+    }
+
     public CTHDBean(String IDHD, Date ngay, String hinhthuctt, String TenKH, String SDT, String diaChi, double total) {
         this.IDHD = IDHD;
         this.ngay = ngay;
