@@ -86,7 +86,7 @@
         <!--Show Kho-->
         <script>
             function getShowKho(id){
-                alert(id);
+//                alert(id);
                 $.post("admin/showDataKho.htm", {'id': id}, function (data) {
                     $('body').html(data);
                 });

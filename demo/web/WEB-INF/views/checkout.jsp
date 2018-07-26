@@ -108,34 +108,34 @@
                                     <div class="information-wrapper">
                                         <div class="first-row form-group">
                                             <div class="controls">
-                                                <label class="control-label">Full name: </label>
-                                                <input class="billing-address-name form-control" type="text" name="TenKH" placeholder="Full name">
+                                                <label class="control-label">Full name: <span id="checkname" style="display: none;color: red">Please,Enter your Full name!</span></label>
+                                                <input id="fullname" class="billing-address-name form-control" type="text" name="TenKH" placeholder="Full name: Dimitri Vegas">
                                             </div>
                                             <div class="card_number_grids">
                                                 <div class="card_number_grid_left">
                                                     <div class="controls">
-                                                        <label class="control-label">Mobile number:</label>
-                                                        <input name="SDT" class="form-control" type="text" placeholder="Mobile number">
+                                                        <label class="control-label">Mobile number: <span  id="checkphone" style="display: none;color: red">Please,Enter your Phone!</span></label>
+                                                        <input id="phone" name="SDT" class="form-control" type="text" maxlength="12" minlength="10"  placeholder="Mobile number Ex: 090xxxxxxx">
                                                     </div>
                                                 </div>
                                                 <div class="card_number_grid_right">
                                                     <div class="controls">
-                                                        <label class="control-label">Address: </label>
-                                                        <input name="diaChi" class="form-control" type="text" placeholder="Address">
+                                                        <label class="control-label">Address: <span id="checkad" style="display:none;color: red">Please,Enter your Address!</span></label>
+                                                        <input id="address" name="diaChi" class="form-control" type="text" placeholder="Address: 123 Avenue ">
                                                     </div>
                                                 </div>
                                                 <div class="clear"> </div>
                                             </div>
                                             <div class="controls">
                                                 <label class="control-label">Email: </label>
-                                                <input name="Email" class="form-control" type="text" placeholder="Email">
+                                                <input name="Email" class="form-control" type="email" pattern="[^ @]*@[^ @]*" placeholder="Email: abc@xyz"/>
                                             </div>
                                         </div>
                                     </div>
                                 </section>
 
-                                <div class="checkout-right-basket">
-                                    <input type="submit" class="btn btn-order" value="Order" />
+                                <div class="tx-al-r mg-b-20">
+                                    <input type="submit" id="ordersneaker" class="btn btn-order" onclick="test()" disabled value="Order" />
                                 </div>
                             </form>
                         </div>
@@ -151,18 +151,74 @@
         <!-- cart-js -->
         <script src="js/minicart.js"></script>
         <script>
-                                                        shoe.render();
+//                   bat loi ko cho nhap chu
+                                        $("#phone").keyup(function () {
+                                            $("#phone").val(this.value.match(/[0-9]*/));
+                                        });
+                                         $("#fullname").keyup(function () {
+                                            $("#fullname").val(this.value.match(/[a-zA-Z]*/));
+                                        });
+//                   bat loi khong nhap du 3 dieu kien
+                                        var a = 0;
+                                        var b = 0;
+                                        var c = 0;
+                                        var d = 0;
+                                        $('#fullname').blur(function () {
+                                            if ($('#fullname').val().trim() === '') {
+                                                document.getElementById('checkname').style = 'display:visible';
+                                                a = 0;
+                                                document.getElementById('ordersneaker').disabled = true;
+                                            } else {
+                                                a = 1;
+                                                document.getElementById('checkname').style = 'display:none';
+                                                d = a + b + c;
+                                                if (d >= 3) {
+                                                    document.getElementById('ordersneaker').disabled = false;
+                                                }
+                                            }
+                                        });
+                                        $('#phone').blur(function () {
+                                            if ($('#phone').val().trim() === '') {
+                                                document.getElementById('checkphone').style = 'display:visible';
+                                                document.getElementById('ordersneaker').disabled = true;
+                                                b = 0;
+                                            } else {
+                                                b = 1;
+                                                document.getElementById('checkphone').style = 'display:none';
+                                                d = a + b + c;
+                                                if (d >= 3) {
+                                                    document.getElementById('ordersneaker').disabled = false;
+                                                }
+                                            }
+                                        });
+                                        $('#address').blur(function () {
+                                            if ($('#address').val().trim() === '') {
+                                                document.getElementById('checkad').style = 'display:visible';
+                                                document.getElementById('ordersneaker').disabled = true;
+                                                c = 0;
+                                            } else {
+                                                c = 1;
+                                                document.getElementById('checkad').style = 'display:none';
+                                                d = a + b + c;
+                                                if (d >= 3) {
+                                                    document.getElementById('ordersneaker').disabled = false;
+                                                }
+                                            }
+                                        });
 
-                                                        shoe.cart.on('shoe_checkout', function (evt) {
-                                                            var items, len, i;
 
-                                                            if (this.subtotal() > 0) {
-                                                                items = this.items();
+                                        shoe.render();
 
-                                                                for (i = 0, len = items.length; i < len; i++) {
-                                                                }
-                                                            }
-                                                        });
+                                        shoe.cart.on('shoe_checkout', function (evt) {
+                                            var items, len, i;
+
+                                            if (this.subtotal() > 0) {
+                                                items = this.items();
+
+                                                for (i = 0, len = items.length; i < len; i++) {
+                                                }
+                                            }
+                                        });
         </script>
         <!-- //cart-js -->
         <!-- /nav -->
@@ -175,18 +231,18 @@
         <!--//search-bar-->
         <!--quantity-->
         <script>
-                                                        $('.value-plus').on('click', function () {
-                                                            var divUpd = $(this).parent().find('.value'),
-                                                                    newVal = parseInt(divUpd.text(), 10) + 1;
-                                                            divUpd.text(newVal);
-                                                        });
+                                        $('.value-plus').on('click', function () {
+                                            var divUpd = $(this).parent().find('.value'),
+                                                    newVal = parseInt(divUpd.text(), 10) + 1;
+                                            divUpd.text(newVal);
+                                        });
 
-                                                        $('.value-minus').on('click', function () {
-                                                            var divUpd = $(this).parent().find('.value'),
-                                                                    newVal = parseInt(divUpd.text(), 10) - 1;
-                                                            if (newVal >= 1)
-                                                                divUpd.text(newVal);
-                                                        });
+                                        $('.value-minus').on('click', function () {
+                                            var divUpd = $(this).parent().find('.value'),
+                                                    newVal = parseInt(divUpd.text(), 10) - 1;
+                                            if (newVal >= 1)
+                                                divUpd.text(newVal);
+                                        });
         </script>
         <!--quantity-->
         <script>

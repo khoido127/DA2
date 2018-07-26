@@ -41,7 +41,7 @@
         <!-- top Products -->
         <div class="ads-grid_shop">
             <div class="shop_inner_inf mg-t-10 mg-b-10">
-                <div class="col-md-5 contact-left">
+                <div class="col-md-4 col-sm-10 contact-left">
                     <h3 class="head mg-b-20">Contact Us</h3>
                     <div class="content-contact" style="border-right: 1px solid #dddddd;">
                         <div class="visit">
@@ -86,29 +86,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7 contact_grid_right">
+                <div class="col-md-8 col-sm-12 contact_grid_right">
                     <h3 class="head mg-b-20">Check Order</h3>
                     <div class="checkOrder-content">
                         <form action="#" method="post">
                             <div class="col-md-12 contact_left_grid">
-                                <input id="valueSDT" type="text" name="checkOrder" placeholder="Enter your Order Number or Phone" required="" value="">
-                            </div>
-                            <div class="col-md-12 mg-t-10 tx-al-r">
-                                <button type="reset" value="Reset" class="btn">Clear</button>
-                                <button onclick="showOrder()" type="button" class="btn btn-search">Search</button>
+                                <input id="valueSDT" type="text" name="checkOrder" maxlength="12" pattern="([0-9]|[0-9]|[0-9])"  placeholder="Enter your Phone Number here ..." required="" value="">
+                                <div class="tx-al-c" style="width: 30%; height: 51px;float: right; display: flex;align-items: center;justify-content: space-evenly;">
+                                <button type="reset" value="Reset" class="btn btn-icon btn-new">Clear</button>
+                                <button onclick="showOrder()" type="button" class="btn btn-icon btn-search">Search</button>
+                                </div>
                             </div>
                         </form>
 
                         <c:if test="${control=='showOrder'}">
                             <div class="col-md-12 orderInfo mg-t-10">
                                 <hr>
-                                <h3 class="tx-al-c">Your Invoice</h3>
-                                <p style="margin-bottom: 20px;"><img src="images/logo.PNG" /></p>
-
+                                <h3 class="head tx-al-c mg-b-20">Your Invoice</h3>
+                                <p class="tx-al-r" style="margin-bottom: 20px;"><img src="images/logo.PNG" /></p>
                                 <div style="margin-bottom: 20px;">
+                                    <p>Invoice Date: <fmt:formatDate value="${date}" pattern="dd-MM-yyyy"></fmt:formatDate></p>
                                     <p>Order by: <span style="color:red;">${tenKH}</span></p>
                                     <p>Address: <span style="color: red;">${address}</span></p>
                                     <p>Status: <span style="color:red;">${status}</span></p>
+
                                 </div>
                                 <table class="table">
                                     <thead>
@@ -136,10 +137,10 @@
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                                <div style="display: flex; justify-content: space-between;">
+                                <div class="tx-al-r">
                                     <p>PaymentTotal: <span style="color:red;">$ ${total}</span></p>
-                                    <p>Invoice Date: <fmt:formatDate value="${date}" pattern="dd-MM-yyyy"></fmt:formatDate></p></div>
                                 </div>
+                            </div>
                         </c:if>
                     </div>
                 </div>
@@ -161,6 +162,9 @@
         <!-- cart-js -->
         <script src="js/minicart.js"></script>
         <script>
+                                    $("#valueSDT").keyup(function () {
+                                        $("#valueSDT").val(this.value.match(/[0-9]*/));
+                                    });
                                     shoe.render();
 
                                     shoe.cart.on('shoe_checkout', function (evt) {

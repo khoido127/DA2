@@ -79,7 +79,7 @@
                                                 </td>
                                                 <td>adidas NMD</td>
                                                 <td>36</td>
-                                                <td><input type="number" value="" /></td>
+                                                <td><input type="number"  maxlength="100" value="" /></td>
                                                 <td>200$</td>
 
 <!--                                                <td>

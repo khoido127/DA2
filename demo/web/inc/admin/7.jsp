@@ -37,7 +37,7 @@
 
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Quantity</label>
-                                <input type="number" class="edit-field" name="SL" value="${hd.SL}"/>
+                                <input type="number" maxlength="100" class="edit-field" name="SL" value="${hd.SL}"/>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Price</label>

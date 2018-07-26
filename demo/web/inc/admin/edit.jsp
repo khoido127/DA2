@@ -20,6 +20,8 @@
         </style>
     </head>
     <body>
+        <h2 class="custom-head">Product Management </h2>
+        <hr class="mg-l-20 mg-r-20">
         <%  response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1 
             response.setHeader("Pragma", "no-cache"); //HTTP 1.0 
             response.setDateHeader("Expires", 0); //prevents caching at the proxy server  
@@ -59,19 +61,19 @@
                                             <label class="edit-label">Product ID:</label>
                                             <input id="nameImage" name="nameImage" type="hidden" value="" />
                                             <!--<input type="hidden" name="idsp" value="" />-->
-                                            <input ${status} name="IDSP" type="text" class="edit-field" value="${sp.IDSP}"/>
+                                            <input ${status} name="IDSP" type="text" maxlength="20" class="edit-field" value="${sp.IDSP}"/>
                                         </div>
                                     </div>
                                     <div class="col-md-10 col-sm-10">
                                         <div class=" edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">Product Name:</label>
-                                            <input name="TenSP" type="text" class="edit-field" value="${sp.tenSP}"/>
+                                            <input name="TenSP" type="text" class="edit-field" maxlength="50" value="${sp.tenSP}"/>
                                         </div>
                                     </div>
                                          <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">Brand:</label>
-                                            <select name="IDLoai" id="loaiSP">
+                                            <select name="IDLoai" id="loaiSP" style="height: 30px">
                                                 <c:forEach var="l" items="${listLoai}">
                                                     <option ${l.selected} value="${l.IDLoai}">${l.tenLoai}</option>
                                                 </c:forEach>
@@ -85,13 +87,13 @@
                                     <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">Price:</label>
-                                            <input name="GiaSP" type="text" class="edit-field" value="${sp.giaSP}"/>
+                                            <input name="GiaSP" type="text" class="numberfield" id="numberfield" maxlength="4" pattern="([0-9]|[0-9]|[0-9])" value="${sp.giaSP}"/>
                                         </div>
                                     </div>
                                     <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">PriceSale:</label>
-                                            <input name="GiaSPKM" type="text" class="edit-field" value="${sp.giaSPKM}"/>
+                                            <input name="GiaSPKM" type="text" class="numberfield"  id="numberfield1" maxlength="4" pattern="([0-9]|[0-9]|[0-9])" value="${sp.giaSPKM}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +102,7 @@
 
                                     <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
-                                            <label style="position: relative;top: -52px;" class="edit-label">Description:</label>
+                                            <label style="position: relative;top: -88px;" class="edit-label">Description:</label>
                                             <textarea maxlength="350" placeholder="Description" cols="20" rows="5" name="moTa" class="edit-field" >${sp.moTa}</textarea>
                                         </div>
                                     </div>
@@ -131,6 +133,12 @@
         </form>
         <!--Xu ly phan hinh anh slide-->
         <script>
+        $("#numberfield").keyup(function() {
+        $("#numberfield").val(this.value.match(/[0-9]*/));
+        });
+        $("#numberfield1").keyup(function() {
+        $("#numberfield1").val(this.value.match(/[0-9]*/));
+        });
             var nameImage = "";
             for (var i = 1; i <= 3; i++) {
                 nameImage = nameImage + document.getElementById('index-' + i).value + ".jpg" + ";";

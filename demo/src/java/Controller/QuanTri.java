@@ -825,7 +825,7 @@ public class QuanTri {
             query.setParameter("id", id);
             List<Comment> ds = query.list();
             if (ds.size() == 0) {
-                model.addAttribute("notShow", "Sản phẩm này chưa được comment!");
+                model.addAttribute("notShow", "This product has not received any comments yet!");
             }
             List<CommentBean> dsbean = new ArrayList<>();
             for (Comment cm : ds) {
@@ -1077,7 +1077,7 @@ public class QuanTri {
     public String showHoaDon(ModelMap model) {
         List<HoaDon> ds = getHoaDon();
         List<CTHDBean> dsBean = new ArrayList<>();
-        String[] s = {"In Process", "On Way", "Payed"};
+        String[] s = {"In Process", "On Way", "Done"};
         List<HinhThucTTBean> dsTT = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             HinhThucTTBean ttBean = new HinhThucTTBean(s[i], "");
@@ -1324,7 +1324,7 @@ public class QuanTri {
             CTHDBean ctbean = new CTHDBean(id, hd.getNgay(), hd.getHinhThucTT(), hd.getTenKH(), hd.getSDT(), hd.getDiaChi(), hd.getTongTien());
             dsBean.add(ctbean);
         }
-        String[] s = {"In Process", "On Way", "Payed"};
+        String[] s = {"In Process", "On Way", "Done"};
         List<HinhThucTTBean> dsTT = new ArrayList<>();
         String checked = "";
         System.out.println("HinhThucTT: " + trangthai);
@@ -1408,7 +1408,7 @@ public class QuanTri {
             String[] idsp = hd.getIdSP().split("\\^");
             String[] soluong = hd.getSL().split("\\^");
             String[] size = hd.getSize().split("\\^");
-            if (trangthai.equalsIgnoreCase("Payed")) {
+            if (trangthai.equalsIgnoreCase("Done")) {
                 for (int i = 0; i < soluong.length; i++) {
                     updateSoLuongKho(idsp[i], soluong[i], size[i]);
                 }

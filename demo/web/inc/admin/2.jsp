@@ -16,11 +16,10 @@
         <!--content product description-->
 
         <div class="row mg-t-10">
-            <h1>Product Description: <a target="_blank" href="Home/pageSingle.htm?code=${idsp}">${idsp}</a></h1>
-
+            <h2 class="custom-head tx-al-l mg-l-20"><a style="text-decoration: none;" target="_blank" href="Home/pageSingle.htm?code=${idsp}">${idsp}</a> Description Table</h2>
+            
             <div class="col-md-12">
                 <div class="white-box">
-                    <h3 class="box-title">Description table</h3>
                     <div class="table-responsive">
                         <form id="formEditDescription" action="admin/saveToEditDescription.htm" method="post" enctype="multipart/form-data">
 

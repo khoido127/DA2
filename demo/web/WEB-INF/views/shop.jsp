@@ -168,7 +168,7 @@
                                                 <p class="name-product">
                                                     <a href="Home/pageSingle.htm?code=${sp.IDSP}">${sp.tenSP}</a>
                                                 </p>
-                                                <div class="info-product-price">
+                                                <div class="info-product-price" style="position: relative">
                                                     <div class="grid_meta">
                                                         <div class="product_price">
                                                             <div class="grid-price ">
@@ -185,7 +185,9 @@
                                                             <input type="hidden" name="shoe_item" value="Bank Sneakers">
                                                             <input type="hidden" name="amount" value="635.00">
                                                         </form>
-                                                        <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+                                                            <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart custom-fastcard">
+                                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>

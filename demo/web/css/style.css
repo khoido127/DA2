@@ -2243,9 +2243,9 @@ button.btn1 {
 .p-l-15{padding-left:15px}
 .p-l-20{padding-left:20px}
 
-.tx-al-c{text-align: center}
-.tx-al-l{text-align: left}
-.tx-al-r{text-align: right}
+.tx-al-c{text-align: center!important}
+.tx-al-l{text-align: left!important}
+.tx-al-r{text-align: right!important}
 
 .wr-brw{word-wrap: break-word}
 
@@ -2405,6 +2405,16 @@ input[type="text"]:active,input[type="text"]:hover,input[type="text"]:focus{
 }
 /*end icon & button*/
 /*border & display*/
+h2.custom-head{
+    text-align: center;
+    color: #111;
+    font-size: 2.2em;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-shadow: rgba(0, 0, 0, 0.13) 2px 2px 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
 .bd-gray{
     border: 1px solid #a3a3a3;
 }
@@ -2427,13 +2437,14 @@ table tbody td textArea,table tbody td input,table tbody td select{
     border: none;
 }
 table tbody td input[type="number"]{
-    text-align: center
+    text-align: center;
+    width: 60px;
 }
 table tbody td textArea:focus,table tbody td input:focus,table tbody td select:focus,input:focus,textarea:focus,select:focus{
     outline-color:#FFC226;
 }
-table tbody td:last-child {
-    border-right: 1px solid #dddddd!important;
+table tbody td:first-child {
+    border-left: none!important;
 }
 input{padding-left: 4px}
 textarea{ resize: none;}
@@ -2524,7 +2535,11 @@ button:focus{ outline-color:#dddddd;}
 .content-manage-page .sidebar-nav .menu-title li:hover .sub-menu li:hover {background-color: white;}
 .content-manage-page .sidebar-nav .menu-title li:hover .sub-menu li:hover a{color: #a3a3a3;}
 .content-manage-page .sidebar-nav .menu-title li .sub-menu a{font-size: 14px;}
-
+.numberfield{
+    padding-left: 0;
+    text-align: center;
+    width: 70px;
+}
 /*admin css*/
 .content-manage-page .content-left-panel .flexslider {
     width: 300px;
@@ -2544,8 +2559,12 @@ button:focus{ outline-color:#dddddd;}
     background: red;
 }
 /*end admin css*/
-
-
+/*shop css*/
+.custom-fastcard{
+    right: 3px;
+    position: absolute;
+    top: -100px;
+}
 
 
 
