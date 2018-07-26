@@ -99,7 +99,7 @@
                         <div class="fluid-container">
                             <div class="row">
                                 <div style="font-weight: bold;text-align: left;" class="col-md-6">Subtotal</div>
-                                <div style="font-weight: bold;text-align: right;" class="col-md-6"><%=sum%>$</div>
+                                <div id="tongtien" style="font-weight: bold;text-align: right;" class="col-md-6"><%=sum%>$</div>
                             </div>
                         </div>
                         <div class="fluid-container">
@@ -173,7 +173,7 @@
         <!--Checkout-->
         <script>
             function checkout() {
-//                var sum = document.getElementById('tongtien').innerHTML;
+                var sum = document.getElementById('tongtien').innerHTML;
                 window.location = ("Home/getGioHang.htm?ck=all&sum=" + sum);
             }
         </script>

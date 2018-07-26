@@ -132,7 +132,7 @@ public class QuanTri {
             }
             String selected = "";
             for (Loai l : dsLoai) {
-                LoaiSPBean loaispbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), selected);
+                LoaiSPBean loaispbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), "", selected);
                 dsLoaiSPBean.add(loaispbean);
             }
 //        List<SanPhamBean> dsbean = showDataTable();
@@ -203,7 +203,7 @@ public class QuanTri {
                 } else {
                     selected = "";
                 }
-                LoaiSPBean loaispbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), selected);
+                LoaiSPBean loaispbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), "", selected);
                 dsLoaiSPBean.add(loaispbean);
             }
             //Lay data sp dua vao List
@@ -395,15 +395,55 @@ public class QuanTri {
     @RequestMapping("pageDeleteSP")
     public String pageDeleteSP(@RequestParam("id") String id, ModelMap model) {
         model.addAttribute("id", id);
+//        String[] ch = id.split(";");
         System.out.println("ID: " + id);
-        return "admin/pageDeleteSP";
+        boolean result = checkIDSPInHoaDon(id);
+        System.out.println("Result: " + result);
+        if (result) {
+            return "admin/pageShowResult";
+        } else {
+            return "admin/pageDeleteSP";
+        }
+    }
+
+    //Kiểm tra sản phẩm có trong HoaDon chưa
+    public boolean checkIDSPInHoaDon(String id) {
+        Session s = factory.getCurrentSession();
+        String[] ids = id.split(";");
+        System.out.println("ID: " + id);
+        try {
+            String hql = "From HoaDon";
+            Query query = s.createQuery(hql);
+            List<HoaDon> ds = query.list();
+            int dem = 0;
+            for (HoaDon hd : ds) {
+                String[] ch = hd.getIdSP().split("\\^");
+                for (int i = 0; i < ch.length; i++) {
+                    for (int j = 0; j < ids.length; j++) {
+                        if (ch[i].equals(ids[j])) {
+                            dem++;
+                            break;
+                        }
+                    }
+                }
+                if (dem > 0) {
+                    break;
+                }
+            }
+            System.out.println("DEM: " + dem);
+            if (dem > 0) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return false;
     }
 
     @RequestMapping("deleteSP")
     public String deleteSP(@RequestParam("id") String id, HttpServletRequest request) {
         context = request.getServletContext();
         try {
-
             String[] ids = id.split(";");
             for (int i = 0; i < ids.length; i++) {
                 String idloai = getLoaiSP(ids[i]);
@@ -1057,12 +1097,31 @@ public class QuanTri {
     @RequestMapping("showDetailHD")
     public String showDetailHD(ModelMap model, @RequestParam("id") String id) {
         List<CTHDBean> dsBean = new ArrayList<>();
-        CTHDBean ctbean = new CTHDBean(id, "", "", "", "", "");
+        CTHDBean ctbean = new CTHDBean(id, "", "", "", "", "", "");
         dsBean.add(ctbean);
         showDetailHoaDon(id, model);
         model.addAttribute("page", "/inc/admin/" + "7" + ".jsp");
         model.addAttribute("listEditDetail", dsBean);
         return "admin/admin";
+    }
+
+    //Get Image Sản phẩm
+    public String getImgSP(String id) {
+        Session s = factory.getCurrentSession();
+        String img = "";
+        try {
+            String hql = "From SanPham sp where sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            List<SanPham> ds = query.list();
+            for (SanPham sp : ds) {
+                String[] ch = sp.getHinhSP().split(";");
+                img = "images/product/" + sp.getLoai().getIDLoai() + "/" + sp.getIDSP() + "/" + ch[0];
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return img;
     }
 
     public void showDetailHoaDon(String id, ModelMap model) {
@@ -1075,7 +1134,8 @@ public class QuanTri {
             String[] gia = hd.getGia().split("\\^");
             String[] idsp = hd.getIdSP().split("\\^");
             for (int i = 0; i < tensp.length; i++) {
-                CTHDBean ctbean = new CTHDBean(id, tensp[i], sl[i], size[i], gia[i], idsp[i]);
+                String img = getImgSP(idsp[i]);
+                CTHDBean ctbean = new CTHDBean(id, tensp[i], sl[i], size[i], gia[i], idsp[i], img);
                 dsHDBean.add(ctbean);
             }
         }
@@ -1100,7 +1160,7 @@ public class QuanTri {
                 if (i == index) {
                     IDSP = idsp[i];
                     s = size[i];
-                    CTHDBean ctbean = new CTHDBean(id, tensp[i], sl[i], size[i], gia[i], idsp[i]);
+                    CTHDBean ctbean = new CTHDBean(id, tensp[i], sl[i], size[i], gia[i], idsp[i], "");
                     dsBean.add(ctbean);
 
                 }

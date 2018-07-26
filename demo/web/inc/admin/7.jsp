@@ -37,7 +37,7 @@
 
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Quantity</label>
-                                <input type="text" class="edit-field" name="SL" value="${hd.SL}"/>
+                                <input type="number" class="edit-field" name="SL" value="${hd.SL}"/>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Price</label>
@@ -71,21 +71,21 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>ID Bill</th>
+                                                <th>Image</th>
                                                 <th>Product Name</th>
                                                 <th>Size</th>
                                                 <th>Quantity</th>
                                                 <th>Price</th>
                                                 <th>Edit</th>
-                                                <th> </th>
-
+                                                <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach var="hd" items="${listDetailHD}" varStatus="st">
                                                 <tr>
                                                     <td>${st.index+1}</td>
-
                                                     <td>${hd.IDHD}</td>
+                                                    <td><img style="width: 80px; height: 80px;" src="${hd.img}" /></td>
                                                     <td>${hd.tenSP}</td>
                                                     <td>${hd.size}</td>
                                                     <td>${hd.SL}</td>

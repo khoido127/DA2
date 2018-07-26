@@ -81,9 +81,9 @@ public class XuLyTrangChu {
 
         try {
             String tensp = sbean.getTenSP();
+            System.out.println("TenSP: "+tensp);
             String code = request.getParameter("code");
             System.out.println("Code: " + code);
-
             String sort = "", type = "", idsp = "";
             int id = 1;
             if (code != null) {
@@ -115,7 +115,7 @@ public class XuLyTrangChu {
             }
 
             int sotrang = getPageNumberOfLoaiSP(type);
-
+            System.out.println("TypeLoaiSP: "+type);
             System.out.println("TenSP: " + tensp);
             int maxNumberInPage = 6;
             int firstResult = phanTrang(maxNumberInPage, id);
@@ -239,7 +239,7 @@ public class XuLyTrangChu {
         int sumIndex = size.length;
         for (int i = 0; i < size.length; i++) {
             String trangthai = "Size này còn " + soluong[i] + " sản phẩm";
-            KhoBean kho = new KhoBean(size[i], soluong[i], trangthai);
+            KhoBean kho = new KhoBean(idsp,size[i], soluong[i], trangthai);
             listkho.add(kho);
         }
         model.addAttribute("sumIndex", sumIndex);
@@ -404,7 +404,7 @@ public class XuLyTrangChu {
                     checked = "";
                 }
                 System.out.println("Check: " + checked);
-                LoaiSPBean spbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), checked);
+                LoaiSPBean spbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), checked,"");
                 listspbean.add(spbean);
             }
             System.out.println("ListSPBean: " + listspbean.size());

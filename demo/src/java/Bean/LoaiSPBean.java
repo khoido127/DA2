@@ -15,15 +15,17 @@ public class LoaiSPBean {
     private String tenLoai;
     private String checked;
     private String selected;
+
     public LoaiSPBean() {
     }
 
-    public LoaiSPBean(String IDLoai, String TenLoai, String selected) {
+    public LoaiSPBean(String IDLoai, String TenLoai, String checked, String selected) {
         this.IDLoai = IDLoai;
         this.tenLoai = TenLoai;
+        this.checked = checked;
         this.selected = selected;
     }
-    
+
     public String getIDLoai() {
         return IDLoai;
     }
@@ -47,7 +49,7 @@ public class LoaiSPBean {
     public void setTenLoai(String tenLoai) {
         this.tenLoai = tenLoai;
     }
-    
+
     public String getSelected() {
         return selected;
     }
@@ -55,5 +57,5 @@ public class LoaiSPBean {
     public void setSelected(String selected) {
         this.selected = selected;
     }
-    
+
 }

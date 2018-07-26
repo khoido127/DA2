@@ -28,6 +28,7 @@ public class CTHDBean {
     private String Email;
     private String IDSP;
     private double total;
+    private String img;
     public static List<CTHDBean> hd = new ArrayList<>();
 
     public CTHDBean() {
@@ -60,13 +61,14 @@ public class CTHDBean {
         this.IDSP = IDSP;
     }
 
-    public CTHDBean(String IDHD, String TenSP, String SL, String Size, String Gia, String IDSP) {
+    public CTHDBean(String IDHD, String TenSP, String SL, String Size, String Gia, String IDSP, String img) {
         this.IDHD = IDHD;
         this.TenSP = TenSP;
         this.SL = SL;
         this.Size = Size;
         this.Gia = Gia;
         this.IDSP = IDSP;
+        this.img = img;
     }
 
     public CTHDBean(String IDHD, Date ngay, String hinhthuctt, String TenKH, String SDT, String diaChi, double total) {
@@ -189,6 +191,14 @@ public class CTHDBean {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
 }

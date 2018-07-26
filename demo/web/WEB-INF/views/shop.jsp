@@ -1,10 +1,12 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
 
     <head>
         <title>Shop Z4 Sneakers</title>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
         <style>
             #listChoice li{
                 cursor: pointer;
@@ -34,10 +36,9 @@
                 <div class="side-bar col-md-3">
                     <div class="search-hotel">
                         <h3 class="agileits-sear-head">Search Here..</h3>
-                        <form action="<%=request.getContextPath()%>/Home/pageShop.htm" method="get">
+                        <form id="formSearch" action="Home/pageShop.htm" method="post">
                             <input type="search" placeholder="Product name..." name="tenSP" required="">
-
-                            <input type="submit" value=" ">
+                            <input onclick="getDataSearch()" type="button" value="">
                         </form>
 
                     </div>
@@ -184,7 +185,7 @@
                                                             <input type="hidden" name="shoe_item" value="Bank Sneakers">
                                                             <input type="hidden" name="amount" value="635.00">
                                                         </form>
-<!--                                                        <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>-->
+                                                        <button data-toggle="modal" data-target="#modal-cart" onclick="getGioHang('${sp.IDSP}');" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -384,6 +385,12 @@
                     $(".modal-body").html(data);
 
                 });
+            }
+        </script>
+        <!--Tìm kiếm-->
+        <script>
+            function getDataSearch(){
+                document.getElementById('formSearch').submit();
             }
         </script>
     </body>
