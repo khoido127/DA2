@@ -23,6 +23,7 @@ public class GioHang {
     private String idLoai;
     private double giaGoc;
     private String size;
+    private String hinhDaiDien;
     public static List<GioHang> gh = new ArrayList<>();
 
     public GioHang() {
@@ -37,7 +38,7 @@ public class GioHang {
         this.tongtien = tongtien;
     }
 
-    public GioHang(String IDSP, String hinhSP, String tenSP, double giaSP, int soluong, double tongtien, String idLoai, String size) {
+    public GioHang(String IDSP, String hinhSP, String tenSP, double giaSP, int soluong, double tongtien, String idLoai, String size, String hinhDaiDien) {
         this.IDSP = IDSP;
         this.hinhSP = hinhSP;
         this.tenSP = tenSP;
@@ -46,6 +47,7 @@ public class GioHang {
         this.tongtien = tongtien;
         this.idLoai = idLoai;
         this.size = size;
+        this.hinhDaiDien = hinhDaiDien;
     }
 
     public GioHang(String IDSP, String hinhSP, String tenSP, double giaSP, int soluong, double tongtien, String idLoai, double giaGoc, String size) {
@@ -139,5 +141,13 @@ public class GioHang {
     public void setSize(String size) {
         this.size = size;
     }
-    
+
+    public String getHinhDaiDien() {
+        return hinhDaiDien;
+    }
+
+    public void setHinhDaiDien(String hinhDaiDien) {
+        this.hinhDaiDien = hinhDaiDien;
+    }
+
 }

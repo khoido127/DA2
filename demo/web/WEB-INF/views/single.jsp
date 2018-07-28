@@ -72,7 +72,11 @@
                         <div style="margin-top: 14px;margin-left: 0;" class="row">
                             <div class="product-quantity col-md-3">
                                 <span onclick="downFunction('${sp.IDSP}');" id="minus" class="product-minus"><i class="fa fa-minus"></i></span>
+<<<<<<< Updated upstream
                                 <input type="number" value="" min="1" size="2" class="quantity" name="quantity" id="sl" value="${soluong}" max="5">
+=======
+                                <input type="number" min="1" size="2" class="quantity" name="quantity" id="sl" value="${soluong}" max="30">
+>>>>>>> Stashed changes
                                 <span onclick="upFunction('${sp.IDSP}')" id="plus" class="product-plus"><i class="fa fa-plus"></i></span>
                                 <span style="border:0;color: red;font-style: italic;font-size:12px;width:100%; display:block" id="outofstock"></span>
                             </div>

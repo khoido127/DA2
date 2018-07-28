@@ -103,10 +103,11 @@
                         </div>
                         <div class="col-md-8 address_form">
                             <h4>Add a new Details</h4>
-                            <form action="Home/payment.htm" method="post" class="creditly-card-form agileinfo_form">
+                            <form id="formCheckout" action="" class="creditly-card-form agileinfo_form">
                                 <section class="creditly-wrapper wrapper">
                                     <div class="information-wrapper">
                                         <div class="first-row form-group">
+                                            <input id="dem" type="hidden" name="dem" value="false" />
                                             <div class="controls">
                                                 <label class="control-label">Full name: <span id="checkname" style="display: none;">Please,Enter your Full name!</span></label>
                                                 <input id="fullname" class="billing-address-name form-control" type="text" name="TenKH" placeholder="Full name: Dimitri Vegas">
@@ -138,15 +139,37 @@
                                 </section>
 
                                 <div class="tx-al-r mg-b-20">
-                                    <input type="submit" id="ordersneaker" class="btn btn-order" onclick="test()" disabled value="Order" />
+                                    <input data-toggle="modal" data-target="#modal-checkout" type="button" id="ordersneaker" class="btn btn-order" onclick="checkout()" disabled value="Order" />
                                 </div>
                             </form>
+                            <!-- The Modal -->
+                            <div id="modal-checkout" class="modal" tabindex="-1" role="dialog">
+
+                                <div  class="modal-dialog modal-lg" role="document">
+                                    <div style="border:5px solid #cccccc; border-radius: 0;" class="modal-content">
+                                        <div style="border: 0;" class="modal-header">
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <div style="border: 0;" class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End Modal-->
                         </div>
                         <div class="clearfix"> </div>
                     </div>
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
         <%@include file="/inc/footerpage.jsp" %>
         <!-- js -->
         <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
@@ -194,16 +217,23 @@
                                         $("#phone").keyup(function () {
                                             $("#phone").val(this.value.match(/[0-9]*/));
                                         });
+<<<<<<< Updated upstream
 //                   bat loi ko cho nhap so
 
                                         $("#fullname").keyup(function () {
                                             $("#fullname").val(this.value.match(/[a-zA-Z_ ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*/));
+=======
+                                        $("#fullname").keyup(function () {
+                                            $("#fullname").val(this.value.match(/[a-zA-Z]*/));
+>>>>>>> Stashed changes
                                         });
 //                   bat loi khong nhap du 3 dieu kien
                                         var a = 0;
                                         var b = 0;
                                         var c = 0;
                                         var d = 0;
+
+
                                         $('#fullname').blur(function () {
                                             if ($('#fullname').val().trim() === '') {
                                                 document.getElementById('checkname').style = 'display:visible; color:red;font-size:12px';
@@ -217,6 +247,7 @@
                                                     document.getElementById('ordersneaker').disabled = false;
                                                 }
                                             }
+
                                         });
                                         $('#phone').blur(function () {
                                             if ($('#phone').val().trim() === '') {
@@ -259,8 +290,7 @@
                                                 for (i = 0, len = items.length; i < len; i++) {
                                                 }
                                             }
-                                        });
-        </script>
+                                        });</script>
         <!-- //cart-js -->
         <!-- /nav -->
         <script src="js/modernizr-2.6.2.min.js"></script>
@@ -283,8 +313,7 @@
                                                     newVal = parseInt(divUpd.text(), 10) - 1;
                                             if (newVal >= 1)
                                                 divUpd.text(newVal);
-                                        });
-        </script>
+                                        });</script>
         <!--quantity-->
         <script>
             $(document).ready(function (c) {
@@ -293,8 +322,7 @@
                         $('.rem1').remove();
                     });
                 });
-            });
-        </script>
+            });</script>
         <script>
             $(document).ready(function (c) {
                 $('.close2').on('click', function (c) {
@@ -302,8 +330,7 @@
                         $('.rem2').remove();
                     });
                 });
-            });
-        </script>
+            });</script>
         <script>
             $(document).ready(function (c) {
                 $('.close3').on('click', function (c) {
@@ -311,8 +338,7 @@
                         $('.rem3').remove();
                     });
                 });
-            });
-        </script>
+            });</script>
 
         <!-- start-smoth-scrolling -->
         <script type="text/javascript" src="js/move-top.js"></script>
@@ -325,8 +351,7 @@
                         scrollTop: $(this.hash).offset().top
                     }, 1000);
                 });
-            });
-        </script>
+            });</script>
         <!-- //end-smoth-scrolling -->
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
 
@@ -358,7 +383,7 @@
             function upFunction(id, sz) {
                 var quantity = document.getElementById('' + id + '-' + sz).value;
                 var size = sz;
-//                alert(size + quantity);
+                //                alert(size + quantity);
                 quantity++;
                 console.log(quantity);
                 document.getElementById('' + id + '-' + sz).value = quantity;
@@ -369,9 +394,14 @@
                 });
 
             }
-
         </script>
-
+        <script>
+            function checkout() {
+                $.post("Home/payment.htm", $('#formCheckout').serialize(), function (data) {
+                    $('.modal-body').html(data);
+                });
+            }
+        </script>
     </body>
 
 </html>

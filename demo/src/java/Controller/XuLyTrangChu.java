@@ -25,7 +25,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,6 +44,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,7 +91,7 @@ public class XuLyTrangChu {
 
         try {
             String tensp = sbean.getTenSP();
-            System.out.println("TenSP: "+tensp);
+            System.out.println("TenSP: " + tensp);
             String code = request.getParameter("code");
             System.out.println("Code: " + code);
             String sort = "", type = "", idsp = "";
@@ -115,7 +125,7 @@ public class XuLyTrangChu {
             }
 
             int sotrang = getPageNumberOfLoaiSP(type);
-            System.out.println("TypeLoaiSP: "+type);
+            System.out.println("TypeLoaiSP: " + type);
             System.out.println("TenSP: " + tensp);
             int maxNumberInPage = 6;
             int firstResult = phanTrang(maxNumberInPage, id);
@@ -239,7 +249,7 @@ public class XuLyTrangChu {
         int sumIndex = size.length;
         for (int i = 0; i < size.length; i++) {
             String trangthai = "Size này còn " + soluong[i] + " sản phẩm";
-            KhoBean kho = new KhoBean(idsp,size[i], soluong[i], trangthai);
+            KhoBean kho = new KhoBean(idsp, size[i], soluong[i], trangthai);
             listkho.add(kho);
         }
         model.addAttribute("sumIndex", sumIndex);
@@ -405,7 +415,7 @@ public class XuLyTrangChu {
                     checked = "";
                 }
                 System.out.println("Check: " + checked);
-                LoaiSPBean spbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), checked,"");
+                LoaiSPBean spbean = new LoaiSPBean(l.getIDLoai(), l.getTenLoai(), checked, "");
                 listspbean.add(spbean);
             }
             System.out.println("ListSPBean: " + listspbean.size());
@@ -473,7 +483,7 @@ public class XuLyTrangChu {
                 String namepr = sp.getTenSP();
                 if (namepr.toLowerCase().contains(tensp.toLowerCase())) {
                     dem++;
-                    SanPham pr = new SanPham(sp.getIDSP(), sp.getTenSP(), sp.getGiaSPKM(), sp.getGiaSP(), sp.getMoTa(), sp.getHinhSP(), sp.getLoai());
+                    SanPham pr = new SanPham(sp.getIDSP(), sp.getTenSP(), sp.getGiaSPKM(), sp.getGiaSP(), sp.getMoTa(), sp.getHinhSP(), sp.getLoai(), sp.getHinhDaiDien());
                     listsp.add(pr);
                 }
             }
@@ -540,7 +550,7 @@ public class XuLyTrangChu {
 //                                    System.out.println("T: " + t);
 //                                    System.out.println("a[" + j + "]= " + j);
 //                                    System.out.println("TenSP: " + list.get(t).getTenSP());
-                                    SanPham sp = new SanPham(list.get(t).getIDSP(), list.get(t).getTenSP(), list.get(t).getGiaSPKM(), list.get(t).getGiaSP(), list.get(t).getMoTa(), list.get(t).getHinhSP(), list.get(t).getLoai());
+                                    SanPham sp = new SanPham(list.get(t).getIDSP(), list.get(t).getTenSP(), list.get(t).getGiaSPKM(), list.get(t).getGiaSP(), list.get(t).getMoTa(), list.get(t).getHinhSP(), list.get(t).getLoai(), list.get(t).getHinhDaiDien());
                                     dssp.add(sp);
                                     list.remove(t);
                                     i = 0;
@@ -550,7 +560,7 @@ public class XuLyTrangChu {
                                     System.out.println("ListSizeLast: " + list.size());
                                     System.out.println("TenSPLast: " + list.get(list.size() - 1).getTenSP());
                                     int index = list.size() - 1;
-                                    SanPham sp = new SanPham(list.get(index).getIDSP(), list.get(index).getTenSP(), list.get(index).getGiaSPKM(), list.get(index).getGiaSP(), list.get(index).getMoTa(), list.get(index).getHinhSP(), list.get(index).getLoai());
+                                    SanPham sp = new SanPham(list.get(index).getIDSP(), list.get(index).getTenSP(), list.get(index).getGiaSPKM(), list.get(index).getGiaSP(), list.get(index).getMoTa(), list.get(index).getHinhSP(), list.get(index).getLoai(), list.get(index).getHinhDaiDien());
                                     dssp.add(sp);
                                 }
                             }
@@ -582,7 +592,7 @@ public class XuLyTrangChu {
                                     System.out.println("T: " + t);
                                     System.out.println("a[" + j + "]= " + j);
                                     System.out.println("TenSP: " + list.get(t).getTenSP());
-                                    SanPham sp = new SanPham(list.get(t).getIDSP(), list.get(t).getTenSP(), list.get(t).getGiaSPKM(), list.get(t).getGiaSP(), list.get(t).getMoTa(), list.get(t).getHinhSP(), list.get(t).getLoai());
+                                    SanPham sp = new SanPham(list.get(t).getIDSP(), list.get(t).getTenSP(), list.get(t).getGiaSPKM(), list.get(t).getGiaSP(), list.get(t).getMoTa(), list.get(t).getHinhSP(), list.get(t).getLoai(), list.get(t).getHinhDaiDien());
                                     dssp.add(sp);
                                     list.remove(t);
                                     System.out.println("ListSize: " + list.size());
@@ -593,7 +603,7 @@ public class XuLyTrangChu {
                                     System.out.println("ListSizeLast: " + list.size());
                                     System.out.println("TenSPLast: " + list.get(list.size() - 1).getTenSP());
                                     int index = list.size() - 1;
-                                    SanPham sp = new SanPham(list.get(index).getIDSP(), list.get(index).getTenSP(), list.get(index).getGiaSPKM(), list.get(index).getGiaSP(), list.get(index).getMoTa(), list.get(index).getHinhSP(), list.get(index).getLoai());
+                                    SanPham sp = new SanPham(list.get(index).getIDSP(), list.get(index).getTenSP(), list.get(index).getGiaSPKM(), list.get(index).getGiaSP(), list.get(index).getMoTa(), list.get(index).getHinhSP(), list.get(index).getLoai(), list.get(index).getHinhDaiDien());
                                     dssp.add(sp);
                                 }
                             }
@@ -864,7 +874,7 @@ public class XuLyTrangChu {
                         System.out.println("Size: " + sz);
                         tongtien = tongtien + giasp;
                         sum = String.valueOf(tongtien);
-                        GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai(), sz);
+                        GioHang ghang = new GioHang(id, sp.getHinhSP(), sp.getTenSP(), giasp, sl, tongtien, sp.getLoai().getIDLoai(), sz, sp.getHinhDaiDien());
                         dsgh.add(ghang);
                     }
                     System.out.println("DSLIST: " + dsgh.size());
@@ -958,6 +968,8 @@ public class XuLyTrangChu {
             String sl = "";
             String size = "";
             String gia = "";
+            String message = "";
+            String tbody = "";
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date d = new Date();
             String chuoingay = format.format(d);
@@ -978,13 +990,27 @@ public class XuLyTrangChu {
             List<GioHang> g = gh.getGh();
             List<CTHDBean> dshdbean = new ArrayList<>();
             double tongtien = 0;
+            double totalOfOneProduct = 0;
+            double price = 0;
+            int quantity = 0;
             for (int i = 0; i < g.size(); i++) {
+                quantity = Integer.parseInt(String.valueOf(g.get(i).getSoluong()));
+                price = g.get(i).getGiaSP() / quantity;
                 tongtien = tongtien + (g.get(i).getGiaSP());
                 idsp = idsp + String.valueOf(g.get(i).getIDSP()) + "^";
                 tensp = tensp + String.valueOf(g.get(i).getTenSP()) + "^";
                 sl = sl + String.valueOf(g.get(i).getSoluong()) + "^";
                 size = size + String.valueOf(g.get(i).getSize()) + "^";
                 gia = gia + String.valueOf(g.get(i).getGiaSP()) + "^";
+                tbody = tbody + "<tr>\n"
+                        + "                        <td style=\"text-align:center;\">" + (i + 1) + "</td>\n"
+                        + "                        <td style=\"text-align:center;\">" + "<img style=\"width:60px;height:60px;\" src=\"" + g.get(i).getHinhDaiDien() + "\" title=\"source: imgur.com\" />" + "</td>\n"
+                        + "                        <td style=\"text-align:center;\">" + g.get(i).getTenSP() + "</td>\n"
+                        + "                        <td style=\"text-align:center;\">" + g.get(i).getSize() + "</td>\n"
+                        + "                        <td style=\"text-align:center;\">" + g.get(i).getSoluong() + "</td>\n"
+                        + "                        <td style=\"text-align:center;\">$ " + price + "</td>\n"
+                        + "                        <td style=\"text-align:center;\">$ " + g.get(i).getGiaSP() + "</td>\n"
+                        + "                    </tr>\n";
             }
             System.out.println("IDHD: " + idhd);
             System.out.println("IDSP: " + idsp);
@@ -992,13 +1018,48 @@ public class XuLyTrangChu {
             System.out.println("SoLuong: " + sl);
             System.out.println("Size: " + size);
             System.out.println("Gia: " + gia);
+            System.out.println("TBody: " + tbody);
             HoaDon ct = new HoaDon(idhd, ngaymua, "COD", "Xuất", tensp, idsp, sl, size, gia, cthd.getTenKH(), cthd.getSDT(), cthd.getDiaChi(), cthd.getEmail(), "In Process", tongtien);
             savePayment(ct);
-
+            //Xử ly phần gửi email
+            message = message + "<h3 style='color:red;'>ORDER INFORMATION</h3><br />";
+            message = message + "<div class=\"col-md-12 orderInfo mg-t-10\">\n"
+                    + "            <hr>\n"
+                    + "            <p class=\"tx-al-r\" style=\"margin-bottom: 20px;\"><img style=\"\" src=\"https://i.imgur.com/YOAqg4v.png\" /></p>\n"
+                    + "            <div style=\"margin-bottom: 20px;\">\n"
+                    + "                <p>Date of order: " + chuoingay + "</p>\n"
+                    + "                <p>Order by: <span style=\"color:red;\">" + cthd.getTenKH() + "</span></p>\n"
+                    + "                <p>Address: <span style=\"color: red;\">" + cthd.getDiaChi() + "</span></p>\n"
+                    + "                <p>Status: <span style=\"color:red;\">In Process</span></p>\n"
+                    + "\n"
+                    + "            </div>\n"
+                    + "            <table style=\"width: 100%;max-width: 100%;margin-bottom: 20px;background-color: transparent;border-spacing: 0;border-collapse: collapse;\" class=\"table\">\n"
+                    + "                <thead>\n"
+                    + "                    <tr>\n"
+                    + "                        <th>Index</th>\n"
+                    + "                        <th>Image</th>\n"
+                    + "                        <th>Product</th>\n"
+                    + "                        <th>Size</th>\n"
+                    + "                        <th>Quantity</th>\n"
+                    + "                        <th>Price</th>\n"
+                    + "                        <th>Total</th>\n"
+                    + "                    </tr>\n"
+                    + "                </thead>\n"
+                    + "                <tbody>\n"
+                    + tbody
+                    + "                </tbody>\n"
+                    + "            </table>\n"
+                    + "            <div class=\"tx-al-r\">\n"
+                    + "                <p>Payment Total: <span style=\"color:red;\">$ " + tongtien
+                    + "</span></p>\n"
+                    + "            </div>\n"
+                    + "        </div>";
+            sendHtmlEmail(cthd.getEmail(), "Detail Invoice", message);
+            g.removeAll(g);
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        return "index";
+        return "admin/pageCheckout";
     }
 
     public void savePayment(HoaDon ct) {
@@ -1012,5 +1073,38 @@ public class XuLyTrangChu {
             t.rollback();
             System.out.println(ex);
         }
+    }
+
+    //Tạo function gửi email html
+    public void sendHtmlEmail(String toAddress,
+            String subject, String message) throws AddressException,
+            MessagingException,
+            javax.mail.MessagingException {
+
+        // sets SMTP server properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        Authenticator auth = new Authenticator() {
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("kienit238@gmail.com", "vukienit238");
+            }
+        };
+        javax.mail.Session session = javax.mail.Session.getInstance(properties, auth);
+
+        // creates a new e-mail message
+        Message msg = new MimeMessage(session);
+        Address from = new InternetAddress("kienit238@gmail.com");
+        Address to = new InternetAddress(toAddress);
+        // Tạo 
+        msg.setContent(message, "text/html;charset=UTF-8");
+        msg.setSubject(subject);
+        msg.setFrom(from);
+        msg.setRecipient(Message.RecipientType.TO, to);
+        // sends the e-mail
+        Transport.send(msg);
+
     }
 }

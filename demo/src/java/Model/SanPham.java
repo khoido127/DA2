@@ -19,7 +19,8 @@ import javax.persistence.OneToMany;
  * @author Visible
  */
 @Entity
-public class SanPham implements Serializable{
+public class SanPham implements Serializable {
+
     @Id
     private String IDSP;
     private String TenSP;
@@ -28,6 +29,7 @@ public class SanPham implements Serializable{
     private String isHot;
     private String MoTa;
     private String HinhSP;
+    private String hinhDaiDien;
     @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
     List<CTSP> ctsp;
     @OneToMany(mappedBy = "sp", fetch = FetchType.EAGER)
@@ -37,6 +39,7 @@ public class SanPham implements Serializable{
     @ManyToOne
     @JoinColumn(name = "IDLoai")
     private Loai loai;
+
     public SanPham() {
     }
 
@@ -53,8 +56,8 @@ public class SanPham implements Serializable{
         this.kho = kho;
         this.loai = loai;
     }
-    
-    public SanPham(String IDSP, String TenSP, Double GiaSPKM, Double GiaSP, String MoTa, String HinhSP, Loai loai) {
+
+    public SanPham(String IDSP, String TenSP, Double GiaSPKM, Double GiaSP, String MoTa, String HinhSP, Loai loai, String hinhDaiDien) {
         this.IDSP = IDSP;
         this.TenSP = TenSP;
         this.GiaSPKM = GiaSPKM;
@@ -62,9 +65,9 @@ public class SanPham implements Serializable{
         this.MoTa = MoTa;
         this.HinhSP = HinhSP;
         this.loai = loai;
+        this.hinhDaiDien = hinhDaiDien;
     }
-    
-    
+
     public String getIDSP() {
         return IDSP;
     }
@@ -97,7 +100,6 @@ public class SanPham implements Serializable{
         this.GiaSP = GiaSP;
     }
 
-    
     public String getIsHot() {
         return isHot;
     }
@@ -153,5 +155,13 @@ public class SanPham implements Serializable{
     public void setKho(List<Kho> kho) {
         this.kho = kho;
     }
-    
+
+    public String getHinhDaiDien() {
+        return hinhDaiDien;
+    }
+
+    public void setHinhDaiDien(String hinhDaiDien) {
+        this.hinhDaiDien = hinhDaiDien;
+    }
+
 }

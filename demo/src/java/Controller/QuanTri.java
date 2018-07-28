@@ -136,7 +136,7 @@ public class QuanTri {
                 dsLoaiSPBean.add(loaispbean);
             }
 //        List<SanPhamBean> dsbean = showDataTable();
-            SanPhamBean spbean = new SanPhamBean("", 0, "0", "", "", "", "", "");
+            SanPhamBean spbean = new SanPhamBean("", 0, "0", "", "", "", "", "", "");
             dsPageEdit.add(spbean);
             showDataTable(model);
             model.addAttribute("listSlide", slide);
@@ -216,7 +216,7 @@ public class QuanTri {
                     slide.add(slbean);
                 }
                 model.addAttribute("src", "images/product/" + sp.getLoai().getIDLoai() + "/" + sp.getIDSP() + "/" + ch[0]);
-                SanPhamBean spbean = new SanPhamBean(sp.getTenSP(), sp.getGiaSP(), giaspkm, "", sp.getLoai().getIDLoai(), sp.getIDSP(), sp.getLoai().getTenLoai(), sp.getMoTa());
+                SanPhamBean spbean = new SanPhamBean(sp.getTenSP(), sp.getGiaSP(), giaspkm, "", sp.getLoai().getIDLoai(), sp.getIDSP(), sp.getLoai().getTenLoai(), sp.getMoTa(), sp.getHinhDaiDien());
                 dsbean.add(spbean);
             }
             //End 
@@ -244,7 +244,7 @@ public class QuanTri {
     public String saveToEdit(@RequestParam("idImage") String nameImage, @RequestParam("fileUpload") CommonsMultipartFile[] fileUpload, HttpServletRequest request, ModelMap model) {
         String id = request.getParameter("IDSP");
         System.out.println("Size: " + id.length());
-
+        String hinhDaiDien=request.getParameter("hinhDaiDien");
         String idloai = request.getParameter("IDLoai");
         System.out.println("IDLoai: " + idloai);
         String tensp = request.getParameter("TenSP");
@@ -322,7 +322,7 @@ public class QuanTri {
             }
             Loai loai = new Loai();
             loai.setIDLoai(idloai);
-            SanPham sp = new SanPham(id, tensp, giaspkm, giasp, moTa, hinhsp, loai);
+            SanPham sp = new SanPham(id, tensp, giaspkm, giasp, moTa, hinhsp, loai,hinhDaiDien);
             sp.setIDSP(id);
             CTSP ctsp = new CTSP("", "", tensp, sp);
             System.out.println("ID-Edit: " + id);

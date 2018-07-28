@@ -22,11 +22,11 @@ public class SanPhamBean {
     private String IDLoai;
     private String tenLoai;
     private String saveMoney;
-
+    private String hinhDaiDien;
     public SanPhamBean() {
     }
 
-    public SanPhamBean(String IDSP, String TenSP, String GiaSPKM, double GiaSP, String isHot, String MoTa, String HinhSP, String IDLoai, String moTa) {
+    public SanPhamBean(String IDSP, String TenSP, String GiaSPKM, double GiaSP, String isHot, String MoTa, String HinhSP, String IDLoai, String moTa, String hinhDaiDien) {
         this.IDSP = IDSP;
         this.TenSP = TenSP;
         this.GiaSPKM = GiaSPKM;
@@ -36,6 +36,7 @@ public class SanPhamBean {
         this.HinhSP = HinhSP;
         this.IDLoai = IDLoai;
         this.moTa = moTa;
+        this.hinhDaiDien = hinhDaiDien;
     }
 
     public SanPhamBean(String IDSP, String TenSP, double GiaSP, String HinhSP, String hinhPhu, String loai, String mota, String saveMoney, String GiaSPKM) {
@@ -59,16 +60,17 @@ public class SanPhamBean {
         this.tenLoai = tenLoai;
 
     }
-    
-    public SanPhamBean(String TenSP, double GiaSP, String GiaSPKM, String HinhSP, String IDLoai, String IDSP, String tenLoai, String moTa) {
+
+    public SanPhamBean(String TenSP, double GiaSP, String GiaSPKM, String HinhSP, String IDLoai, String IDSP, String tenLoai, String moTa, String hinhDaiDien) {
         this.TenSP = TenSP;
         this.GiaSP = GiaSP;
-        this.GiaSPKM=GiaSPKM;
+        this.GiaSPKM = GiaSPKM;
         this.HinhSP = HinhSP;
         this.IDLoai = IDLoai;
         this.IDSP = IDSP;
         this.tenLoai = tenLoai;
         this.moTa = moTa;
+        this.hinhDaiDien=hinhDaiDien;
     }
 
     public String getIDSP() {
@@ -159,4 +161,12 @@ public class SanPhamBean {
         this.tenLoai = tenLoai;
     }
 
+    public String getHinhDaiDien() {
+        return hinhDaiDien;
+    }
+
+    public void setHinhDaiDien(String hinhDaiDien) {
+        this.hinhDaiDien = hinhDaiDien;
+    }
+    
 }
