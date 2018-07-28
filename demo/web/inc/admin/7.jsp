@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Product Name</label>
-                                <input type="text" class="edit-field" name="TenSP" value="${hd.tenSP}"/>
+                                <input type="text" id="pdname" maxlength="50" class="edit-field" name="TenSP" value="${hd.tenSP}"/>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Size</label>
@@ -37,11 +37,11 @@
 
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Quantity</label>
-                                <input type="number" maxlength="100" class="edit-field" name="SL" value="${hd.SL}"/>
+                                <input type="text" id="numberfield" maxlength="2" class="edit-field" name="SL" value="${hd.SL}"/>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Price</label>
-                                <input type="text" class="edit-field" name="Gia" value="${hd.gia}"/>
+                                <input type="text" id="numberfield1" maxlength="5" class="edit-field" name="Gia" value="${hd.gia}"/>
                             </div>
                         </div>
 
@@ -115,6 +115,14 @@
             </div>
         </div>
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+        <script>
+            $("#numberfield").keyup(function() {
+        $("#numberfield").val(this.value.match(/[0-9]*/));
+        });
+          $("#numberfield1").keyup(function() {
+        $("#numberfield1").val(this.value.match(/[0-9.]*/));
+        });
+        </script>
         <script>
             function getDataShowEditDetailHD(id, index, idsp) {
 //                alert(id + index + idsp);

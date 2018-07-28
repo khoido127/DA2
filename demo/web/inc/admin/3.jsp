@@ -44,7 +44,7 @@
                                             </td>
                                             <td>${cm.ngayCM}</td>
                                             <td>
-                                                <textarea id="reply-${st.index+1}" class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="500">${cm.reply}</textarea>
+                                                <textarea id="reply-${st.index+1}" class="custom-textarea" placeholder="Remember, be nice!" cols="30" rows="3" maxlength="350">${cm.reply}</textarea>
                                             </td>
                                             <td>
                                                 <input type="hidden" name="stt" id="stt" value="${cm.stt}" />

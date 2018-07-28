@@ -24,7 +24,7 @@
 
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">ID Bill</label>
-                                <input ${readonly} type="text" class="edit-field" name="IDHD" value="${hd.IDHD}"/>
+                                <input ${readonly} type="text" maxlength="10" id="idbill" class="edit-field" name="IDHD" value="${hd.IDHD}"/>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <c:forEach var="t" items="${listTT}">
@@ -39,16 +39,17 @@
                         <div class="row">
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Order By</label>
-                                <input type="text" class="edit-field" name="TenKH" value="${hd.tenKH}"/>
+                                <input type="text" class="edit-field" id="orderby" name="TenKH" maxlength="50" value="${hd.tenKH}"/>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Phone</label>
-                                <input type="text" class="edit-field" name="SDT" value="${hd.SDT}"/>
+                                <input id="phone" type="text" maxlength="14" class="edit-field" name="SDT" value="${hd.SDT}"/>
+                                <span id="checkphonewrong" style="display: none;" class="col-md-8 col-md-offset-4 no-padding">Phone have 10 - 11 digit! Ex: 09x.xxx.xxxx, 08x.xxx.xxxx, 01x.xxx.xxx.xx </span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
-                                <label class="edit-label">Address</label>
+                                <label class="edit-label" style="position: relative;top: -28px;">Address</label>
                                 <textarea class="edit-field" name="diaChi" col="30" row="3" maxlength="200" value="${hd.diaChi}"></textarea>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
@@ -125,6 +126,39 @@
             </div>
         </div>
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+        <script>
+             $("#phone").keyup(function () {
+                                                                        $("#phone").val(this.value.match(/[0-9]*/));
+                                                                    });
+                                                                     $("#orderby").keyup(function () {
+                                                                        $("#orderby").val(this.value.match(/[a-zA-Z_ ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*/));
+                                                                    });
+                                                                     $("#idbill").keyup(function () {
+                                                                        $("#idbill").val(this.value.match(/[a-zA-Z0-9]*/));
+                                                                    });
+                                                                    //                                   bat loi phone
+                                                                    $("#phone").focusout(function () {
+                                                                        var phone = $('#phone').val().trim(); // ID Số điện thoại
+                                                                        phone = phone.replace('(+84)', '0');
+                                                                        phone = phone.replace('+84', '0');
+                                                                        phone = phone.replace('0084', '0');
+                                                                        phone = phone.replace(/ /g, '');
+                                                                        if (phone !== '') {
+                                                                            var firstNumber = phone.substring(0, 2);
+                                                                            if ((firstNumber === '09' || firstNumber === '08' || firstNumber === '01') && phone.length >= 10) {
+                                                                                if (phone.match(/^\d{10}/)) {
+                                                                                    document.getElementById('checkphonewrong').style = 'display:none';
+                                                                                }
+                                                                            } else if (firstNumber === '01' && phone.length === 11) {
+                                                                                if (phone.match(/^\d{11}/)) {
+                                                                                    document.getElementById('checkphonewrong').style = 'display:none';
+                                                                                }
+                                                                            } else {
+                                                                                document.getElementById('checkphonewrong').style = 'display:visible; color:red;font-size:12px';
+                                                                            }
+                                                                        }else{document.getElementById('checkphonewrong').style = 'display:none';}                                                                    });
+                                                                   
+        </script>
         <script>
             function showDetailHD(id) {
 //                alert(id);

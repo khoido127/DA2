@@ -24,11 +24,11 @@
                     <div class="col-md-9 content-edit">
                         <div class="edit-control col-md-10 mg-b-10 mg-t-10">
                             <label class="edit-label">Username</label>
-                            <input ${readonly} name="username" type="text" class="edit-field" value="${nv.username}"/>
+                            <input ${readonly} name="username" maxlength="10" id="uname" type="text" class="edit-field" value="${nv.username}"/>
                         </div>
                         <div class="edit-control col-md-10 mg-b-10 mg-t-10">
                             <label class="edit-label">Password</label>
-                            <input name="password" type="password" class="edit-field" value="${nv.password}"/>
+                            <input name="password" type="password" maxlength="10" id="pass" class="edit-field" value="${nv.password}"/>
                         </div>
                         <div class="edit-control col-md-10 mg-b-10 mg-t-10">
                             <label class="edit-label" style="float:left">Is Admin:</label>
@@ -113,6 +113,12 @@
         </div>
         <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
         <script>
+            $("#uname").keyup(function() {
+        $("#uname").val(this.value.match(/[a-zA-Z0-9!@#$%^&*()+]*/));
+        });
+        $("#pass").keyup(function() {
+        $("#pass").val(this.value.match(/[a-zA-Z0-9!@#$%^&*()+]*/));
+        });
             function  edit1user(username) {
 //                alert(username);
                 $.post("admin/editnv.htm", {'username': username}, function (data) {

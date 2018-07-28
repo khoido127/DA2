@@ -108,27 +108,30 @@
                                     <div class="information-wrapper">
                                         <div class="first-row form-group">
                                             <div class="controls">
-                                                <label class="control-label">Full name: <span id="checkname" style="display: none;color: red">Please,Enter your Full name!</span></label>
+                                                <label class="control-label">Full name: <span id="checkname" style="display: none;">Please,Enter your Full name!</span></label>
                                                 <input id="fullname" class="billing-address-name form-control" type="text" name="TenKH" placeholder="Full name: Dimitri Vegas">
                                             </div>
                                             <div class="card_number_grids">
                                                 <div class="card_number_grid_left">
                                                     <div class="controls">
-                                                        <label class="control-label">Mobile number: <span  id="checkphone" style="display: none;color: red">Please,Enter your Phone!</span></label>
-                                                        <input id="phone" name="SDT" class="form-control" type="text" maxlength="12" minlength="10"  placeholder="Mobile number Ex: 090xxxxxxx">
+                                                        <label class="control-label">Mobile number: 
+                                                            <span  id="checkphone" style="display: none;">Please,Enter your Phone!</span>
+                                                            <span  id="checkphonewrong" style="display: none;">Phone have 10 - 11 digit! Ex: 09x.xxx.xxxx, 08x.xxx.xxxx, 01x.xxx.xxx.xx </span>
+                                                        </label>
+                                                        <input id="phone" name="SDT" class="form-control" type="text" maxlength="14" minlength="10"  placeholder="Mobile number Ex: 09x.xxx.xxxx, 08x.xxx.xxxx, 01x.xxx.xxx.xx">
                                                     </div>
                                                 </div>
                                                 <div class="card_number_grid_right">
                                                     <div class="controls">
-                                                        <label class="control-label">Address: <span id="checkad" style="display:none;color: red">Please,Enter your Address!</span></label>
-                                                        <input id="address" name="diaChi" class="form-control" type="text" placeholder="Address: 123 Avenue ">
+                                                        <label class="control-label">Address: <span id="checkad" style="display:none;">Please,Enter your Address!</span></label>
+                                                        <input id="address" name="diaChi" class="form-control" type="text" maxlength="200" placeholder="Address: 123 Avenue ">
                                                     </div>
                                                 </div>
                                                 <div class="clear"> </div>
                                             </div>
                                             <div class="controls">
-                                                <label class="control-label">Email: </label>
-                                                <input name="Email" class="form-control" type="email" pattern="[^ @]*@[^ @]*" placeholder="Email: abc@xyz"/>
+                                                <label class="control-label">Email: <span id="checkemail" style="display:none;">Invalid email! - Example@gmail.com</span></label>
+                                                <input name="Email" id="email" class="form-control" type="email" placeholder="Email: Example@gmail.com"/>
                                             </div>
                                         </div>
                                     </div>
@@ -151,12 +154,50 @@
         <!-- cart-js -->
         <script src="js/minicart.js"></script>
         <script>
-//                   bat loi ko cho nhap chu
+//            bat loi email
+                                        $("#email").focusout(function () {
+                                            var email = document.getElementById('email');
+                                            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                                            if (!filter.test(email.value)) {
+                                                document.getElementById('checkemail').style = 'display:visible; color:red;font-size:12px';
+                                                email.focus;
+                                                return false;
+                                            } else
+                                            {
+                                                document.getElementById('checkemail').style = 'display:none';
+                                            }
+                                        });
+                                        //                                   bat loi phone
+                                        $("#phone").focusout(function () {
+                                            var phone = $('#phone').val().trim(); // ID Số điện thoại
+                                            phone = phone.replace('(+84)', '0');
+                                            phone = phone.replace('+84', '0');
+                                            phone = phone.replace('0084', '0');
+                                            phone = phone.replace(/ /g, '');
+                                            if (phone !== '') {
+                                                var firstNumber = phone.substring(0, 2);
+                                                if ((firstNumber === '09' || firstNumber === '08' || firstNumber === '01') && phone.length >= 10) {
+                                                    if (phone.match(/^\d{10}/)) {
+                                                        document.getElementById('checkphonewrong').style = 'display:none';
+                                                    }
+                                                } else if (firstNumber === '01' && phone.length === 11) {
+                                                    if (phone.match(/^\d{11}/)) {
+                                                        document.getElementById('checkphonewrong').style = 'display:none';
+                                                    }
+                                                } else {
+                                                    $('#phone').focus();
+                                                    document.getElementById('checkphonewrong').style = 'display:visible; color:red;font-size:12px';
+                                                    document.getElementById('checkphone').style = 'display:none';
+                                                }
+                                            }
+                                        });
                                         $("#phone").keyup(function () {
                                             $("#phone").val(this.value.match(/[0-9]*/));
                                         });
-                                         $("#fullname").keyup(function () {
-                                            $("#fullname").val(this.value.match(/[a-zA-Z]*/));
+//                   bat loi ko cho nhap so
+
+                                        $("#fullname").keyup(function () {
+                                            $("#fullname").val(this.value.match(/[a-zA-Z_ ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*/));
                                         });
 //                   bat loi khong nhap du 3 dieu kien
                                         var a = 0;
@@ -165,7 +206,7 @@
                                         var d = 0;
                                         $('#fullname').blur(function () {
                                             if ($('#fullname').val().trim() === '') {
-                                                document.getElementById('checkname').style = 'display:visible';
+                                                document.getElementById('checkname').style = 'display:visible; color:red;font-size:12px';
                                                 a = 0;
                                                 document.getElementById('ordersneaker').disabled = true;
                                             } else {
@@ -179,7 +220,7 @@
                                         });
                                         $('#phone').blur(function () {
                                             if ($('#phone').val().trim() === '') {
-                                                document.getElementById('checkphone').style = 'display:visible';
+                                                document.getElementById('checkphone').style = 'display:visible;color:red;font-size:12px';
                                                 document.getElementById('ordersneaker').disabled = true;
                                                 b = 0;
                                             } else {
@@ -193,7 +234,7 @@
                                         });
                                         $('#address').blur(function () {
                                             if ($('#address').val().trim() === '') {
-                                                document.getElementById('checkad').style = 'display:visible';
+                                                document.getElementById('checkad').style = 'display:visible;color:red;font-size:12px';
                                                 document.getElementById('ordersneaker').disabled = true;
                                                 c = 0;
                                             } else {

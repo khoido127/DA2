@@ -20,11 +20,11 @@
                 <div class="addnew-product">
                     <div class="col-md-10 mg-b-10 mg-t-10">
                         <label class="edit-label">Brand ID:</label>
-                        <input ${readonly} id="idLoai" type="text" name="idLoai" class="edit-field" value="${idLoai}"/>
+                        <input ${readonly} id="idLoai" type="text" name="idLoai" maxlength="10" class="edit-field" value="${idLoai}"/>
                     </div>
                     <div class="col-md-10 mg-b-10 mg-t-10">
                         <label class="edit-label">Brand Name:</label>
-                        <input type="text" name="tenLoai" class="edit-field" value="${tenLoai}"/>
+                        <input type="text" name="tenLoai" maxlength="50" class="edit-field" value="${tenLoai}"/>
                     </div>
                 </div>
                 <div class="button-content tx-al-r col-md-12">

@@ -20,7 +20,7 @@
         </style>
     </head>
     <body>
-        <h2 class="custom-head">Product Management </h2>
+        <h2 class="custom-head">Management </h2>
         <hr class="mg-l-20 mg-r-20">
         <%  response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1 
             response.setHeader("Pragma", "no-cache"); //HTTP 1.0 
@@ -87,13 +87,13 @@
                                     <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">Price:</label>
-                                            <input name="GiaSP" type="text" class="numberfield" id="numberfield" maxlength="4" pattern="([0-9]|[0-9]|[0-9])" value="${sp.giaSP}"/>
+                                            <input name="GiaSP" type="text" class="numberfield" id="numberfield" maxlength="6" value="${sp.giaSP}"/>
                                         </div>
                                     </div>
                                     <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
                                             <label class="edit-label">PriceSale:</label>
-                                            <input name="GiaSPKM" type="text" class="numberfield"  id="numberfield1" maxlength="4" pattern="([0-9]|[0-9]|[0-9])" value="${sp.giaSPKM}"/>
+                                            <input name="GiaSPKM" type="text" class="numberfield"  id="numberfield1" maxlength="6" value="${sp.giaSPKM}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                     <div class="col-md-10 col-sm-10">
                                         <div class="edit-control mg-b-10 mg-t-10">
                                             <label style="position: relative;top: -88px;" class="edit-label">Description:</label>
-                                            <textarea maxlength="350" placeholder="Description" cols="20" rows="5" name="moTa" class="edit-field" >${sp.moTa}</textarea>
+                                            <textarea maxlength="300" placeholder="Description" cols="20" rows="5" name="moTa" class="edit-field" >${sp.moTa}</textarea>
                                         </div>
                                     </div>
                                    
@@ -134,10 +134,10 @@
         <!--Xu ly phan hinh anh slide-->
         <script>
         $("#numberfield").keyup(function() {
-        $("#numberfield").val(this.value.match(/[0-9]*/));
+        $("#numberfield").val(this.value.match(/[0-9.]*/));
         });
         $("#numberfield1").keyup(function() {
-        $("#numberfield1").val(this.value.match(/[0-9]*/));
+        $("#numberfield1").val(this.value.match(/[0-9.]*/));
         });
             var nameImage = "";
             for (var i = 1; i <= 3; i++) {

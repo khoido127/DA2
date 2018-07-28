@@ -72,7 +72,7 @@
                         <div style="margin-top: 14px;margin-left: 0;" class="row">
                             <div class="product-quantity col-md-3">
                                 <span onclick="downFunction('${sp.IDSP}');" id="minus" class="product-minus"><i class="fa fa-minus"></i></span>
-                                <input type="number" value="100" min="1" size="2" class="quantity" name="quantity" id="sl" value="${soluong}" max="30">
+                                <input type="number" value="" min="1" size="2" class="quantity" name="quantity" id="sl" value="${soluong}" max="5">
                                 <span onclick="upFunction('${sp.IDSP}')" id="plus" class="product-plus"><i class="fa fa-plus"></i></span>
                                 <span style="border:0;color: red;font-style: italic;font-size:12px;width:100%; display:block" id="outofstock"></span>
                             </div>
@@ -152,9 +152,9 @@
                                                 <h4>add a review</h4>
                                                 <form id="formComment" action="" method="post">
                                                     <input value="${sp.IDSP}" type="hidden" name="IDSP" />
-                                                    <input type="text" name="Name" placeholder="Name" required="Name">
-                                                    <input type="email" name="Email" placeholder="Email" required="Email">
-                                                    <textarea name="Message" placeholder="Message" required=""></textarea>
+                                                    <input type="text" name="Name" placeholder="Name" maxlength="30" required="Name">
+                                                    <input type="email" name="Email" placeholder="Email" maxlength="20" required="Email">
+                                                    <textarea name="Message" placeholder="Message" maxlength="200" required=""></textarea>
                                                     <button class="btn" onclick="getComment()">SEND</button>
                                                 </form>
                                                 <c:forEach var="c" items="${listcm}">
