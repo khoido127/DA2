@@ -62,16 +62,16 @@
                         </div>
                         <ul class="menu-title">
                             <li>
-                                <a href="admin/contentDetailProduct.htm?page=1" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Product</a>
+                                <a href="admin/contentDetailProduct.htm?page=1" class="waves-effect mg-b-10"><i class="fa fa-cubes p-r-10" aria-hidden="true"></i>Product</a>
                             </li>
                             <li>
-                                <a href="admin/showuser.htm" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>User</a>
+                                <a href="admin/showuser.htm" class="waves-effect mg-b-15"><i class="fa fa-user-md p-r-10" aria-hidden="true"></i>User</a>
                             </li>
                             <li>
-                                <a href="admin/showBrand.htm" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Brand</a>
+                                <a href="admin/showBrand.htm" class="waves-effect mg-b-10"><i class="fa fa-suitcase p-r-10" aria-hidden="true"></i>Brand</a>
                             </li>
                             <li>
-                                <a href="admin/showHoaDon.htm" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>Bill</a>
+                                <a href="admin/showHoaDon.htm" class="waves-effect mg-b-10"><i class="fa fa-shopping-bag p-r-10" aria-hidden="true"></i>Bill</a>
                             </li>
                         </ul>
                     </div>

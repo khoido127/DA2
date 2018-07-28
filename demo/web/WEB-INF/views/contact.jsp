@@ -138,7 +138,7 @@
                                     </tbody>
                                 </table>
                                 <div class="tx-al-r">
-                                    <p>PaymentTotal: <span style="color:red;">$ ${total}</span></p>
+                                    <p class="mg-r-10 f-20">PaymentTotal: <span style="color:red;">$ ${total}</span></p>
                                 </div>
                             </div>
                         </c:if>
@@ -229,7 +229,6 @@
         <script>
                                     function showOrder() {
                                         var sdt = document.getElementById('valueSDT').value;
-                                        alert(sdt);
                                         $.post("admin/showOrderofCustomer.htm", {'sdt': sdt}, function (data) {
                                             $('body').html(data);
                                         });

@@ -248,7 +248,7 @@ public class XuLyTrangChu {
         String[] soluong = list.get(0).getKho().get(0).getSL().split(";");
         int sumIndex = size.length;
         for (int i = 0; i < size.length; i++) {
-            String trangthai = "Size này còn " + soluong[i] + " sản phẩm";
+            String trangthai = "This size only have " + soluong[i] + " products";
             KhoBean kho = new KhoBean(idsp, size[i], soluong[i], trangthai);
             listkho.add(kho);
         }

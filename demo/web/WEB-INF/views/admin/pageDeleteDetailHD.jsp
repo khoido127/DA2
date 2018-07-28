@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h3>Bạn thật sự muốn xóa sản phẩm của đơn hàng này?</h3>
+        <h3>You really want to delete the product of this order?</h3>
         <div style="border: 0;" class="modal-footer">
             <button onclick="deleteDetailHD('${id}', '${count}')" type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>

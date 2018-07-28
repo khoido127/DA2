@@ -9,8 +9,6 @@
         <base href="${pageContext.servletContext.contextPath}/">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="Downy Shoes Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
         <script type="application/x-javascript">
             addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
@@ -355,7 +353,6 @@
 
                 var quantity = document.getElementById('' + id + '-' + sz).value;
                 var size = sz;
-                alert(size + quantity);
                 if (quantity > 1) {
                     quantity--;
                     document.getElementById('' + id + '-' + sz).value = quantity;

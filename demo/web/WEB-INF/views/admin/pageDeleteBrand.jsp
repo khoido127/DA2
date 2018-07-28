@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Bạn thật sự muốn xóa loại sản phẩm này?</h1>
+        <h1>You really want to delete this product brand?</h1>
         <div style="border: 0;" class="modal-footer">
             <button onclick="deleteBrand('${idLoai}')" type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
