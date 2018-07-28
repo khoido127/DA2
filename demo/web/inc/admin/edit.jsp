@@ -121,7 +121,7 @@
                         </div>
                         <div class="col-md-8 button-content-right">
                             <div class="tx-al-r">
-                                <input type="text" name="hinhDaiDien" value="${sp.hinhDaiDien}" />
+                                <!--<input type="text" name="hinhDaiDien" value="${sp.hinhDaiDien}" />-->
                                 <button onclick="addNew()" type="button" class="btn btn-icon btn-new" >New</button>
                                 <!--<button onclick="getDataToSave('${sp.IDSP}')" id="save" type="button" class="btn" value="Save" >Save</button>-->
                                 <input onclick="getDataToSave()" type="submit" class="btn btn-icon btn-save" value="Save" />

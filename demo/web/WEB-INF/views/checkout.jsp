@@ -214,20 +214,15 @@
                                                 }
                                             }
                                         });
-                                        $("#phone").keyup(function () {
-                                            $("#phone").val(this.value.match(/[0-9]*/));
-                                        });
-<<<<<<< Updated upstream
-//                   bat loi ko cho nhap so
+
+
+                                        //                   bat loi ko cho nhap so
 
                                         $("#fullname").keyup(function () {
                                             $("#fullname").val(this.value.match(/[a-zA-Z_ ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*/));
-=======
-                                        $("#fullname").keyup(function () {
-                                            $("#fullname").val(this.value.match(/[a-zA-Z]*/));
->>>>>>> Stashed changes
+
                                         });
-//                   bat loi khong nhap du 3 dieu kien
+                                        //                   bat loi khong nhap du 3 dieu kien
                                         var a = 0;
                                         var b = 0;
                                         var c = 0;
@@ -283,10 +278,8 @@
 
                                         shoe.cart.on('shoe_checkout', function (evt) {
                                             var items, len, i;
-
                                             if (this.subtotal() > 0) {
                                                 items = this.items();
-
                                                 for (i = 0, len = items.length; i < len; i++) {
                                                 }
                                             }
@@ -390,7 +383,6 @@
                 $.post('Home/getGioHang.htm', {'id': id, 'sl': quantity, 'ck': "all", "size": size}, function (data) {
                     console.log(id);
                     $('body').html(data);
-
                 });
 
             }
