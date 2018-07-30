@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label" style="position: relative;top: -28px;">Address</label>
-                                <textarea class="edit-field" name="diaChi" col="30" row="3" maxlength="200" value="${hd.diaChi}"></textarea>
+                                <textarea class="edit-field" name="diaChi" col="30" row="3" maxlength="200" >${hd.diaChi}</textarea>
                             </div>
                             <div class="col-md-6 mg-b-10 mg-t-10 edit-control">
                                 <label class="edit-label">Total:</label>

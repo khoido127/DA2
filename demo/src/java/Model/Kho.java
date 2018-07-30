@@ -36,6 +36,12 @@ public class Kho {
         this.sp = sp;
     }
 
+    public Kho(String SL, String Size, SanPham sp) {
+        this.SL = SL;
+        this.Size = Size;
+        this.sp = sp;
+    }
+    
     public Kho(String SL, String Size) {
         this.SL = SL;
         this.Size = Size;

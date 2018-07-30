@@ -48,7 +48,7 @@
                     <div class="pull-right">
                         <a class="profile-pic" href="#"> 
                             <b class="username f-20">${username}</b></a>
-                        <img src="images/t1.jpg" alt="user-img" width="75" class="img-circle mg-l-20 mg-r-20 mg-t-10">
+                        <img src="${avatar}" alt="user-img" width="75" class="img-circle mg-l-20 mg-r-20 mg-t-10">
                     </div>
                 </div>
                 <!-- /.navbar-header -->

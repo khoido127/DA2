@@ -136,7 +136,7 @@
             function getDataToSaveDetailHD() {
                 var id = document.getElementById('idhd').value;
                 var index = document.getElementById('indexHD').value;
-//                alert(id + index);
+                alert(id + index);
                 $.post("admin/getDataToSaveDetailHD.htm", $('#formEditDetailHD').serialize(), function (data) {
                     $('body').html(data);
                 });

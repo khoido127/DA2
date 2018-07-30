@@ -27,13 +27,13 @@
                     <div class="col-md-6 col-sm-6 tx-al-l mg-b-10">
                         <label class="edit-label">Quantity: </label>
                         <input id="slNew" maxlength="3" class="numberfield" pattern="([0-9]|[0-9]|[0-9])" type="text" value=""/>
-                        
+
                     </div>
                     <div class="col-md-12 tx-al-r">
-                                                                <span style="color:red;font-style: italic;" id="showError"></span>
+                        <span style="color:red;font-style: italic;" id="showError"></span>
                     </div>
                     <div class="col-md-12 tx-al-r">
-                                            <button onclick="getDataToInsert('${stt}', '${idsp}')" type="button" class="mg-r-5 btn btn-icon btn-addnew">Add New</button>
+                        <button onclick="getDataToInsert('${stt}', '${idsp}')" type="button" class="mg-r-5 btn btn-icon btn-addnew">Add New</button>
                     </div>
                     <div class="bill-table col-md-12 mg-t-10">
                         <div class="white-box">
@@ -116,7 +116,7 @@
                                                         var slNew = document.getElementById('slNew').value;
                                                         var chSize = document.getElementById('chSize').value.split(";");
                                                         var chSL = document.getElementById('chSL').value.split(";");
-                                                        if(sizeNew === "" && slNew === ""){
+                                                        if (sizeNew === "" && slNew === "") {
                                                             document.getElementById('showError').innerHTML = "Please, Insert Size and Quantity!";
                                                         }
                                                         for (var i = 0; i < chSize.length; i++) {
@@ -125,18 +125,19 @@
                                                                 break;
                                                             }
                                                         }
+//                                                        alert(chSize);
+//                                                        alert(chSL);
                                                         if (dem == 0) {
-                                                            sizeNew = document.getElementById('chSize').value + ";" + sizeNew;
+                                                            sizeNew = document.getElementById('chSize').value + sizeNew + ";";
                                                             slNew = document.getElementById('chSL').value + slNew + ";";
-                                                            alert(sizeNew + slNew);
+//                                                            alert(sizeNew + slNew);
                                                             $.post("admin/getDataToInsert.htm", {'sizeNew': sizeNew, 'slNew': slNew, 'stt': stt, 'id': id}, function (data) {
                                                                 $('body').html(data);
                                                             });
-                                                        }
-                                                        else {
+                                                        } else {
                                                             document.getElementById('showError').innerHTML = "This size already exists!";
                                                         }
-                                                        
+
                                                     }
                                                     function clearText() {
                                                         document.getElementById('showError').innerHTML = "";

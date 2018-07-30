@@ -77,7 +77,8 @@ public class QuanTri {
             List<NhanVien> ds = query.list();
             if (ds.size() > 0) {
                 session.setAttribute("username", username);
-                return "redirect:index.htm?user=" + username;
+                session.setAttribute("avatar", "images/" + ds.get(0).getImg());
+                return "redirect:index.htm?user=" + username + "&avatar=images/" + ds.get(0).getImg();
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -105,7 +106,9 @@ public class QuanTri {
 //            }
 //        }
 //        model.addAttribute("page", "/inc/admin/" + 1 + ".jsp");
+        System.out.println("Avatar: " + request.getParameter("avatar"));
         session.setAttribute("user", user);
+        session.setAttribute("avatar", request.getParameter("avatar"));
         return "redirect:contentDetailProduct.htm?page=1";
     }
 
@@ -244,7 +247,7 @@ public class QuanTri {
     public String saveToEdit(@RequestParam("idImage") String nameImage, @RequestParam("fileUpload") CommonsMultipartFile[] fileUpload, HttpServletRequest request, ModelMap model) {
         String id = request.getParameter("IDSP");
         System.out.println("Size: " + id.length());
-        String hinhDaiDien=request.getParameter("hinhDaiDien");
+        String hinhDaiDien = request.getParameter("hinhDaiDien");
         String idloai = request.getParameter("IDLoai");
         System.out.println("IDLoai: " + idloai);
         String tensp = request.getParameter("TenSP");
@@ -322,14 +325,16 @@ public class QuanTri {
             }
             Loai loai = new Loai();
             loai.setIDLoai(idloai);
-            SanPham sp = new SanPham(id, tensp, giaspkm, giasp, moTa, hinhsp, loai,hinhDaiDien);
+            SanPham sp = new SanPham(id, tensp, giaspkm, giasp, moTa, hinhsp, loai, hinhDaiDien);
             sp.setIDSP(id);
             CTSP ctsp = new CTSP("", "", tensp, sp);
             System.out.println("ID-Edit: " + id);
             if (checkSP(id)) {
                 editSave(sp);
             } else {
+                Kho kho=new Kho("","", sp);
                 insertSave(sp);
+                insertSPinKho(kho);
                 insertCTSP(ctsp);
             }
         } catch (Exception ex) {
@@ -337,7 +342,19 @@ public class QuanTri {
         }
         return "redirect:getDataEdit.htm?id=" + id;
     }
-//    Tạo function insert sản phẩm ào table IDSP
+    //Tạo function insert SP vào table Kho
+    public void insertSPinKho(Kho kho) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.saveOrUpdate(kho);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+    }
+//    Tạo function insert sản phẩm vào table IDSP
 
     public void insertCTSP(CTSP ctsp) {
         Session s = factory.openSession();
@@ -439,7 +456,18 @@ public class QuanTri {
         }
         return false;
     }
-
+// Tạo function delete SP in Kho
+    public void deleteProductinKho(Kho kho) {
+        Session s = factory.openSession();
+        Transaction t = s.beginTransaction();
+        try {
+            s.delete(kho);
+            t.commit();
+        } catch (Exception ex) {
+            t.rollback();
+            System.out.println(ex);
+        }
+    }
     @RequestMapping("deleteSP")
     public String deleteSP(@RequestParam("id") String id, HttpServletRequest request) {
         context = request.getServletContext();
@@ -462,9 +490,11 @@ public class QuanTri {
                 if (deleteDir(fBuild, fDest)) {
                     System.out.println("SuccessDelete");
                 }
+                Kho kho=new Kho();
+                kho.setSTT(getSTTInKho(ids[i]));
                 deleteProductInCTSP(ctsp);
                 deleteProduct(sp);
-
+                deleteProductinKho(kho);
             }
 
         } catch (Exception ex) {
@@ -473,7 +503,20 @@ public class QuanTri {
         }
         return "redirect:contentDetailProduct.htm?page=1";
     }
-
+    public int getSTTInKho(String id) {
+        Session s = factory.getCurrentSession();
+        int stt = 0;
+        try {
+            String hql = "From Kho kho where kho.sp.IDSP=:id";
+            Query query = s.createQuery(hql);
+            query.setParameter("id", id);
+            List<Kho> ds = query.list();
+            stt = ds.get(0).getSTT();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return stt;
+    }
     //Get STT in CTSP
     public int getSTTInCTSP(String id) {
         Session s = factory.getCurrentSession();
@@ -1220,13 +1263,17 @@ public class QuanTri {
     public String getDataToSaveDetailHD(ModelMap model, HttpServletRequest request) {
         List<CTHDBean> dsBean = new ArrayList<>();
         String id = request.getParameter("idhd");
+        System.out.println("ID: " + id);
         int index = Integer.parseInt(String.valueOf(request.getParameter("index")));
         String IDSP = request.getParameter("IDSP");
         String Name = request.getParameter("TenSP");
         String Size = request.getParameter("Size");
         String SL = request.getParameter("SL");
         String Gia = request.getParameter("Gia");
+        System.out.println("SL: "+SL);
         String s0 = "", s1 = "", s2 = "", s3 = "", s4 = "";
+        double price = 0;
+        double tongtien = 0;
         List<HoaDon> ds = getHoaDonByID(id);
         for (HoaDon hd : ds) {
             String[] idsp = hd.getIdSP().split("\\^");
@@ -1234,22 +1281,28 @@ public class QuanTri {
             String[] size = hd.getSize().split("\\^");
             String[] sl = hd.getSL().split("\\^");
             String[] gia = hd.getGia().split("\\^");
-
+            System.out.println("IDSP: "+tensp[0]);
+//            System.out.println("GiaSP: " + getGiaofSP(idsp[1]));
             for (int i = 0; i < tensp.length; i++) {
+                
                 if (i == index) {
+                    price = Double.parseDouble(getGiaofSP(idsp[i])) * Integer.parseInt(SL);
                     idsp[i] = IDSP;
                     tensp[i] = Name;
                     size[i] = Size;
                     sl[i] = SL;
-                    gia[i] = Gia;
-
+                    gia[i] = String.valueOf(price);
+                }else{
+                    price=Double.parseDouble(gia[i]);
                 }
+                tongtien = tongtien + price;
+                System.out.println("Gia: " + tongtien);
                 s1 = s1 + tensp[i] + "^";
                 s2 = s2 + size[i] + "^";
                 s3 = s3 + sl[i] + "^";
                 s4 = s4 + gia[i] + "^";
             }
-            HoaDon hoadon = new HoaDon(id, hd.getNgay(), hd.getHinhThucTT(), hd.getLoaiHD(), s1, hd.getIdSP(), s3, s2, s4, hd.getTenKH(), hd.getSDT(), hd.getDiaChi(), hd.getEmail(), hd.getTrangThai(), hd.getTongTien());
+            HoaDon hoadon = new HoaDon(id, hd.getNgay(), hd.getHinhThucTT(), hd.getLoaiHD(), s1, hd.getIdSP(), s3, s2, s4, hd.getTenKH(), hd.getSDT(), hd.getDiaChi(), hd.getEmail(), hd.getTrangThai(), tongtien);
             saveHoaDon(hoadon);
         }
         System.out.println("");
